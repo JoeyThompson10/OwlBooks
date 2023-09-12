@@ -32,7 +32,7 @@
         <hr>
 
         <!-- Create New User Form -->
-        <button onclick="createNewUser()">Create New User</button>
+        <button onclick="toggleNewUserForm()">Create New User</button>
         <form id="newUserForm" style="display: none;">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -50,7 +50,7 @@
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" required>
             </div>
-            <button type="submit">Request Access</button>
+            <button onclick="createNewUser()"type="submit">Request Access</button>
         </form>
     </div>
 </body>

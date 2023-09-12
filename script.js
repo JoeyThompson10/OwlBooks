@@ -14,9 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function toggleNewUserForm() {
+    const newUserForm = document.getElementById('newUserForm');
+    newUserForm.style.display = (newUserForm.style.display === "block") ? "none" : "block";
+}
+
 function login() {
     // TODO: Authenticate user
     // On successful login, display user's name and picture at the top right
+    window.location.href = "dashboard.html";
     window.alert("Login successful!");
 }
 
@@ -24,6 +30,7 @@ function createNewUser() {
     // TODO: Collect user data and send request to backend for creation
     // Send email to admin for approval
     window.alert("User created!");
+
 }
 
 function forgotPassword() {

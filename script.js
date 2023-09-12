@@ -29,6 +29,7 @@ function login() {
 function createNewUser() {
     // TODO: Collect user data and send request to backend for creation
     // Send email to admin for approval
+    window.location.reload();
     window.alert("User created!");
 
 }

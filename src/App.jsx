@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <h1>
-        Welcome to the OwlBooks Accounting Web Application test
+        Welcome to the OwlBooks Accounting Web Application
       </h1>
 
       <p>

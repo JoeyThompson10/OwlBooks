@@ -17,6 +17,17 @@ const Login = () => {
         const newUserForm = document.getElementById('newUserForm');
         newUserForm.style.display = (newUserForm.style.display === "block") ? "none" : "block";
     }
+
+    function clearUserInput() {
+        setUsername('');
+        setPassword('');
+        setNewUsername('');
+        setNewPassword('');
+        setFirstName('');
+        setLastName('');
+        setAddress('');
+        setDob('');
+    }
   
     async function loginButton(e) {
         e.preventDefault();
@@ -37,7 +48,8 @@ const Login = () => {
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");
-            navigate(0);
+            toggleNewUserForm();
+            clearUserInput();
         } else {
             window.alert("Failed to create user!");
         }

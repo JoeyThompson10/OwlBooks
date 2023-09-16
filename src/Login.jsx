@@ -37,7 +37,7 @@ const Login = () => {
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");
-            window.location.reload();
+            navigate(0);
         } else {
             window.alert("Failed to create user!");
         }

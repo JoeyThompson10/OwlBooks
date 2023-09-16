@@ -16,7 +16,7 @@ function App() {
       </p>
 
       <p>
-        This project was created fofr Kennesaw State University's SWE Application Domain class (SWE 4713) by Denice Jaquez, Owen Murphree, Joey Thompson, and Moreland Walthour.
+        This project was created for Kennesaw State University's SWE Application Domain class (SWE 4713) by Denice Jaquez, Owen Murphree, Joey Thompson, and Moreland Walthour.
       </p>
 
       <input type="button" id="loginPageButton" value="Login" onClick={()=>navigate("/login")}></input>

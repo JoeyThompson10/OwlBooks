@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { CreateUser } from "./MongoDbClient";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -12,6 +13,8 @@ const Login = () => {
     function login() {
         // TODO: Authenticate user
         // On successful login, display user's name and picture at the top right
+        Console.log(CreateUser('testtest','test123456789'));
+
         navigate("/dashboard")
         window.alert("Login successful!");
     }

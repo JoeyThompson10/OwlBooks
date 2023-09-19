@@ -8,7 +8,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 
 
-const router = createBrowserRouter([{ path: '/', element: <App/> },{ path: '/login', element: <Login/> },{ path: '/dashboard', element: <Dashboard/> }]);
+const router = createBrowserRouter([{ path: '/', element: <App/> },{ path: '/login', element: <Login/> },{ path: '/dashboard', element: <Dashboard/> }, { path: '/contact', element: <contact/> }]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -33,7 +33,7 @@ const Login = () => {
         e.preventDefault();
         
 
-        var response = await LoginFunction(username, password, false, false, isActive);
+        var response = await LoginFunction(username, password, false, false, isActive, badLogins);
 
         if (response.message === "Login successful.") {
             navigate("/Dashboard");
@@ -51,7 +51,7 @@ const Login = () => {
     async function createNewUser(e) {
         e.preventDefault();
 
-        const response = await CreateUser(newUsername, newPassword, false, false, true);
+        const response = await CreateUser(newUsername, newPassword, false, false, true, 0);
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");

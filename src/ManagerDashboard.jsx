@@ -12,7 +12,7 @@ const ManagerDashboard = () => {
             </h1>
 
             <p>
-                This is the manager dashboard page. Managers are able to complete manager specific tasks and abilities from here.
+                This is the manager dashboard page. Managers can complete manager specific tasks and abilities from here.
             </p>
         </div>
     );

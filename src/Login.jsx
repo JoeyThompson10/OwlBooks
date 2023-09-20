@@ -37,6 +37,9 @@ const Login = () => {
         if (response.message === "Login successful.") {
             navigate("/Dashboard");
         }
+        if (response.message === "Login successful. Admin detected.") {
+            navigate("/AdminDashboard");
+        }
         
         window.alert(response.message);
     }

@@ -33,7 +33,7 @@ const Login = () => {
         e.preventDefault();
         
 
-        var response = await LoginFunction(username, password, false, false, isActive, badLogins);
+        var response = await LoginFunction(username, password);
 
         if (response.message === "Login successful.") {
             navigate("/Dashboard");

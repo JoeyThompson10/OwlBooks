@@ -32,7 +32,8 @@ const Login = () => {
     async function loginButton(e) {
         e.preventDefault();
         
-        var response = await LoginFunction(username, password);
+        
+        var response = await LoginFunction(username, password, isAdmin, isManager);
 
         if (response.message === "Login successful.") {
             navigate("/Dashboard");

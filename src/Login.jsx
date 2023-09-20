@@ -50,7 +50,7 @@ const Login = () => {
     async function createNewUser(e) {
         e.preventDefault();
 
-        const response = await CreateUser(newUsername, newPassword);
+        const response = await CreateUser(newUsername, newPassword, false, false);
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");

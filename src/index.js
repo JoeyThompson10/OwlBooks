@@ -6,9 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import AdminDashboard  from './AdminDashboard';
 
 
-const router = createBrowserRouter([{ path: '/', element: <App/> },{ path: '/login', element: <Login/> },{ path: '/dashboard', element: <Dashboard/> }]);
+const router = createBrowserRouter([
+
+  { path: '/', element: <App/> },
+  { path: '/login', element: <Login/> },
+  { path: '/dashboard', element: <Dashboard/> },
+  { path: '/admindashboard', element : <AdminDashboard/>}
+  
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -40,6 +40,9 @@ const Login = () => {
         if (response.message === "Login successful. Admin detected.") {
             navigate("/AdminDashboard");
         }
+        if (response.message === "Login successful. Manager detected.") {
+            navigate("/ManagerDashboard");
+        }
         
         window.alert(response.message);
     }

@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import AdminDashboard  from './AdminDashboard';
+import ManagerDashboard from './ManagerDashboard';
 
 
 const router = createBrowserRouter([
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
   { path: '/', element: <App/> },
   { path: '/login', element: <Login/> },
   { path: '/dashboard', element: <Dashboard/> },
-  { path: '/admindashboard', element : <AdminDashboard/>}
+  { path: '/admindashboard', element : <AdminDashboard/>},
+  { path: '/managerdashboard', element :<ManagerDashboard/>}
   
 ]);
 

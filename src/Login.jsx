@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CreateUser, LoginFunction } from "./MongoDbClient";
-import './Login.css';
-
-import { MDBBtn } from 'mdb-react-ui-kit'; // module
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 
 
 const Login = () => {
@@ -75,65 +73,48 @@ const Login = () => {
         console.log("Forgot password");
         alert("Password reset link sent!");
     }
-    
+
     return (
-        <div>
-            <button type="button" onClick={()=>{navigate("/")}}>Home Page</button>
-        <h1>
-            Login
-        </h1>
+        <MDBContainer className="mt-3">
+         <MDBBtn outline color='secondary' onClick={() => navigate("/")}>Home Page</MDBBtn>
+        <MDBRow center>
+            <MDBCol md="6">
 
-        <div className="container">
-            <MDBBtn class="btn btn-danger">Danger</MDBBtn>
-            <form onSubmit={loginButton}>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" id="username" value={username} onChange={e => setUsername(e.target.value)} required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required/>
-                </div>
-                <MDBBtn type="submit">Login</MDBBtn>
-                <button type="button" onClick={()=>{forgotPassword()}}>Forgot Password</button>
-            </form>
+                <MDBCard>
+                    <MDBCardBody>
+                        <form onSubmit={loginButton}>
+                            <p className="h4 text-center py-4 fs-1">Get Started</p>
+                            <MDBInput className="mb-4" label="Username" group type="text" validate error="wrong" success="right" value={username} onChange={e => setUsername(e.target.value)} />
+                            <MDBInput label="Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} />
+                            <div className="text-center py-4 mt-3 ">
+                                <MDBBtn rounded color="primary" className="mb-4 fs-5" type="submit">Login</MDBBtn>
+                            </div>
+                        </form>
 
-            <hr/>
+                        <MDBBtn outline color="secondary" onClick={() => { forgotPassword() }}>Forgot Password</MDBBtn>
+                    </MDBCardBody>
+                </MDBCard>
 
-            <button onClick={()=>toggleNewUserForm()}>Create New User</button>
-            
-            <form id="newUserForm" onSubmit={createNewUser} style={{display: isSignupVisible ? "block" : "none"}}>
+                <MDBCard alignment='center' shadow='0' border='primary' background='white'>
+                    <MDBCardBody className='text-primary'>
+                    <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
+                        <MDBCardText>
+                        <form id="newUserForm" onSubmit={createNewUser} style={{ display: isSignupVisible ? "block" : "none" }}>
+                            <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
+                            <MDBInput label="Password" className="mb-2" group type="password" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
+                            <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} />
+                            <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} />
+                            <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} />
+                            <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} />
+                            <MDBBtn outline color="success" type="submit" >Create User</MDBBtn>
+                        </form>
+                        </MDBCardText>
+                    </MDBCardBody>
+                </MDBCard>
 
-
-            <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" id="newUsername" value={newUsername} onChange={e => setNewUsername(e.target.value)} required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="newPassword" value={newPassword} onChange={e => setNewPassword(e.target.value)} required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" value={firstName} onChange={e => setFirstName(e.target.value)}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" value={lastName} onChange={e => setLastName(e.target.value)}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="address">Address</label>
-                    <input type="text" id="address" value={address} onChange={e => setAddress(e.target.value)}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="dob">Date of Birth</label>
-                    <input type="date" id="dob" value={dob} onChange={e => setDob(e.target.value)}/>
-                </div>
-                <button type="submit">Create User</button>
-            </form>
-        </div>
-        </div>
-
+            </MDBCol>
+        </MDBRow>
+    </MDBContainer>
     );
 }
 

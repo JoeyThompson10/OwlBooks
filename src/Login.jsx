@@ -41,10 +41,17 @@ const Login = () => {
     async function loginButton(e) {
         e.preventDefault();
         
+
         var response = await LoginFunction(username, password);
 
         if (response.message === "Login successful.") {
             navigate("/Dashboard");
+        }
+        if (response.message === "Login successful. Admin detected.") {
+            navigate("/AdminDashboard");
+        }
+        if (response.message === "Login successful. Manager detected.") {
+            navigate("/ManagerDashboard");
         }
         
         window.alert(response.message);
@@ -53,7 +60,7 @@ const Login = () => {
     async function createNewUser(e) {
         e.preventDefault();
 
-        const response = await CreateUser(newUsername, newPassword);
+        const response = await CreateUser(newUsername, newPassword, false, false, true, 0);
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");

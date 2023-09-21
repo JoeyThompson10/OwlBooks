@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CreateUser, LoginFunction } from "./MongoDbClient";
+import './Login.css';
+
+import { MDBBtn } from 'mdb-react-ui-kit'; // module
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -13,9 +17,14 @@ const Login = () => {
     const [address, setAddress] = useState('');
     const [dob, setDob] = useState('');
 
+    const [isSignupVisible, setSignupVisible] = useState(false);
+
+
     function toggleNewUserForm() {
         const newUserForm = document.getElementById('newUserForm');
         newUserForm.style.display = (newUserForm.style.display === "block") ? "none" : "block";
+        
+        setSignupVisible(!isSignupVisible);
     }
 
     function clearUserInput() {
@@ -68,6 +77,7 @@ const Login = () => {
         </h1>
 
         <div className="container">
+            <MDBBtn class="btn btn-danger">Danger</MDBBtn>
             <form onSubmit={loginButton}>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
@@ -77,14 +87,17 @@ const Login = () => {
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required/>
                 </div>
-                <button type="submit">Login</button>
+                <MDBBtn type="submit">Login</MDBBtn>
                 <button type="button" onClick={()=>{forgotPassword()}}>Forgot Password</button>
             </form>
 
             <hr/>
 
             <button onClick={()=>toggleNewUserForm()}>Create New User</button>
-            <form id="newUserForm" onSubmit={createNewUser} style={{display: "none"}}>
+            
+            <form id="newUserForm" onSubmit={createNewUser} style={{display: isSignupVisible ? "block" : "none"}}>
+
+
             <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input type="text" id="newUsername" value={newUsername} onChange={e => setNewUsername(e.target.value)} required/>
@@ -113,6 +126,7 @@ const Login = () => {
             </form>
         </div>
         </div>
+
     );
 }
 

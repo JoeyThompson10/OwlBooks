@@ -1,10 +1,13 @@
 .App {
   text-align: center;
+  font-family:'Helvetica', 'Arial', sans-serif;
 }
 
 .App-logo {
-  height: 40vmin;
   pointer-events: none;
+
+  height: 50px;  /* Or whatever height you desire*/
+  margin-right: 10px; /* Space between the logo and other header items*/
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,7 +17,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffde32;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,10 +25,24 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;  /* Added padding for a bit of space */
+  border-radius: 5px; /* Rounded corners for a modern look */
 }
 
 .App-link {
   color: #61dafb;
+  text-decoration: none;  /* Remove underline */
+  padding: 10px 20px;  /* Add some padding */
+  border: 2px solid #61dafb;  /* Border to make it look like a button */
+  border-radius: 5px;  /* Rounded corners for the link */
+  margin-top: 20px;  /* Space it out from other elements */
+  transition: background-color 0.3s ease, color 0.3s ease;  /* Smooth transition for hover effects */
+}
+
+/* Hover effect for link */
+.App-link:hover {
+  background-color: #61dafb;
+  color: #282c34;
 }
 
 @keyframes App-logo-spin {

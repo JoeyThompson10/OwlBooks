@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import Dashboard from './Dashboard';
 
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+
 
 const router = createBrowserRouter([{ path: '/', element: <App/> },{ path: '/login', element: <Login/> },{ path: '/dashboard', element: <Dashboard/> }]);
 

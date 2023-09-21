@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import { MDBBtn} from 'mdb-react-ui-kit'; 
 
 const Dashboard = () => {
     const navigate = useNavigate();

@@ -76,7 +76,7 @@ const Login = () => {
     }
 
     return (
-        <MDBContainer className="p-3 mb-2 bg-warning bg-gradient text-dark rounded-5">
+        <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
             <div>
                 <Header/>
             </div>

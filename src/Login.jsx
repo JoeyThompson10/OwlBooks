@@ -65,7 +65,7 @@ const Login = () => {
             toggleNewUserForm();
             clearUserInput();
         } else {
-            window.alert("Failed to create user!");
+            window.alert("Failed to create user!" + response.message);
         }
     }
   

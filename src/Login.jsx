@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 import { CreateUser, LoginFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 
@@ -75,27 +76,29 @@ const Login = () => {
     }
 
     return (
-        <MDBContainer className="mt-3">
-         <MDBBtn outline color='secondary' onClick={() => navigate("/")}>Home Page</MDBBtn>
-        <MDBRow center>
-            <MDBCol md="6">
+        <MDBContainer className="p-3 mb-2 bg-warning bg-gradient text-dark rounded-5">
+            <div>
+                <Header/>
+            </div>
 
-                <MDBCard>
-                    <MDBCardBody>
-                        <form onSubmit={loginButton}>
-                            <p className="h4 text-center py-4 fs-1">Get Started</p>
-                            <MDBInput className="mb-4" label="Username" group type="text" validate error="wrong" success="right" value={username} onChange={e => setUsername(e.target.value)} />
-                            <MDBInput label="Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} />
-                            <div className="text-center py-4 mt-3 ">
-                                <MDBBtn rounded color="primary" className="mb-4 fs-5" type="submit">Login</MDBBtn>
-                            </div>
-                        </form>
+            <MDBRow center className="p-3">
+                <MDBCol md="6">
+                    <MDBCard>
+                        <MDBCardBody>
+                            <form onSubmit={loginButton}>
+                                <p className="h4 text-center py-4 fs-1">Get Started</p>
+                                <MDBInput className="mb-4" label="Username" group type="text" validate error="wrong" success="right" value={username} onChange={e => setUsername(e.target.value)} />
+                                <MDBInput label="Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} />
+                                <div className="text-center py-4 mt-3 ">
+                                    <MDBBtn rounded color="primary" className="mb-4" type="submit">Login</MDBBtn>
+                                </div>
+                            </form>
 
-                        <MDBBtn outline color="secondary" onClick={() => { forgotPassword() }}>Forgot Password</MDBBtn>
-                    </MDBCardBody>
-                </MDBCard>
+                            <MDBBtn outline color="secondary" onClick={() => { forgotPassword() }}>Forgot Password</MDBBtn>
+                        </MDBCardBody>
+                    </MDBCard>
 
-                <MDBCard alignment='center' shadow='0' border='primary' background='white'>
+                <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-3">
                     <MDBCardBody className='text-primary'>
                     <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
                         <MDBCardText>

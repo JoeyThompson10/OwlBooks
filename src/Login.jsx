@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction } from "./MongoDbClient";
+import { CreateUser, LoginFunction, validatePasswordWithRealm } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 
 
@@ -59,6 +59,11 @@ const Login = () => {
         e.preventDefault();
 
         const response = await CreateUser(newUsername, newPassword, false, false, true, 0);
+        const validationResult = await validatePasswordWithRealm(newPassword);
+    if (validationResult) {
+        window.alert(validationResult); // Display the error message
+        return;
+    }
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");

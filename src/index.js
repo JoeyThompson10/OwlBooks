@@ -9,6 +9,8 @@ import Dashboard from './Dashboard';
 import AdminDashboard  from './AdminDashboard';
 import ManagerDashboard from './ManagerDashboard';
 
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+
 
 const router = createBrowserRouter([
 

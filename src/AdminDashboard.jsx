@@ -9,15 +9,20 @@ const AdminDashboard = () => {
     const [password, setPassword] = useState('');
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState('');
-    const [dob, setDob] = useState('');
+    const [isAdmin, setIsAdmin] = useState();
+    const [isManager, setIsManager] = useState();
+    const [isActive, setIsActive] = useState();
+    const [badLogins, setBadLogins] = useState();
 
     const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
 
-    async function getUserInfo(e) {
+    async function getUserInfoFromServer(e) {
+        e.preventDefault();
+        console.log("calling here");
+        var response = await getUserInfo(username);
+    }
+    async function setUserInfo(e) {
         
     }
 
@@ -26,20 +31,19 @@ const AdminDashboard = () => {
         setPassword('');
         setNewUsername('');
         setNewPassword('');
-        setFirstName('');
-        setLastName('');
-        setAddress('');
-        setDob('');
+        setIsAdmin();
+        setIsManager();
+        setIsActive();
+        setBadLogins();
     }
 
 
 
     function toggleUserInfoForm() {
         const userInfoForm = document.getElementById('userInfoForm');
-        userInfoForm.style.display = (userInfoForm.style.display === "block") ? "none" : "block";
-        
-        setUserInfoVisible(true);
-    }
+        userInfoForm.style.display = "block"; // Always set the display to "block"
+        setUserInfoVisible(true); // Set isUserInfoVisible to true
+      }
     
     
     async function getUserButton(e) {
@@ -76,17 +80,17 @@ const AdminDashboard = () => {
                     required
                 />
             </label>
-            <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleUserInfoForm()}>Edit User Info</MDBBtn></MDBCardTitle>
+            <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => {toggleUserInfoForm(); clearUserInput(); getUserInfoFromServer();}} >Edit User Info</MDBBtn></MDBCardTitle>
 
 
-            <form id="userInfoForm" onSubmit={getUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>
+            <form id="userInfoForm" onSubmit={setUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>
                             <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
                             <MDBInput label="Password" className="mb-2" group type="password" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-                            <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} />
-                            <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} />
-                            <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} />
-                            <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} />
-                            <MDBBtn outline color="success" type="submit" >Create User</MDBBtn>
+                            <MDBInput label="Admin Priviledge" className="mb-2" group type="text" validate value={isAdmin} onChange={e => setIsAdmin(e.target.value)} />
+                            <MDBInput label="Manager Priviledge" className="mb-2" group type="text" validate value={isManager} onChange={e => setIsManager(e.target.value)} />
+                            <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={isActive} onChange={e => setIsActive(e.target.value)} />
+                            <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={badLogins} onChange={e => setBadLogins(e.target.value)} />
+                            <MDBBtn outline color="success" type="submit" >Save Changes</MDBBtn>
                         </form>
             
             {/*<button type="button" onClick={()=>{navigate("/")}}>View Users</button>*/}

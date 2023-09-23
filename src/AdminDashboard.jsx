@@ -17,8 +17,7 @@ const AdminDashboard = () => {
     const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
 
-    async function getUserInfoFromServer(e) {
-        e.preventDefault();
+    async function getUserInfoFromServer() {
         console.log("calling here");
         var response = await getUserInfoFunction(username);
     }
@@ -80,7 +79,7 @@ const AdminDashboard = () => {
                     required
                 />
             </label>
-            <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => {toggleUserInfoForm(); clearUserInput(); getUserInfoFromServer();}} >Edit User Info</MDBBtn></MDBCardTitle>
+            <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => {e.preventDefault(); toggleUserInfoForm(); clearUserInput(); getUserInfoFromServer();}} >Edit User Info</MDBBtn></MDBCardTitle>
 
 
             <form id="userInfoForm" onSubmit={setUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>

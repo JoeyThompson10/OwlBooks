@@ -20,4 +20,9 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-export { CreateUser, LoginFunction };
+async function validatePasswordWithRealm(password) {
+    const user = await app().logIn(credentials());
+    return await user.functions.validatePassword(password);
+}
+
+export { CreateUser, LoginFunction, validatePasswordWithRealm };

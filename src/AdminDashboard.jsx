@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction, DisplayUsers, getUserInfo } from "./MongoDbClient";
+import { CreateUser, LoginFunction, DisplayUsers, getUserInfoFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 
 const AdminDashboard = () => {
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
     async function getUserInfoFromServer(e) {
         e.preventDefault();
         console.log("calling here");
-        var response = await getUserInfo(username);
+        var response = await getUserInfoFunction(username);
     }
     async function setUserInfo(e) {
         

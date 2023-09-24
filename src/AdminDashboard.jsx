@@ -9,10 +9,10 @@ const AdminDashboard = () => {
   const [password, setPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newIsAdmin, setIsAdmin] = useState(false);
-  const [newIsManager, setIsManager] = useState(false);
-  const [newIsActive, setIsActive] = useState(true);
-  const [newBadLogins, setBadLogins] = useState(0);
+  const [newIsAdmin, setIsAdmin] = useState();
+  const [newIsManager, setIsManager] = useState();
+  const [newIsActive, setIsActive] = useState();
+  const [newBadLogins, setBadLogins] = useState();
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -58,6 +58,8 @@ const AdminDashboard = () => {
 
     window.alert(response.message);
   }
+
+
 
   async function setUserButton(e) {
     e.preventDefault();

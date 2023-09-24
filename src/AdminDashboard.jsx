@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         e.preventDefault();
         var response = await getUserInfoFunction(username);
 
-        
+        window.alert(response.message);
         
     }
 

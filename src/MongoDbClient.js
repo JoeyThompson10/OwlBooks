@@ -20,9 +20,14 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-async function validatePasswordWithRealm(password) {
+async function getUserInfoFunction(email){
     const user = await app().logIn(credentials());
-    return await user.functions.validatePassword(password);
+    return await user.functions.getUserInfo(email);
 }
 
-export { CreateUser, LoginFunction, validatePasswordWithRealm };
+async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins){
+    const user = await app().logIn(credentials());
+    return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction};

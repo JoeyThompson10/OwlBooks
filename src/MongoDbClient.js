@@ -20,9 +20,9 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-async function getUserInfoFunction(email, password){
+async function getUserInfoFunction(email){
     const user = await app().logIn(credentials());
-    return await user.functions.getUserInfo(email, password);
+    return await user.functions.getUserInfo(email);
 }
 
 export { CreateUser, LoginFunction, getUserInfoFunction};

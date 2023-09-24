@@ -10,10 +10,10 @@ const AdminDashboard = () => {
     const [password, setPassword] = useState('');
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('')
-    const [isAdmin, setIsAdmin] = useState();
-    const [isManager, setIsManager] = useState();
-    const [isActive, setIsActive] = useState();
-    const [badLogins, setBadLogins] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isManager, setIsManager] = useState(false);
+    const [isActive, setIsActive] = useState(true);
+    const [badLogins, setBadLogins] = useState(0);
 
     const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -71,9 +71,9 @@ const AdminDashboard = () => {
             username,
             newPassword,
             isAdmin,
-            isManager,  // Pass isManager
-            isActive,   // Pass isActive
-            badLogins   // Pass badLogins
+            isManager,  
+            isActive,   
+            badLogins   
           );
         window.alert(response.message);
     }

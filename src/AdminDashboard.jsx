@@ -25,6 +25,7 @@ const AdminDashboard = () => {
     // Handle setting user info here
   }
 
+  {/*
   function clearUserInput() {
     setUsername('');
     setPassword('');
@@ -35,7 +36,7 @@ const AdminDashboard = () => {
     setIsActive(true);
     setBadLogins(0);
   }
-
+*/}
   function toggleUserInfoForm() {
     const userInfoForm = document.getElementById('userInfoForm');
     userInfoForm.style.display = "block";

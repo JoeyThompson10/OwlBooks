@@ -31,10 +31,10 @@ const AdminDashboard = () => {
         setPassword('');
         setNewUsername('');
         setNewPassword('');
-        setIsAdmin();
-        setIsManager();
-        setIsActive();
-        setBadLogins();
+        setIsAdmin(false);
+        setIsManager(false);
+        setIsActive(true);
+        setBadLogins(0);
     }
 
 

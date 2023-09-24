@@ -18,7 +18,7 @@ const AdminDashboard = () => {
 
 
     async function getUserInfoFromServer(username) {
-        var response = await getUserInfoFunction(this.username);
+        var response = await getUserInfoFunction(username);
     }
     async function setUserInfo(e) {
         

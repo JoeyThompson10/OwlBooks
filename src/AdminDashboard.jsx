@@ -46,7 +46,7 @@ const AdminDashboard = () => {
     
     async function getUserButton(e) {
         e.preventDefault();
-        
+        var response = await getUserInfoFunction(username);
 
         
         
@@ -68,6 +68,7 @@ const AdminDashboard = () => {
                 Insert username below to make changes.
             </p>
 
+            <form onSubmit={getUserButton}>
             <label>
                 Username
                 <input
@@ -79,7 +80,7 @@ const AdminDashboard = () => {
                 />
             </label>
             <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => { toggleUserInfoForm(); clearUserInput(); getUserInfoFromServer();}} >Edit User Info</MDBBtn></MDBCardTitle>
-
+            </form>
 
             <form id="userInfoForm" onSubmit={setUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>
                             <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />

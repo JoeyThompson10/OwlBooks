@@ -67,7 +67,14 @@ const AdminDashboard = () => {
     async function setUserButton(e) {
         e.preventDefault();
         
-        var response = await setUserInfoFunction(username, newPassword, isAdmin, isManager, isActive, badLogins);
+        var response = await setUserInfoFunction(
+            username,
+            newPassword,
+            isAdmin,
+            isManager,  // Pass isManager
+            isActive,   // Pass isActive
+            badLogins   // Pass badLogins
+          );
         window.alert(response.message);
     }
 

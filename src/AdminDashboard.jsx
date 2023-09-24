@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CreateUser, LoginFunction, DisplayUsers, getUserInfoFunction, setUserInfoFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
-import { MongoDBCollection } from "realm/dist/bundle";
+{/*import { MongoDBCollection } from "realm/dist/bundle";*/}
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [newUsername, setNewUsername] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('')
     const [isAdmin, setIsAdmin] = useState();
     const [isManager, setIsManager] = useState();
     const [isActive, setIsActive] = useState();
@@ -22,8 +22,8 @@ const AdminDashboard = () => {
         var response = await getUserInfoFunction(username);
 
     }
-    async function setUserInfo(e) {
-        var response = await setUserInfoFunction(username);
+    async function setUserInfo(username, newPassword) {
+        
     }
 
     function clearUserInput() {
@@ -67,11 +67,8 @@ const AdminDashboard = () => {
     async function setUserButton(e) {
         e.preventDefault();
         
-        const query = {username: username};
-        const update = {$set: {password: newPassword}};
-
-
-        const result = await update(query, update);
+        var response = await setUserInfoFunction(username, newPassword, isAdmin, isManager, isActive, badLogins);
+        window.alert(response.message);
     }
 
     return (

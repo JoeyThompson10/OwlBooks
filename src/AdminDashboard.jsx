@@ -1,23 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {
-  CreateUser,
-  LoginFunction,
-  DisplayUsers,
-  getUserInfoFunction,
-  setUserInfoFunction,
-} from "./MongoDbClient";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBCardText,
-  MDBCardTitle,
-} from 'mdb-react-ui-kit';
+import {CreateUser,LoginFunction,DisplayUsers,getUserInfoFunction,setUserInfoFunction,} from "./MongoDbClient";
+import {MDBBtn,MDBContainer,MDBRow,MDBCol,MDBCard,MDBCardBody,MDBInput,MDBCardText,MDBCardTitle,} from 'mdb-react-ui-kit';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -25,10 +9,10 @@ const AdminDashboard = () => {
   const [password, setPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isManager, setIsManager] = useState(false);
-  const [isActive, setIsActive] = useState(true);
-  const [badLogins, setBadLogins] = useState(0);
+  const [newIsAdmin, setIsAdmin] = useState(false);
+  const [newIsManager, setIsManager] = useState(false);
+  const [newIsActive, setIsActive] = useState(true);
+  const [newBadLogins, setBadLogins] = useState(0);
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -80,10 +64,10 @@ const AdminDashboard = () => {
     const response = await setUserInfoFunction(
       username,
       newPassword,
-      isAdmin,
-      isManager,
-      isActive,
-      badLogins
+      newIsAdmin,
+      newIsManager,
+      newIsActive,
+      newBadLogins
     );
     window.alert(response.message);
   }
@@ -121,10 +105,10 @@ const AdminDashboard = () => {
       <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
         <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
         <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-        <MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={isAdmin} onChange={e => setIsAdmin(e.target.value)} />
-        <MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={isManager} onChange={e => setIsManager(e.target.value)} />
-        <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={isActive} onChange={e => setIsActive(e.target.value)} />
-        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={badLogins} onChange={e => setBadLogins(e.target.value)} />
+        <MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value)} />
+        <MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={newIsManager} onChange={e => setIsManager(e.target.value)} />
+        <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={newIsActive} onChange={e => setIsActive(e.target.value)} />
+        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={newBadLogins} onChange={e => setBadLogins(e.target.value)} />
         <MDBBtn outline color="success" type="submit">
           Save Changes
         </MDBBtn>

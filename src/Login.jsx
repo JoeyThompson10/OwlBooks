@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction } from "./MongoDbClient";
+import { CreateUser, LoginFunction, isCurrentUser } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
 
@@ -9,7 +9,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [newUsername, setNewUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -29,7 +29,7 @@ const Login = () => {
     function clearUserInput() {
         setUsername('');
         setPassword('');
-        setNewUsername('');
+        setEmail('');
         setNewPassword('');
         setFirstName('');
         setLastName('');
@@ -66,7 +66,7 @@ const Login = () => {
         e.preventDefault();
 
         var newHashedPassword = hashPassword(newPassword);
-        const response = await CreateUser(newUsername, newHashedPassword, false, false, true, 0);
+        const response = await CreateUser(createUsername(), newHashedPassword, email, firstName, lastName, address, dob);
         //const validationResult = await validatePasswordWithRealm(newPassword);
     if (response) {
         window.alert(response.message); // Display the error message
@@ -80,6 +80,22 @@ const Login = () => {
         } else {
             window.alert("Failed to create user!" + response.message);
         }
+    }
+
+    function createUsername() {
+        // Creates a username with the first name initial, the full last name, and a four digit (two-digit month and two digit year) of when the account is created
+
+        const firstNameLetterLowercase = firstName.charAt(0).toLowerCase();
+        const lastNameLowercase = lastName.toLowerCase();
+
+        const today = new Date();
+        const month = today.getMonth();
+        const twoDigitMonth = (month < 10 ? '0' : '') + month;
+        const twoDigitYear = today.getFullYear().toString().substring(2, 4);
+
+        let username = firstNameLetterLowercase + lastNameLowercase + twoDigitMonth + twoDigitYear;
+
+        return username;
     }
 
     function hashPassword(password) {
@@ -147,12 +163,12 @@ const Login = () => {
                     <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
                         <MDBCardText>
                         <form id="newUserForm" onSubmit={createNewUser} style={{ display: isSignupVisible ? "block" : "none" }}>
-                            <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
+                            <MDBInput label="Email" className="mb-2" group type="email" validate error="wrong" success="right" value={email} onChange={e => setEmail(e.target.value)} required />
                             <MDBInput label="Password" className="mb-2" group type="password" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-                            <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} />
-                            <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} />
-                            <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} />
-                            <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} />
+                            <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} required />
+                            <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} required />
+                            <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} required />
+                            <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} required />
                             <MDBBtn outline color="success" type="submit" >Create User</MDBBtn>
                         </form>
                         </MDBCardText>

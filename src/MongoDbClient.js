@@ -10,9 +10,9 @@ function credentials(){
     return RealmWeb.Credentials.apiKey(apiKey);
 }
 
-async function CreateUser(email, password){
+async function CreateUser(username, password, email, firstName, lastName, address, dob){
     const user = await app().logIn(credentials());
-    return await user.functions.CreateUser(email, password);
+    return await user.functions.CreateUser(username, password, email, firstName, lastName, address, dob);
 }
 
 async function LoginFunction(email, password){
@@ -30,4 +30,9 @@ async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManag
     return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction};
+async function isCurrentUser(username){
+    const user = await app().logIn(credentials());
+    return await user.functions.isCurrentUser(username);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser };

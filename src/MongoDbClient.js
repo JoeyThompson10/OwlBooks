@@ -25,9 +25,9 @@ async function getUserInfoFunction(email){
     return await user.functions.getUserInfo(email);
 }
 
-async function setUserInfoFunction(email, password){
+async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins){
     const user = await app().logIn(credentials());
-    return await user.functions.setUserInfo(email, password);
+    return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
 }
 
 export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction};

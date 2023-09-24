@@ -9,10 +9,10 @@ const AdminDashboard = () => {
   const [password, setPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newIsAdmin, setIsAdmin] = useState();
-  const [newIsManager, setIsManager] = useState();
-  const [newIsActive, setIsActive] = useState();
-  const [newBadLogins, setBadLogins] = useState();
+  const [newIsAdmin, setNewIsAdmin] = useState(false);
+  const [newIsManager, setNewIsManager] = useState();
+  const [newIsActive, setNewIsActive] = useState();
+  const [newBadLogins, setNewBadLogins] = useState();
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -51,10 +51,10 @@ const AdminDashboard = () => {
       toggleUserInfoForm();
       setNewUsername(response._id || "");
       setNewPassword(response.password || "");
-      setIsAdmin(response.isAdmin);
-      setIsManager(response.isManager);
-      setIsActive(response.isActive);
-      setBadLogins(response.badLogins);
+      setNewIsAdmin(response.isAdmin);
+      setNewIsManager(response.isManager);
+      setNewIsActive(response.isActive);
+      setNewBadLogins(response.badLogins);
     }
 
     window.alert(response.message);
@@ -107,11 +107,20 @@ const AdminDashboard = () => {
 
       <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
         <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
+
         <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-        <MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value === "true")} required/>
-        <MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={newIsManager} onChange={e => setIsManager(e.target.value === "true")} required />
-        <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={newIsActive} onChange={e => setIsActive(e.target.value === "true")} required />
-        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={newBadLogins} onChange={e => setBadLogins(parseInt(e.target.value))} required />
+
+        {/*<MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value === "true")} required/>*/}
+        <div className="form-check mb-2"> <input className="form-check-input" type="checkbox" id="adminPrivilege" checked={newIsAdmin} onChange={e => setNewIsAdmin(e.target.checked)} /> <label className="form-check-label" htmlFor="adminPrivilege">Admin Privilege</label></div>
+
+        {/*<MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={newIsManager} onChange={e => setIsManager(e.target.value === "true")} required />*/}
+        <div className="form-check mb-2"> <input className="form-check-input" type="checkbox" id="managerPrivilege" checked={newIsManager} onChange={e => setNewIsManager(e.target.checked)} /> <label className="form-check-label" htmlFor="managerPrivilege">Manager Privilege</label></div>
+        
+        {/*<MDBInput label="Account Activated" className="mb-3" group type="text" validate value={newIsActive} onChange={e => setIsActive(e.target.value === "true")} required />*/}
+        <div className="form-check mb-2"> <input className="form-check-input" type="checkbox" id="accountActivated" checked={newIsActive} onChange={e => setNewIsActive(e.target.checked)} /> <label className="form-check-label" htmlFor="accountActivated">Account Activated</label></div>
+        
+        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={newBadLogins} onChange={e => setNewBadLogins(parseInt(e.target.value))} required />
+        
         <MDBBtn outline color="success" type="submit">
           Save Changes
         </MDBBtn>

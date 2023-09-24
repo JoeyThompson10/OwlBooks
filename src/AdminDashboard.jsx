@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CreateUser, LoginFunction, DisplayUsers, getUserInfoFunction, setUserInfoFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
+import { MongoDBCollection } from "realm/dist/bundle";
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -63,6 +64,16 @@ const AdminDashboard = () => {
         
     }
 
+    async function setUserButton(e) {
+        e.preventDefault();
+        
+        const query = {username: username};
+        const update = {$set: {password: newPassword}};
+
+
+        const result = await MongoDBCollection.updateOne(query, update);
+    }
+
     return (
         <div>
             <button type="button" onClick={()=>{navigate("/")}}>Home Page</button>
@@ -97,7 +108,7 @@ const AdminDashboard = () => {
                 </div>
             </form>
 
-            <form id="userInfoForm" onSubmit={setUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>
+            <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
                             <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
                             <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
                             <MDBInput label="Admin Priviledge" className="mb-2" group type="text" validate value={isAdmin} onChange={e => setIsAdmin(e.target.value)} />

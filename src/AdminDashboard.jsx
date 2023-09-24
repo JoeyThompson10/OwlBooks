@@ -17,9 +17,8 @@ const AdminDashboard = () => {
     const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
 
-    async function getUserInfoFromServer() {
-        console.log("calling here");
-        var response = await getUserInfoFunction(username);
+    async function getUserInfoFromServer(username) {
+        var response = await getUserInfoFunction(this.username);
     }
     async function setUserInfo(e) {
         

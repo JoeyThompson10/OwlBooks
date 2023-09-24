@@ -105,10 +105,10 @@ const AdminDashboard = () => {
       <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
         <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
         <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-        <MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value)} />
-        <MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={newIsManager} onChange={e => setIsManager(e.target.value)} />
-        <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={newIsActive} onChange={e => setIsActive(e.target.value)} />
-        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={newBadLogins} onChange={e => setBadLogins(e.target.value)} />
+        <MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value)} required/>
+        <MDBInput label="Manager Privilege" className="mb-2" group type="text" validate value={newIsManager} onChange={e => setIsManager(e.target.value)} required />
+        <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={newIsActive} onChange={e => setIsActive(e.target.value)} required />
+        <MDBInput label="Incorrect Logins" className="mb-4" group type="number" validate value={newBadLogins} onChange={e => setBadLogins(e.target.value)} required />
         <MDBBtn outline color="success" type="submit">
           Save Changes
         </MDBBtn>

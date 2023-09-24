@@ -71,7 +71,7 @@ const AdminDashboard = () => {
         const update = {$set: {password: newPassword}};
 
 
-        const result = await MongoDBCollection.updateOne(query, update);
+        const result = await update(query, update);
     }
 
     return (

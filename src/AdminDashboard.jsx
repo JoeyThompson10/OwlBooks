@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction, DisplayUsers, getUserInfoFunction } from "./MongoDbClient";
+import { CreateUser, LoginFunction, DisplayUsers, getUserInfoFunction, setUserInfoFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 
 const AdminDashboard = () => {
@@ -19,9 +19,10 @@ const AdminDashboard = () => {
 
     async function getUserInfoFromServer(username) {
         var response = await getUserInfoFunction(username);
+
     }
     async function setUserInfo(e) {
-        
+        var response = await setUserInfoFunction(username);
     }
 
     function clearUserInput() {
@@ -48,6 +49,16 @@ const AdminDashboard = () => {
         e.preventDefault();
         var response = await getUserInfoFunction(username);
 
+        if (response.message === "User found!"){
+            toggleUserInfoForm();
+            setNewUsername(response._id || "");
+            setNewPassword(response.password || "");
+            setIsAdmin(response.isAdmin || "false");
+            setIsManager(response.isManager || "false");
+            setIsActive(response.isActive || "false");
+            setBadLogins(response.badLogins || "0");
+        }
+
         window.alert(response.message);
         
     }
@@ -69,18 +80,9 @@ const AdminDashboard = () => {
             </p>
 
             <form onSubmit={getUserButton}>
-            <label>Username</label>
-                
-                <input
-                    className="mb-2"
-                    type="text"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    required
-                />
             
             {/*<MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' type="submit" >Edit User Info</MDBBtn></MDBCardTitle>*/}
-                <div className="text-center py-4 mt-3 ">
+                <div className="py-4 mt-3 ">
                     <label>Username</label>
                 
                     <input
@@ -97,7 +99,7 @@ const AdminDashboard = () => {
 
             <form id="userInfoForm" onSubmit={setUserInfo} style={{ display: isUserInfoVisible ? "block" : "none" }}>
                             <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
-                            <MDBInput label="Password" className="mb-2" group type="password" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
+                            <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
                             <MDBInput label="Admin Priviledge" className="mb-2" group type="text" validate value={isAdmin} onChange={e => setIsAdmin(e.target.value)} />
                             <MDBInput label="Manager Priviledge" className="mb-2" group type="text" validate value={isManager} onChange={e => setIsManager(e.target.value)} />
                             <MDBInput label="Account Activated" className="mb-3" group type="text" validate value={isActive} onChange={e => setIsActive(e.target.value)} />

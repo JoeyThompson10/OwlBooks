@@ -57,6 +57,8 @@ const Login = () => {
     }
 
     async function createNewUser(e) {
+        e.preventDefault();
+
         const validationResult = validatePassword(newPassword);
         if (validationResult) {
             window.alert(validationResult);
@@ -67,18 +69,14 @@ const Login = () => {
 
         var newHashedPassword = hashPassword(newPassword);
         const response = await CreateUser(createUsername(), newHashedPassword, email, firstName, lastName, address, dob);
-        //const validationResult = await validatePasswordWithRealm(newPassword);
-    if (response) {
-        window.alert(response.message); // Display the error message
-        return;
-    }
         
         if (response && response.message.includes("Success")) {
             window.alert("User created. Please login.");
             toggleNewUserForm();
             clearUserInput();
+            return;
         } else {
-            window.alert("Failed to create user!" + response.message);
+            window.alert("Failed to create user: " + response.message);
         }
     }
 

@@ -79,9 +79,19 @@ const AdminDashboard = () => {
                     required
                 />
             
-            {/*<MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => { toggleUserInfoForm(); clearUserInput(); getUserInfoFromServer();}} >Edit User Info</MDBBtn></MDBCardTitle>*/}
+            {/*<MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' type="submit" >Edit User Info</MDBBtn></MDBCardTitle>*/}
                 <div className="text-center py-4 mt-3 ">
-                                <MDBBtn rounded color="primary" className="mb-4 fs-5" type="submit">Edit User Info</MDBBtn>
+                    <label>Username</label>
+                
+                    <input
+                        className="mb-2"
+                        type="text"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                        required
+                    />
+                    <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' type="submit" >Edit User Info</MDBBtn></MDBCardTitle>
+                    {/*<MDBBtn rounded color="primary" className="mb-4 fs-5" type="submit">Edit User Info</MDBBtn>*/}
                 </div>
             </form>
 

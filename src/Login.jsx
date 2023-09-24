@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CreateUser, LoginFunction } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
+import CryptoJS from 'crypto-js';
 
 
 const Login = () => {
@@ -39,8 +40,8 @@ const Login = () => {
     async function loginButton(e) {
         e.preventDefault();
         
-
-        var response = await LoginFunction(username, password);
+        var hashedPassword = hashPassword(password);
+        var response = await LoginFunction(username, hashedPassword);
 
         if (response.message === "Login successful.") {
             navigate("/Dashboard");
@@ -56,9 +57,16 @@ const Login = () => {
     }
 
     async function createNewUser(e) {
+        const validationResult = validatePassword(newPassword);
+        if (validationResult) {
+            window.alert(validationResult);
+            return;
+        }
+
         e.preventDefault();
 
-        const response = await CreateUser(newUsername, newPassword, false, false, true, 0);
+        var newHashedPassword = hashPassword(newPassword);
+        const response = await CreateUser(newUsername, newHashedPassword, false, false, true, 0);
         //const validationResult = await validatePasswordWithRealm(newPassword);
     if (response) {
         window.alert(response.message); // Display the error message
@@ -73,11 +81,45 @@ const Login = () => {
             window.alert("Failed to create user!" + response.message);
         }
     }
+
+    function hashPassword(password) {
+        return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+    }
   
     function forgotPassword() {
         console.log("Forgot password");
         alert("Password reset link sent!");
     }
+
+    function validatePassword(password) {
+        // Check if password is at least 8 characters long
+        if (password.length < 8) {
+            return "Password must be at least 8 characters long.";
+        }
+    
+        // Check if password starts with a letter
+        if (!/^[a-zA-Z]/.test(password)) {
+            return "Password must start with a letter.";
+        }
+    
+        // Check if password contains at least one letter
+        if (!/[a-zA-Z]/.test(password)) {
+            return "Password must contain at least one letter.";
+        }
+    
+        // Check if password contains at least one number
+        if (!/[0-9]/.test(password)) {
+            return "Password must contain at least one number.";
+        }
+    
+        // Check if password contains at least one special character
+        if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
+            return "Password must contain at least one special character.";
+        }
+    
+        return null; // Password is valid
+    };
+    
 
     return (
         <MDBContainer className="mt-3">

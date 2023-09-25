@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {CreateUser,getUserInfoFunction,setUserInfoFunction,} from "./MongoDbClient";
-import {MDBBtn,MDBInput,MDBCardTitle,} from 'mdb-react-ui-kit';
+import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers} from "./MongoDbClient";
+import {MDBBtn, MDBInput, MDBCardTitle} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
-  //const [password, setPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newIsAdmin, setNewIsAdmin] = useState(false);
@@ -22,8 +21,13 @@ const AdminDashboard = () => {
   const [newUserAddress, setNewUserAddress] = useState('');
   const [newUserDOB, setNewUserDOB] = useState('');
 
-
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+
+  async function handleGetAllUsers() {
+    const usersReport = await GetAllUsers();
+    setAllUsers(usersReport);
+  }
 
   async function getUserInfoFromServer(username) {
     const response = await getUserInfoFunction(username);
@@ -202,6 +206,33 @@ const AdminDashboard = () => {
         />
         <MDBBtn type="submit">Create User</MDBBtn>
       </form>
+      <MDBBtn onClick={handleGetAllUsers}>Display All Users</MDBBtn>
+
+      {allUsers.length > 0 && (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Admin</th>
+              <th>Manager</th>
+              <th>Active</th>
+              <th>Incorrect Logins</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allUsers.map(user => (
+              <tr key={user._id}>
+                <td>{user._id}</td>
+                <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                <td>{user.isManager ? 'Yes' : 'No'}</td>
+                <td>{user.isActive ? 'Yes' : 'No'}</td>
+                <td>{user.badLogins}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
       <Footer />
     </div>
   );

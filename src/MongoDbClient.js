@@ -40,4 +40,9 @@ async function sendEmail(emailAddress, subject, body){
     return await user.functions.SendEmail(emailAddress, subject, body);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail };
+async function GetAllUsers(){
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAllUsers();
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers };

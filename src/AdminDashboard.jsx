@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {CreateUser,LoginFunction,DisplayUsers,getUserInfoFunction,setUserInfoFunction, GetAllUsers, sendEmail} from "./MongoDbClient";
-import {MDBBtn,MDBContainer,MDBRow,MDBCol,MDBCard,MDBCardBody,MDBInput,MDBCardText,MDBCardTitle,} from 'mdb-react-ui-kit';
+import {MDBBtn,MDBContainer,MDBRow,MDBCol,MDBCard,MDBCardBody,MDBInput,MDBTypography,MDBCardTitle,} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
 

@@ -86,21 +86,19 @@ const Login = () => {
         }
     }
 
-    // function createUsername() {
-    //     // Creates a username with the first name initial, the full last name, and a four digit (two-digit month and two digit year) of when the account is created
-
-    //     const firstNameLetterLowercase = firstName.charAt(0).toLowerCase();
-    //     const lastNameLowercase = lastName.toLowerCase();
-
-    //     const today = new Date();
-    //     const month = today.getMonth();
-    //     const twoDigitMonth = (month < 10 ? '0' : '') + month;
-    //     const twoDigitYear = today.getFullYear().toString().substring(2, 4);
-
-    //     let username = firstNameLetterLowercase + lastNameLowercase + twoDigitMonth + twoDigitYear;
-
-    //     return username;
-    // }
+    function createUsername() {
+        const firstNameLetterLowercase = firstName.charAt(0).toLowerCase();
+        const lastNameLowercase = lastName.toLowerCase();
+    
+        const today = new Date();
+        const month = today.getMonth() + 1;
+        const twoDigitMonth = (month < 10 ? '0' : '') + month;
+        const twoDigitYear = today.getFullYear().toString().substring(2, 4);
+    
+        let username = firstNameLetterLowercase + lastNameLowercase + twoDigitMonth + twoDigitYear;
+    
+        return username;
+      }
 
     function hashPassword(password) {
         return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);

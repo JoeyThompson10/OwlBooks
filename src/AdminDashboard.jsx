@@ -274,7 +274,7 @@ async function handleSendCustomEmail() {
           </tbody>
         </table>
       ) : (
-          <p>No users have passwords that are about to expire.</p>
+          <p>No users have expired passwords.</p>
         )}
 
       {/* Email Customization Modal */}

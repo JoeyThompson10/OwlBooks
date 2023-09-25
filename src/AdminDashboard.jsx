@@ -8,6 +8,7 @@ import Footer from "./Footer";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newIsAdmin, setNewIsAdmin] = useState(false);
@@ -47,14 +48,14 @@ const AdminDashboard = () => {
     setUserInfoVisible(true);
   }
 
-  async function getUserButton(e) {
+    async function getUserButton(e) {
     e.preventDefault();
     const response = await getUserInfoFunction(username);
 
     if (response.message === "User found!") {
       toggleUserInfoForm();
       setNewUsername(response._id || "");
-      //setNewPassword(response.password || "");
+    //   setNewPassword(response.password || "");
       setNewIsAdmin(response.isAdmin);
       setNewIsManager(response.isManager);
       setNewIsActive(response.isActive);
@@ -62,21 +63,21 @@ const AdminDashboard = () => {
     }
 
     window.alert(response.message);
-  }
+    }
 
-  async function setUserButton(e) {
+    async function setUserButton(e) {
     e.preventDefault();
     const response = await setUserInfoFunction(
-      newUsername,
+        newUsername,
       newIsAdmin,
       newIsManager,
       newIsActive,
       newBadLogins
     );
     window.alert(response.message);
-  }
+    }
 
-  async function handleCreateUser(e) {
+    async function handleCreateUser(e) {
     e.preventDefault();
     const response = await CreateUser(
         newPassword, 
@@ -96,7 +97,7 @@ const AdminDashboard = () => {
     setNewUserLastName('');
     setNewUserAddress('');
     setNewUserDOB('');
-}
+    }
 
 function openEmailModal(email) {
   setCurrentEmailRecipient(email);
@@ -116,37 +117,38 @@ async function handleSendCustomEmail() {
 }
 
   return (
-    <div>
-      <Header />
-      <button type="button" onClick={() => navigate("/")}>Home Page</button>
-
-      <h1>Admin Dashboard</h1>
-
-      <p>
+    <MDBContainer fluid className="p-0 bg-light text-dark">
+        <Header />
+        <h1><MDBTypography tag='div' className='display-1 mb-3 mx-4 text-warning'>
+        Admin Dashboard
+        </MDBTypography></h1>
+        <MDBTypography className='lead mb-3 mx-4'>
         This is the admin dashboard page. System admins can complete admin-specific tasks and abilities from here.
-      </p>
+        </MDBTypography>
+        
 
-      <p>Insert username below to make changes.</p>
-
-      <form onSubmit={getUserButton}>
-        <div className="py-4 mt-3">
-          <label>Username</label>
-          <input
-            className="mb-2"
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-          <MDBCardTitle>
-            <MDBBtn outline color="info" className="mx-3 mb-2" type="submit">
-              Edit User Info
-            </MDBBtn>
-          </MDBCardTitle>
-        </div>
-      </form>
+        <MDBCard className="mb-3 pt-4">
+        <MDBRow right className="p-3">
+        <MDBCol md="4">
+            <form className= "mx-4" onSubmit={getUserButton}>
+            <div>
+                <label >Username</label>
+                <input
+                type="text" className= "mx-3"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                required
+                />
+                <MDBCardTitle>
+                <MDBBtn outline color="info" className="py-2 my-3" type="submit">
+                    Edit User Info
+                </MDBBtn>
+                </MDBCardTitle>
+            </div>
+            </form>
 
       <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
+        <h6>Insert username below to make changes.</h6><br></br>
         <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
 
         {/* <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required /> */}
@@ -166,53 +168,61 @@ async function handleSendCustomEmail() {
           Save Changes
         </MDBBtn>
       </form>
+      </MDBCol>
+        </MDBRow>
+        </MDBCard> 
 
-      <form onSubmit={handleCreateUser}>
-        <h2>Create New User</h2>
-        <MDBInput
-            label="Email"
-            type="email"
-            value={newUserEmail}
-            onChange={e => setNewUserEmail(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="First Name"
-            type="text"
-            value={newUserFirstName}
-            onChange={e => setNewUserFirstName(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="Last Name"
-            type="text"
-            value={newUserLastName}
-            onChange={e => setNewUserLastName(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="Address"
-            type="text"
-            value={newUserAddress}
-            onChange={e => setNewUserAddress(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="Date of Birth"
-            type="date"
-            value={newUserDOB}
-            onChange={e => setNewUserDOB(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="Password"
-            type="password"
-            value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
-            required
-        />
-        <MDBBtn type="submit">Create User</MDBBtn>
-      </form>
+    <MDBCard>
+        <MDBRow right className="p-4">
+        <MDBCol md="8">
+        <MDBCardBody className='text-primary'>
+            <form onSubmit={handleCreateUser}>
+                <h2>Create New User</h2>
+            
+                <MDBInput
+                    label="Email"
+                    type="email" className="mb-3"
+                    value={newUserEmail}
+                    onChange={e => setNewUserEmail(e.target.value)}
+                    required
+                />
+                <MDBInput
+                    label="First Name"
+                    type="text" className="mb-3"
+                    value={newUserFirstName}
+                    onChange={e => setNewUserFirstName(e.target.value)}
+                    required
+                />
+                <MDBInput
+                    label="Last Name"
+                    type="text" className="mb-3"
+                    value={newUserLastName}
+                    onChange={e => setNewUserLastName(e.target.value)}
+                    required
+                />
+                <MDBInput
+                    label="Address"
+                    type="text" className="mb-3"
+                    value={newUserAddress}
+                    onChange={e => setNewUserAddress(e.target.value)}
+                    required
+                />
+                <MDBInput
+                    label="Date of Birth"
+                    type="date" className="mb-3"
+                    value={newUserDOB}
+                    onChange={e => setNewUserDOB(e.target.value)}
+                    required
+                />
+                <MDBInput
+                    label="Password"
+                    type="password" className="mb-4"
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                    required
+                />
+                <MDBBtn type="submit">Create User</MDBBtn>
+            </form>
       <MDBBtn onClick={handleGetAllUsers}>Display All Users</MDBBtn>
       <MDBBtn onClick={handleGetAlmostExpiredUsers}>Display Almost Expired Users</MDBBtn>
 
@@ -294,8 +304,12 @@ async function handleSendCustomEmail() {
         )
       }
 
-      <Footer />
-    </div>
+        </MDBCardBody>
+        </MDBCol>
+        </MDBRow>
+    </MDBCard> 
+    <Footer/>
+    </MDBContainer>
   );
 }
 

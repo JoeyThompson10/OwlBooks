@@ -6,9 +6,11 @@ function App() {
 
   
   return (
-    <MDBContainer className="mt-5">
+    <div className='bg-warning shadow-1-strong'>
+    <MDBContainer className="mt-5" >
+      
       <MDBRow center>
-        <MDBCol md="8">
+        <MDBCol md="5">
           <MDBCard>
             <MDBCardBody>
               <MDBTypography variant="h1" className="text-center mb-4">
@@ -37,7 +39,9 @@ function App() {
           </MDBCard>
         </MDBCol>
       </MDBRow>
+  
     </MDBContainer>
+    </div>
   );
 }
 

@@ -77,7 +77,7 @@ const Login = () => {
         const response = await CreateUser(newHashedPassword, email, firstName, lastName, address, dob);
         
         if (response && response.message.includes("Success")) {
-            window.alert("User created. Your New Username has been sent to your email.");
+            window.alert("User created: " + createUsername() + ". Please Login with your new username and password.");
             toggleNewUserForm();
             clearUserInput();
             return;
@@ -149,7 +149,7 @@ const Login = () => {
         }
     
         // Check if password contains at least one special character
-        if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
+        if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password)) {
             return "Password must contain at least one special character.";
         }
     

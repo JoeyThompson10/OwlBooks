@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers, sendEmail, GetAlmostExpiredUsers} from "./MongoDbClient";
-import {MDBBtn, MDBInput, MDBCardTitle} from 'mdb-react-ui-kit';
+import {MDBBtn, MDBInput, MDBCardTitle, MDBContainer, MDBTypography, MDBCard, MDBRow, MDBCol, MDBCardBody} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -224,7 +224,7 @@ async function handleSendCustomEmail() {
                 <MDBBtn type="submit">Create User</MDBBtn>
             </form>
       <MDBBtn onClick={handleGetAllUsers}>Display All Users</MDBBtn>
-      <MDBBtn onClick={handleGetAlmostExpiredUsers}>Display Almost Expired Users</MDBBtn>
+      <MDBBtn onClick={handleGetAlmostExpiredUsers}>Display Expired Users</MDBBtn>
 
 
       {allUsers.length > 0 && (

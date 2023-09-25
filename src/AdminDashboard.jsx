@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers, sendEmail} from "./MongoDbClient";
+import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers, sendEmail, GetAlmostExpiredUsers} from "./MongoDbClient";
 import {MDBBtn, MDBInput, MDBCardTitle} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
@@ -23,6 +23,7 @@ const AdminDashboard = () => {
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
+  const [almostExpiredUsers, setAlmostExpiredUsers] = useState([]);
 
   const [isEmailModalVisible, setEmailModalVisible] = useState(false);
   const [customEmailSubject, setCustomEmailSubject] = useState('');
@@ -34,27 +35,12 @@ const AdminDashboard = () => {
     setAllUsers(usersReport);
   }
 
-  async function getUserInfoFromServer(username) {
-    const response = await getUserInfoFunction(username);
-    // Handle the response here
+  async function handleGetAlmostExpiredUsers() {
+    const usersReport = await GetAlmostExpiredUsers(50);
+    setAlmostExpiredUsers(usersReport);
   }
+  
 
-  async function setUserInfo(username, newPassword) {
-    // Handle setting user info here
-  }
-
-  {/*
-  function clearUserInput() {
-    setUsername('');
-    setPassword('');
-    setNewUsername('');
-    setNewPassword('');
-    setIsAdmin(false);
-    setIsManager(false);
-    setIsActive(true);
-    setBadLogins(0);
-  }
-*/}
   function toggleUserInfoForm() {
     const userInfoForm = document.getElementById('userInfoForm');
     userInfoForm.style.display = "block";
@@ -127,20 +113,6 @@ async function handleSendCustomEmail() {
 
   // Close the modal after sending the email
   setEmailModalVisible(false);
-}
-
-async function sendEmailToUser(email) {
-  const subject = "A Message from OwlBooks - Group 5";
-  const body = "Hello, this is a message from OwlBooks. (You can customize this message as needed.)";
-
-  const response = await sendEmail(email, subject, body);
-  // Handle the response as needed, for simplicity we'll just log it.
-  console.log(response);
-  if(response.success) {
-    window.alert('Email sent successfully.');
-  } else {
-    window.alert('Failed to send email.');
-  }
 }
 
   return (
@@ -242,6 +214,8 @@ async function sendEmailToUser(email) {
         <MDBBtn type="submit">Create User</MDBBtn>
       </form>
       <MDBBtn onClick={handleGetAllUsers}>Display All Users</MDBBtn>
+      <MDBBtn onClick={handleGetAlmostExpiredUsers}>Display Almost Expired Users</MDBBtn>
+
 
       {allUsers.length > 0 && (
         <table className="table">
@@ -271,6 +245,37 @@ async function sendEmailToUser(email) {
           </tbody>
         </table>
       )}
+
+      {almostExpiredUsers.length > 0 ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Manager</th>
+              <th>Active</th>
+              <th>Password Timeout</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {almostExpiredUsers.map(user => (
+              <tr key={user._id}>
+                <td>{user._id}</td>
+                <td>{user.email}</td>
+                <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                <td>{user.isManager ? 'Yes' : 'No'}</td>
+                <td>{user.isActive ? 'Yes' : 'No'}</td>
+                <td>{user.passwordTimeout}</td>
+                <td><MDBBtn size="sm" onClick={() => openEmailModal(user.email)}>Send Email</MDBBtn></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+          <p>No users have passwords that are about to expire.</p>
+        )}
 
       {/* Email Customization Modal */}
       {

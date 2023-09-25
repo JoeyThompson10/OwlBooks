@@ -154,6 +154,7 @@ const AdminDashboard = () => {
 
     // Close the modal after suspension
     setSuspendModalVisible(false);
+    navigate(0);
   }
 
   return (
@@ -353,6 +354,8 @@ const AdminDashboard = () => {
                       <th>Manager</th>
                       <th>Active</th>
                       <th>Incorrect Logins</th>
+                      <th>Days Suspended</th>
+                      <th>Password Age (days)</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -365,6 +368,8 @@ const AdminDashboard = () => {
                         <td>{user.isManager ? "Yes" : "No"}</td>
                         <td>{user.isActive ? "Yes" : "No"}</td>
                         <td>{user.badLogins}</td>
+                        <td>{user.daysSuspended}</td>
+                        <td>{user.passwordTimeout}</td>
                         <td>
                           <td>
                             <MDBBtn

@@ -35,9 +35,9 @@ async function isCurrentUser(username){
     return await user.functions.isCurrentUser(username);
 }
 
-async function sendPasswordEmail(email){
+async function sendEmail(emailAddress, subject, body){
     const user = await app().logIn(credentials());
-    return await user.functions.SendPasswordEmail(email);
+    return await user.functions.SendEmail(emailAddress, subject, body);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendPasswordEmail };
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail };

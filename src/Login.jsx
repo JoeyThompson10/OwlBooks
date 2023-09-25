@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction, isCurrentUser, sendPasswordEmail } from "./MongoDbClient";
+import { CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
 
@@ -105,7 +105,20 @@ const Login = () => {
     }
   
     async function handleForgotPasswordSubmit() {
-        await sendPasswordEmail(forgotPasswordEmail);
+        const subect = "Password Reset";
+        const body = `
+            <html>
+                <body style="font-family: Arial, sans-serif;">
+                    <p>Hello,</p>
+                    <p>You have requested to reset your password. Please click the link below to proceed:</p>
+                    <p><a href="https://owlbooks-swe4713.netlify.app/ResetPassword" target="_blank" style="color: #3498db; text-decoration: none;">Reset Your Password</a></p>
+                    <p>If you did not request this, you can safely ignore this email.</p>
+                </body>
+            </html>
+        `;
+        
+        const res = sendEmail(forgotPasswordEmail, subect, body);
+        console.log(JSON.stringify(res.message));
         setForgotPasswordVisible(false);
         alert("Password reset link sent!");
     }

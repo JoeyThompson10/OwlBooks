@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers} from "./MongoDbClient";
+import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers, sendEmail} from "./MongoDbClient";
 import {MDBBtn, MDBInput, MDBCardTitle} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
@@ -23,6 +23,11 @@ const AdminDashboard = () => {
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
+
+  const [isEmailModalVisible, setEmailModalVisible] = useState(false);
+  const [customEmailSubject, setCustomEmailSubject] = useState('');
+  const [customEmailBody, setCustomEmailBody] = useState('');
+  const [currentEmailRecipient, setCurrentEmailRecipient] = useState('');
 
   async function handleGetAllUsers() {
     const usersReport = await GetAllUsers();
@@ -107,6 +112,36 @@ const AdminDashboard = () => {
     setNewUserDOB('');
 }
 
+function openEmailModal(email) {
+  setCurrentEmailRecipient(email);
+  setEmailModalVisible(true);
+}
+
+async function handleSendCustomEmail() {
+  const response = await sendEmail(currentEmailRecipient, customEmailSubject, customEmailBody);
+  if(response.success) {
+    window.alert('Email sent successfully.');
+  } else {
+    window.alert('Failed to send email.');
+  }
+
+  // Close the modal after sending the email
+  setEmailModalVisible(false);
+}
+
+async function sendEmailToUser(email) {
+  const subject = "A Message from OwlBooks - Group 5";
+  const body = "Hello, this is a message from OwlBooks. (You can customize this message as needed.)";
+
+  const response = await sendEmail(email, subject, body);
+  // Handle the response as needed, for simplicity we'll just log it.
+  console.log(response);
+  if(response.success) {
+    window.alert('Email sent successfully.');
+  } else {
+    window.alert('Failed to send email.');
+  }
+}
 
   return (
     <div>
@@ -213,25 +248,46 @@ const AdminDashboard = () => {
           <thead>
             <tr>
               <th>Username</th>
+              <th>Email</th>
               <th>Admin</th>
               <th>Manager</th>
               <th>Active</th>
               <th>Incorrect Logins</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {allUsers.map(user => (
               <tr key={user._id}>
                 <td>{user._id}</td>
+                <td>{user.email}</td>
                 <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                 <td>{user.isManager ? 'Yes' : 'No'}</td>
                 <td>{user.isActive ? 'Yes' : 'No'}</td>
                 <td>{user.badLogins}</td>
+                <td><MDBBtn size="sm" onClick={() => openEmailModal(user.email)}>Send Email</MDBBtn></td> 
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
+      {/* Email Customization Modal */}
+      {
+        isEmailModalVisible && (
+          <div style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1000}}>
+            <div style={{width: '400px', margin: '100px auto', padding: '20px', background: 'white', borderRadius: '10px'}}>
+              <h3>Customize Email</h3>
+              <label>Subject:</label>
+              <input type="text" value={customEmailSubject} onChange={e => setCustomEmailSubject(e.target.value)} />
+              <label>Body:</label>
+              <textarea value={customEmailBody} onChange={e => setCustomEmailBody(e.target.value)} />
+              <button onClick={handleSendCustomEmail}>Send</button>
+              <button onClick={() => setEmailModalVisible(false)}>Cancel</button>
+            </div>
+          </div>
+        )
+      }
 
       <Footer />
     </div>

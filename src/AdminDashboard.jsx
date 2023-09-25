@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {CreateUser, getUserInfoFunction, setUserInfoFunction, GetAllUsers, sendEmail, GetAlmostExpiredUsers} from "./MongoDbClient";
-<<<<<<< HEAD
-import {MDBBtn, MDBInput, MDBCardTitle} from 'mdb-react-ui-kit';
-=======
 import {MDBBtn, MDBInput, MDBCardTitle, MDBContainer, MDBTypography, MDBCard, MDBRow, MDBCol, MDBCardBody} from 'mdb-react-ui-kit';
->>>>>>> 0f694f733f6e0dddb70bbfc04b021aea17e64604
 import Header from "./Header";
 import Footer from "./Footer";
 

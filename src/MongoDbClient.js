@@ -45,4 +45,9 @@ async function GetAllUsers(){
     return await user.functions.GetAllUsers();
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers };
+async function GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD){
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers };

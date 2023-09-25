@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction, isCurrentUser } from "./MongoDbClient";
+import { CreateUser, LoginFunction, isCurrentUser, sendPasswordEmail } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
 
@@ -17,6 +17,10 @@ const Login = () => {
     const [dob, setDob] = useState('');
 
     const [isSignupVisible, setSignupVisible] = useState(false);
+
+    const [isForgotPasswordVisible, setForgotPasswordVisible] = useState(false);
+    const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
+
 
 
     function toggleNewUserForm() {
@@ -100,9 +104,14 @@ const Login = () => {
         return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
     }
   
-    function forgotPassword() {
-        console.log("Forgot password");
+    async function handleForgotPasswordSubmit() {
+        await sendPasswordEmail(forgotPasswordEmail);
+        setForgotPasswordVisible(false);
         alert("Password reset link sent!");
+    }
+
+    function forgotPassword() {
+        setForgotPasswordVisible(true);
     }
 
     function validatePassword(password) {
@@ -175,6 +184,27 @@ const Login = () => {
 
             </MDBCol>
         </MDBRow>
+
+        {/* Forgot Password Modal */}
+        {isForgotPasswordVisible && (
+                <div className="modal d-block" tabIndex="-1">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Forgot Password</h5>
+                                <button type="button" className="btn-close" onClick={() => setForgotPasswordVisible(false)}></button>
+                            </div>
+                            <div className="modal-body">
+                                <MDBInput label="Enter your email" group type="email" value={forgotPasswordEmail} onChange={e => setForgotPasswordEmail(e.target.value)} />
+                            </div>
+                            <div className="modal-footer">
+                                <MDBBtn color="secondary" onClick={() => setForgotPasswordVisible(false)}>Close</MDBBtn>
+                                <MDBBtn color="primary" onClick={handleForgotPasswordSubmit}>Submit</MDBBtn>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
     </MDBContainer>
     );
 }

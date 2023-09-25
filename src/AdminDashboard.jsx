@@ -72,7 +72,6 @@ const AdminDashboard = () => {
   async function setUserButton(e) {
     e.preventDefault();
     const response = await setUserInfoFunction(
-      username,
       newPassword,
       newIsAdmin,
       newIsManager,
@@ -85,7 +84,6 @@ const AdminDashboard = () => {
   async function handleCreateUser(e) {
     e.preventDefault();
     const response = await CreateUser(
-        newUsername, 
         newPassword, 
         newUserEmail, 
         newUserFirstName, 
@@ -97,7 +95,6 @@ const AdminDashboard = () => {
         window.alert(response.message);
     }
     // Clear form fields after submission for better UX
-    setNewUsername('');
     setNewPassword('');
     setNewUserEmail('');
     setNewUserFirstName('');
@@ -194,13 +191,6 @@ const AdminDashboard = () => {
             type="date"
             value={newUserDOB}
             onChange={e => setNewUserDOB(e.target.value)}
-            required
-        />
-        <MDBInput
-            label="Username"
-            type="text"
-            value={newUsername}
-            onChange={e => setNewUsername(e.target.value)}
             required
         />
         <MDBInput

@@ -12,7 +12,7 @@ function credentials(){
 
 async function CreateUser(password, email, firstName, lastName, address, dob){
     const user = await app().logIn(credentials());
-    return await user.functions.CreateUser(password, email, firstName, lastName, address, dob);
+    return await user.functions.CreateUser(password, email.toLowerCase(), firstName.toLowerCase(), lastName.toLowerCase(), address.toLowerCase(), dob);
 }
 
 async function LoginFunction(email, password){
@@ -35,4 +35,9 @@ async function isCurrentUser(username){
     return await user.functions.isCurrentUser(username);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser };
+async function sendPasswordEmail(email){
+    const user = await app().logIn(credentials());
+    return await user.functions.SendPasswordEmail(email);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendPasswordEmail };

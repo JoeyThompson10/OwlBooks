@@ -55,4 +55,9 @@ async function SuspendUser(username, days) {
     return await user.functions.SuspendUser(username, days);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser };
+async function ChangePassword(username, newPassword){
+    const user = await app().logIn(credentials());
+    return await user.functions.ChangePassword(username, newPassword);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, ChangePassword };

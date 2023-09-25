@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from "./Footer";
-import { ResetPasswordFunction } from "./MongoDbClient";
+import { ChangePassword } from "./MongoDbClient";
 import CryptoJS from 'crypto-js';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 
@@ -11,8 +11,15 @@ const ResetPassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    async function handleResetPasswordSubmit(e) {
+    const handlePasswordReset = async (e) => {
         e.preventDefault();
+        try {
+          const response = await ChangePassword(username, newPassword);
+          setMessage(response.message);
+        } catch (error) {
+          setMessage('Error resetting password.');
+          console.error(error);
+        }
 
         if (password !== confirmPassword) {
             window.alert("Passwords do not match.");
@@ -24,9 +31,6 @@ const ResetPassword = () => {
             return;
         }
 
-        const hashedPassword = hashPassword(password);
-        const response = await ResetPasswordFunction(hashedPassword);
-
         if (response && response.message.includes("Success")) {
             window.alert("Password reset successful. Please login with your new password.");
             navigate("/Login");
@@ -35,10 +39,6 @@ const ResetPassword = () => {
         }
     }
 
-    function hashPassword(password) {
-        return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-    }
-    
     function validatePassword(password) {
         if (password.length < 8) return "Password must be at least 8 characters long.";
         if (!/^[a-zA-Z]/.test(password)) return "Password must start with a letter.";
@@ -56,7 +56,7 @@ const ResetPassword = () => {
             <MDBCol md="6">
                 <MDBCard>
                     <MDBCardBody>
-                        <form onSubmit={handleResetPasswordSubmit}>
+                        <form onSubmit={handlePasswordReset}>
                             <p className="h4 text-center py-4 fs-1">Reset Password</p>
                             <MDBInput label="New Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} required />
                             <MDBInput label="Confirm Password" group type="password" validate value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />

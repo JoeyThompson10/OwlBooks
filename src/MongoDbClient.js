@@ -50,4 +50,27 @@ async function GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD){
     return await user.functions.GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers };
+
+//testing
+async function ResetPasswordFunction(username, newPassword) {
+    try {
+      const saltRounds = 10; // Number of salting rounds for bcrypt
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds); // Hashing the new password
+      
+      const user = await UserModel.findOne({ username }); // Finding the user by username
+      
+      if (!user) {
+        throw new Error('User does not exist'); // If no user is found, throw an error
+      }
+  
+      user.password = hashedPassword; // Updating the user's password
+      await user.save(); // Saving the updated user object
+      
+      return { message: 'Password reset successful.' };
+    } catch (error) {
+      console.error(error);
+      return { message: 'Error resetting password.', error: error.message };
+    }
+  }
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, ResetPasswordFunction };

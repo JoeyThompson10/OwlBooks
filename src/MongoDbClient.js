@@ -10,9 +10,9 @@ function credentials(){
     return RealmWeb.Credentials.apiKey(apiKey);
 }
 
-async function CreateUser(email, password){
+async function CreateUser(password, email, firstName, lastName, address, dob){
     const user = await app().logIn(credentials());
-    return await user.functions.CreateUser(email, password);
+    return await user.functions.CreateUser(password, email.toLowerCase(), firstName.toLowerCase(), lastName.toLowerCase(), address.toLowerCase(), dob);
 }
 
 async function LoginFunction(email, password){
@@ -20,4 +20,24 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-export { CreateUser, LoginFunction };
+async function getUserInfoFunction(email){
+    const user = await app().logIn(credentials());
+    return await user.functions.getUserInfo(email);
+}
+
+async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins){
+    const user = await app().logIn(credentials());
+    return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
+}
+
+async function isCurrentUser(username){
+    const user = await app().logIn(credentials());
+    return await user.functions.isCurrentUser(username);
+}
+
+async function sendEmail(emailAddress, subject, body){
+    const user = await app().logIn(credentials());
+    return await user.functions.SendEmail(emailAddress, subject, body);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail };

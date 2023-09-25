@@ -25,9 +25,9 @@ async function getUserInfoFunction(email){
     return await user.functions.getUserInfo(email);
 }
 
-async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins){
+async function setUserInfoFunction(username, newIsAdmin, newIsManager, newIsActive, newBadLogins){
     const user = await app().logIn(credentials());
-    return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
+    return await user.functions.setUserInfo(username, newIsAdmin, newIsManager, newIsActive, newBadLogins);
 }
 
 async function isCurrentUser(username){

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {CreateUser,LoginFunction,DisplayUsers,getUserInfoFunction,setUserInfoFunction,} from "./MongoDbClient";
-import {MDBBtn,MDBContainer,MDBRow,MDBCol,MDBCard,MDBCardBody,MDBInput,MDBCardText,MDBCardTitle,} from 'mdb-react-ui-kit';
+import {CreateUser,getUserInfoFunction,setUserInfoFunction,} from "./MongoDbClient";
+import {MDBBtn,MDBInput,MDBCardTitle,} from 'mdb-react-ui-kit';
 import Header from "./Header";
 import Footer from "./Footer";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  //const [password, setPassword] = useState('');
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newIsAdmin, setNewIsAdmin] = useState(false);
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
     if (response.message === "User found!") {
       toggleUserInfoForm();
       setNewUsername(response._id || "");
-      setNewPassword(response.password || "");
+      //setNewPassword(response.password || "");
       setNewIsAdmin(response.isAdmin);
       setNewIsManager(response.isManager);
       setNewIsActive(response.isActive);
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
       <form id="userInfoForm" onSubmit={setUserButton} style={{ display: isUserInfoVisible ? "block" : "none" }}>
         <MDBInput label="Username" className="mb-2" group type="text" validate error="wrong" success="right" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
 
-        <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
+        {/* <MDBInput label="Password" className="mb-2" group type="text" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required /> */}
 
         {/*<MDBInput label="Admin Privilege" className="mb-2" group type="text" validate value={newIsAdmin} onChange={e => setIsAdmin(e.target.value === "true")} required/>*/}
         <div className="form-check mb-2"> <input className="form-check-input" type="checkbox" id="adminPrivilege" checked={newIsAdmin} onChange={e => setNewIsAdmin(e.target.checked)} /> <label className="form-check-label" htmlFor="adminPrivilege">Admin Privilege</label></div>

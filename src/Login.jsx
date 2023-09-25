@@ -77,7 +77,7 @@ const Login = () => {
         const response = await CreateUser(newHashedPassword, email, firstName, lastName, address, dob);
         
         if (response && response.message.includes("Success")) {
-            window.alert("User created. Your New Username has been sent to your email.");
+            window.alert("User created. Please login.");
             toggleNewUserForm();
             clearUserInput();
             return;

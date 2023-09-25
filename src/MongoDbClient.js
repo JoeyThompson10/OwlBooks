@@ -10,9 +10,9 @@ function credentials(){
     return RealmWeb.Credentials.apiKey(apiKey);
 }
 
-async function CreateUser(username, password, email, firstName, lastName, address, dob){
+async function CreateUser(password, email, firstName, lastName, address, dob){
     const user = await app().logIn(credentials());
-    return await user.functions.CreateUser(username, password, email, firstName, lastName, address, dob);
+    return await user.functions.CreateUser(password, email, firstName, lastName, address, dob);
 }
 
 async function LoginFunction(email, password){

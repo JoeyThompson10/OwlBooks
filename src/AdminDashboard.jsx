@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {CreateUser,LoginFunction,DisplayUsers,getUserInfoFunction,setUserInfoFunction,} from "./MongoDbClient";
 import {MDBBtn,MDBContainer,MDBRow,MDBCol,MDBCard,MDBCardBody,MDBInput,MDBCardText,MDBCardTitle,} from 'mdb-react-ui-kit';
+import Header from "./Header";
+import Footer from "./Footer";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -13,6 +15,13 @@ const AdminDashboard = () => {
   const [newIsManager, setNewIsManager] = useState();
   const [newIsActive, setNewIsActive] = useState();
   const [newBadLogins, setNewBadLogins] = useState();
+
+  const [newUserEmail, setNewUserEmail] = useState('');
+  const [newUserFirstName, setNewUserFirstName] = useState('');
+  const [newUserLastName, setNewUserLastName] = useState('');
+  const [newUserAddress, setNewUserAddress] = useState('');
+  const [newUserDOB, setNewUserDOB] = useState('');
+
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
@@ -60,8 +69,6 @@ const AdminDashboard = () => {
     window.alert(response.message);
   }
 
-
-
   async function setUserButton(e) {
     e.preventDefault();
     const response = await setUserInfoFunction(
@@ -75,8 +82,34 @@ const AdminDashboard = () => {
     window.alert(response.message);
   }
 
+  async function handleCreateUser(e) {
+    e.preventDefault();
+    const response = await CreateUser(
+        newUsername, 
+        newPassword, 
+        newUserEmail, 
+        newUserFirstName, 
+        newUserLastName, 
+        newUserAddress, 
+        newUserDOB
+    );
+    if (response.message) {
+        window.alert(response.message);
+    }
+    // Clear form fields after submission for better UX
+    setNewUsername('');
+    setNewPassword('');
+    setNewUserEmail('');
+    setNewUserFirstName('');
+    setNewUserLastName('');
+    setNewUserAddress('');
+    setNewUserDOB('');
+}
+
+
   return (
     <div>
+      <Header />
       <button type="button" onClick={() => navigate("/")}>Home Page</button>
 
       <h1>Admin Dashboard</h1>
@@ -125,6 +158,61 @@ const AdminDashboard = () => {
           Save Changes
         </MDBBtn>
       </form>
+
+      <form onSubmit={handleCreateUser}>
+        <h2>Create New User</h2>
+        <MDBInput
+            label="Email"
+            type="email"
+            value={newUserEmail}
+            onChange={e => setNewUserEmail(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="First Name"
+            type="text"
+            value={newUserFirstName}
+            onChange={e => setNewUserFirstName(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="Last Name"
+            type="text"
+            value={newUserLastName}
+            onChange={e => setNewUserLastName(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="Address"
+            type="text"
+            value={newUserAddress}
+            onChange={e => setNewUserAddress(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="Date of Birth"
+            type="date"
+            value={newUserDOB}
+            onChange={e => setNewUserDOB(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="Username"
+            type="text"
+            value={newUsername}
+            onChange={e => setNewUsername(e.target.value)}
+            required
+        />
+        <MDBInput
+            label="Password"
+            type="password"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            required
+        />
+        <MDBBtn type="submit">Create User</MDBBtn>
+      </form>
+      <Footer />
     </div>
   );
 }

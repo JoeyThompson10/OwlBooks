@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
+import Footer from "./Footer";
 import { CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
@@ -76,7 +77,7 @@ const Login = () => {
         const response = await CreateUser(newHashedPassword, email, firstName, lastName, address, dob);
         
         if (response && response.message.includes("Success")) {
-            window.alert("User created. Please login.");
+            window.alert("User created. Your New Username has been sent to your email.");
             toggleNewUserForm();
             clearUserInput();
             return;
@@ -157,52 +158,50 @@ const Login = () => {
         return null; // Password is valid
     };
     
-
     return (
         <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
-            <div>
-                <Header/>
-            </div>
-
+            <Header/>
             <MDBRow center className="p-3">
                 <MDBCol md="6">
-                    <MDBCard>
-                        <MDBCardBody>
-                            <form onSubmit={loginButton}>
-                                <p className="h4 text-center py-4 fs-1">Get Started</p>
-                                <MDBInput className="mb-4" label="Username" group type="text" validate error="wrong" success="right" value={username} onChange={e => setUsername(e.target.value)} />
-                                <MDBInput label="Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} />
-                                <div className="text-center py-4 mt-3 ">
-                                    <MDBBtn rounded color="primary" className="mb-4" type="submit">Login</MDBBtn>
-                                </div>
-                            </form>
 
-                            <MDBBtn outline color="secondary" onClick={() => { forgotPassword() }}>Forgot Password</MDBBtn>
-                        </MDBCardBody>
-                    </MDBCard>
+                <MDBCard>
+                    <MDBCardBody>
+                        <form onSubmit={loginButton}>
+                            <p className="h4 text-center py-4 fs-1">Get Started</p>
+                            <MDBInput className="mb-4" label="Username" group type="text" validate error="wrong" success="right" value={username} onChange={e => setUsername(e.target.value)} />
+                            <MDBInput label="Password" group type="password" validate value={password} onChange={e => setPassword(e.target.value)} />
+                            <div className="text-center py-4 mt-3 ">
+                                <MDBBtn rounded color="primary" className="mb-4" type="submit">Login</MDBBtn>
+                            </div>
+                        </form>
+                        <MDBBtn outline color="secondary" onClick={() => { forgotPassword() }}>Forgot Password</MDBBtn>
+                    </MDBCardBody>
+                </MDBCard>
 
                 <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-3">
                     <MDBCardBody className='text-primary'>
                     <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
-                        <MDBCardText>
+                    <MDBCardText>
                         <form id="newUserForm" onSubmit={createNewUser} style={{ display: isSignupVisible ? "block" : "none" }}>
                             <MDBInput label="Email" className="mb-2" group type="email" validate error="wrong" success="right" value={email} onChange={e => setEmail(e.target.value)} required />
-                            <MDBInput label="Password" className="mb-2" group type="password" validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
+                            <MDBInput label="Password" className="mb-2" group type="password" 
+                                      title="Password must be at least 8 characters long, start with a letter, contain at least one letter, have at least one number, and contain at least one special character." 
+                                      validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
                             <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} required />
                             <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} required />
                             <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} required />
                             <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} required />
                             <MDBBtn outline color="success" type="submit" >Create User</MDBBtn>
                         </form>
-                        </MDBCardText>
+                    </MDBCardText>
                     </MDBCardBody>
                 </MDBCard>
 
-            </MDBCol>
-        </MDBRow>
+                </MDBCol>
+            </MDBRow>
 
-        {/* Forgot Password Modal */}
-        {isForgotPasswordVisible && (
+            {/* Forgot Password Modal */}
+            {isForgotPasswordVisible && (
                 <div className="modal d-block" tabIndex="-1">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -221,7 +220,8 @@ const Login = () => {
                     </div>
                 </div>
             )}
-    </MDBContainer>
+            <div><Footer/></div>
+        </MDBContainer>   
     );
 }
 

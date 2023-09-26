@@ -158,10 +158,10 @@ const AdminDashboard = () => {
   }
 
   return (
-    <MDBContainer fluid className="p-0 bg-light text-dark">
+    <MDBContainer fluid className="p-0 bg-warning text-dark">
       <Header />
       <h1>
-        <MDBTypography tag="div" className="display-1 mb-3 mx-4 text-warning">
+        <MDBTypography tag="div" className="display-1 mb-3 mx-4 text-light">
           Admin Dashboard
         </MDBTypography>
       </h1>
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
         admin-specific tasks and abilities from here.
       </MDBTypography>
 
-      <MDBCard className="mb-3 pt-4">
+      <MDBCard className="mb-4 pt-4">
         <MDBRow right className="p-3">
           <MDBCol md="4">
             <form className="mx-4" onSubmit={getUserButton}>
@@ -282,7 +282,7 @@ const AdminDashboard = () => {
         </MDBRow>
       </MDBCard>
 
-      <MDBCard>
+      <MDBCard className="mb-4">
         <MDBRow right className="p-4">
           <MDBCol md="8">
             <MDBCardBody className="text-primary">
@@ -339,11 +339,23 @@ const AdminDashboard = () => {
                 />
                 <MDBBtn type="submit">Create User</MDBBtn>
               </form>
-              <MDBBtn onClick={handleGetAllUsers}>Display All Users</MDBBtn>
-              <MDBBtn onClick={handleGetAlmostExpiredUsers}>
-                Display Expired Users
-              </MDBBtn>
+              </MDBCardBody>
+              </MDBCol>
+              </MDBRow>
+            </MDBCard>
 
+        <MDBCard className="mb-3 pt-4">
+          <MDBRow around className="mb-3 mt-4">
+            <MDBCol size='2'>
+              <MDBBtn className="p-3 bg-Primary text-light" onClick={handleGetAllUsers}>Display All Users</MDBBtn>
+            </MDBCol>
+            <MDBCol size='2'>
+              <MDBBtn className="px-2 p-3 bg-Primary text-light" onClick={handleGetAlmostExpiredUsers}>Display Expired Users</MDBBtn>
+            </MDBCol>
+          </MDBRow>
+           
+          <MDBRow className="mb-3 pt-4 mx-2">
+            <MDBCol>
               {allUsers.length > 0 && (
                 <table className="table">
                   <thead>
@@ -372,13 +384,13 @@ const AdminDashboard = () => {
                         <td>{user.passwordTimeout}</td>
                         <td>
                           <td>
-                            <MDBBtn
+                            <MDBBtn className="p-2 mx-3"
                               size="sm"
                               onClick={() => openEmailModal(user.email)}
                             >
                               Send Email
                             </MDBBtn>
-                            <MDBBtn
+                            <MDBBtn className="p-2"
                               size="sm"
                               onClick={() => openSuspendModal(user._id)}
                             >
@@ -506,9 +518,8 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               )}
-            </MDBCardBody>
-          </MDBCol>
-        </MDBRow>
+               </MDBCol>
+          </MDBRow>
       </MDBCard>
       <Footer />
     </MDBContainer>

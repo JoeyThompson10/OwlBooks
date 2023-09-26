@@ -20,9 +20,9 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-async function getUserInfoFunction(email){
+async function getUserInfoFunction(username){
     const user = await app().logIn(credentials());
-    return await user.functions.getUserInfo(email);
+    return await user.functions.getUserInfo(username);
 }
 
 async function setUserInfoFunction(username, newIsAdmin, newIsManager, newIsActive, newBadLogins){
@@ -55,4 +55,14 @@ async function SuspendUser(username, days) {
     return await user.functions.SuspendUser(username, days);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser };
+async function GetUserAuth(username) {
+    const user = await app().logIn(credentials());
+    return await user.functions.GetUserAuth(username);
+}
+
+async function ChangePassword(username, newPassword) {
+    const user = await app().logIn(credentials());
+    return await user.functions.ChangePassword(username, newPassword);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword };

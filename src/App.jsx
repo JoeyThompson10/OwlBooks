@@ -1,12 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBTypography, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import Header from './Header';
+import Footer from "./Footer";
 
 function App() {
   const navigate = useNavigate();
 
   
   return (
+
     <div className='bg-warning shadow-1-strong'>
+    <Header />
     <MDBContainer className="mt-5" >
       
       <MDBRow center>
@@ -41,6 +45,8 @@ function App() {
       </MDBRow>
   
     </MDBContainer>
+
+    <Footer />
     </div>
   );
 }

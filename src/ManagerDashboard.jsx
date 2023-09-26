@@ -1,10 +1,13 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
+import Footer from "./Footer";
 
 const ManagerDashboard = () => {
     const navigate = useNavigate();
     return (
         <div>
+            <Header />
             <button type="button" onClick={()=>{navigate("/")}}>Home Page</button>
             
             <h1>
@@ -14,6 +17,7 @@ const ManagerDashboard = () => {
             <p>
                 This is the manager dashboard page. Managers can complete manager specific tasks and abilities from here.
             </p>
+            <Footer />
         </div>
     );
 }

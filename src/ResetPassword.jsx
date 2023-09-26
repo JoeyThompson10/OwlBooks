@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ChangePassword, GetUserAuth } from "./MongoDbClient";
 import CryptoJS from 'crypto-js';
+import Header from './Header';
+
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +41,7 @@ const ResetPassword = () => {
 
   return (
     <div>
+        <Header />
       <h1>Reset Password</h1>
       <p>This is the password reset page.</p>
 

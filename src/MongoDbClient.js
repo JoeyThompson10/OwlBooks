@@ -10,9 +10,9 @@ function credentials(){
     return RealmWeb.Credentials.apiKey(apiKey);
 }
 
-async function CreateUser(email, password){
+async function CreateUser(password, email, firstName, lastName, address, dob){
     const user = await app().logIn(credentials());
-    return await user.functions.CreateUser(email, password);
+    return await user.functions.CreateUser(password, email.toLowerCase(), firstName.toLowerCase(), lastName.toLowerCase(), address.toLowerCase(), dob);
 }
 
 async function LoginFunction(email, password){
@@ -20,14 +20,49 @@ async function LoginFunction(email, password){
     return await user.functions.LogIn(email, password);
 }
 
-async function getUserInfoFunction(email){
+async function getUserInfoFunction(username){
     const user = await app().logIn(credentials());
-    return await user.functions.getUserInfo(email);
+    return await user.functions.getUserInfo(username);
 }
 
-async function setUserInfoFunction(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins){
+async function setUserInfoFunction(username, newIsAdmin, newIsManager, newIsActive, newBadLogins){
     const user = await app().logIn(credentials());
-    return await user.functions.setUserInfo(username, newPassword, newIsAdmin, newIsManager, newIsActive, newBadLogins);
+    return await user.functions.setUserInfo(username, newIsAdmin, newIsManager, newIsActive, newBadLogins);
 }
 
-export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction};
+async function isCurrentUser(username){
+    const user = await app().logIn(credentials());
+    return await user.functions.isCurrentUser(username);
+}
+
+async function sendEmail(emailAddress, subject, body){
+    const user = await app().logIn(credentials());
+    return await user.functions.SendEmail(emailAddress, subject, body);
+}
+
+async function GetAllUsers(){
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAllUsers();
+}
+
+async function GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD){
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAlmostExpiredUsers(PASSWORD_TIMEOUT_THRESHOLD);
+}
+
+async function SuspendUser(username, days) {
+    const user = await app().logIn(credentials());
+    return await user.functions.SuspendUser(username, days);
+}
+
+async function GetUserAuth(username) {
+    const user = await app().logIn(credentials());
+    return await user.functions.GetUserAuth(username);
+}
+
+async function ChangePassword(username, newPassword) {
+    const user = await app().logIn(credentials());
+    return await user.functions.ChangePassword(username, newPassword);
+}
+
+export { CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword };

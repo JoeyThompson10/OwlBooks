@@ -1,14 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBTypography, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import Header from './Header';
+import Footer from "./Footer";
 
 function App() {
   const navigate = useNavigate();
 
   
   return (
-    <MDBContainer className="mt-5">
+
+    <div className='bg-warning shadow-1-strong'>
+    <Header />
+    <MDBContainer className="mt-5" >
+      
       <MDBRow center>
-        <MDBCol md="8">
+        <MDBCol md="5">
           <MDBCard>
             <MDBCardBody>
               <MDBTypography variant="h1" className="text-center mb-4">
@@ -37,7 +43,11 @@ function App() {
           </MDBCard>
         </MDBCol>
       </MDBRow>
+  
     </MDBContainer>
+
+    <Footer />
+    </div>
   );
 }
 

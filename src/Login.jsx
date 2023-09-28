@@ -42,6 +42,16 @@ const Login = () => {
         setAddress('');
         setDob('');
     }
+
+    function navigateToDashboard() {
+        if (localStorage.getItem("privilages") === "admin") {
+          navigate("/AdminDashboard");
+        } else if (localStorage.getItem("privilages") === "manager") {
+          navigate("/ManagerDashboard");
+        } else if(localStorage.getItem("privilages") === "baseUser") {
+          navigate("/UserDashboard");
+        }
+      }
   
     async function loginButton(e) {
         e.preventDefault();
@@ -49,14 +59,10 @@ const Login = () => {
         var hashedPassword = hashPassword(password);
         var response = await LoginFunction(username, hashedPassword);
 
-        if (response.message === "Login successful.") {
-            navigate("/Dashboard");
-        }
-        if (response.message === "Login successful. Admin detected.") {
-            navigate("/AdminDashboard");
-        }
-        if (response.message === "Login successful. Manager detected.") {
-            navigate("/ManagerDashboard");
+        if(response.message.includes("Login successful.")) {
+            localStorage.setItem("username", username);
+            localStorage.setItem("privilages", response.privilages);
+            navigateToDashboard();
         }
         
         window.alert(response.message);

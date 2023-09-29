@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CreateUser,
@@ -59,7 +59,13 @@ const AdminDashboard = () => {
 
   const [showChartOfAccounts, setShowChartOfAccounts] = useState(false);
 
-  
+  useEffect(() => {
+    handleGetAllUsers();
+  }, []);
+
+  useEffect(() => {
+    handleGetAlmostExpiredUsers();
+  }, []);
 
   async function handleGetAllUsers() {
     const usersReport = await GetAllUsers();
@@ -182,7 +188,9 @@ const AdminDashboard = () => {
         <TabList>
           <Tab>Edit User</Tab>
           <Tab>Create User</Tab>
-          <Tab>User List</Tab>
+          <Tab>All Users</Tab>
+          <Tab>Expired Passwords</Tab>
+          <Tab>Chart of Accounts</Tab>
         </TabList>
 
         <TabPanel>
@@ -355,16 +363,8 @@ const AdminDashboard = () => {
         </TabPanel>
 
         <TabPanel>
+          {/* All Users Tab */}
           <MDBCard className="mb-3 pt-4">
-            <MDBRow around className="mb-3 mt-4">
-              <MDBCol size='2'>
-                <MDBBtn className="p-3 bg-Primary text-light" onClick={handleGetAllUsers}>Display All Users</MDBBtn>
-              </MDBCol>
-              <MDBCol size='2'>
-                <MDBBtn className="px-2 p-3 bg-Primary text-light" onClick={handleGetAlmostExpiredUsers}>Display Expired Users</MDBBtn>
-              </MDBCol>
-            </MDBRow>
-
             <MDBRow className="mb-3 pt-4 mx-2">
               <MDBCol>
                 {allUsers.length > 0 && (
@@ -412,135 +412,57 @@ const AdminDashboard = () => {
                     </tbody>
                   </table>
                 )}
-
-                {almostExpiredUsers.length > 0 ? (
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Admin</th>
-                        <th>Manager</th>
-                        <th>Active</th>
-                        <th>Password Timeout</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {almostExpiredUsers.map((user) => (
-                        <tr key={user._id}>
-                          <td>{user._id}</td>
-                          <td>{user.email}</td>
-                          <td>{user.isAdmin ? "Yes" : "No"}</td>
-                          <td>{user.isManager ? "Yes" : "No"}</td>
-                          <td>{user.isActive ? "Yes" : "No"}</td>
-                          <td>{user.passwordTimeout}</td>
-                          <td>
-                            <MDBBtn
-                              size="sm"
-                              onClick={() => openEmailModal(user.email)}
-                            >
-                              Send Email
-                            </MDBBtn>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
-                  <p>No users have expired passwords.</p>
-                )}
-
-                {/* Email Customization Modal */}
-                {isEmailModalVisible && (
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "rgba(0,0,0,0.5)",
-                      zIndex: 1000,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "400px",
-                        margin: "100px auto",
-                        padding: "20px",
-                        background: "white",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <h3>Customize Email</h3>
-                      <label>Subject:</label>
-                      <input
-                        type="text"
-                        value={customEmailSubject}
-                        onChange={(e) => setCustomEmailSubject(e.target.value)}
-                      />
-                      <label>Body:</label>
-                      <textarea
-                        value={customEmailBody}
-                        onChange={(e) => setCustomEmailBody(e.target.value)}
-                      />
-                      <button onClick={handleSendCustomEmail}>Send</button>
-                      <button onClick={() => setEmailModalVisible(false)}>
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                )}
-                {isSuspendModalVisible && (
-                  <div
-                    style={{
-                      position: "fixed",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "rgba(0,0,0,0.5)",
-                      zIndex: 1000,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "400px",
-                        margin: "100px auto",
-                        padding: "20px",
-                        background: "white",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <h3>Suspend User: {currentSuspendUsername}</h3>
-                      <label>Number of days:</label>
-                      <input
-                        type="number"
-                        value={suspensionDays}
-                        onChange={(e) => setSuspensionDays(e.target.value)}
-                      />
-                      <button onClick={handleSuspendUser}>Suspend</button>
-                      <button onClick={() => setSuspendModalVisible(false)}>
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                )}
               </MDBCol>
             </MDBRow>
           </MDBCard>
         </TabPanel>
+
+        <TabPanel>
+          {/* Expired Passwords Tab */}
+          {almostExpiredUsers.length > 0 ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Admin</th>
+                  <th>Manager</th>
+                  <th>Active</th>
+                  <th>Password Timeout</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {almostExpiredUsers.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user._id}</td>
+                    <td>{user.email}</td>
+                    <td>{user.isAdmin ? "Yes" : "No"}</td>
+                    <td>{user.isManager ? "Yes" : "No"}</td>
+                    <td>{user.isActive ? "Yes" : "No"}</td>
+                    <td>{user.passwordTimeout}</td>
+                    <td>
+                      <MDBBtn
+                        size="sm"
+                        onClick={() => openEmailModal(user.email)}
+                      >
+                        Send Email
+                      </MDBBtn>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No users have expired passwords.</p>
+          )}
+        </TabPanel>
+
+        <TabPanel>
+          {/* Chart of Accounts Tab */}
+          <ChartOfAccounts />
+        </TabPanel>
       </Tabs>
-
-      <MDBBtn
-        onClick={() => setShowChartOfAccounts(!showChartOfAccounts)}
-        className="mt-4"
-      >
-        Toggle Chart of Accounts
-      </MDBBtn>
-
-      {showChartOfAccounts && <div className="mt-4"><ChartOfAccounts /></div>}
 
       <Footer />
     </MDBContainer>

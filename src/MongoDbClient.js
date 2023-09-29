@@ -70,4 +70,9 @@ async function CreateAccount(accName, accNumber, accDescription, accNormalSide, 
     return await user.functions.CreateAccount(accName, accNumber, accDescription, accNormalSide, accCategory, accSubcategory, accInitalBalance, accDebit, accCredit, accBalance, accTimeCreated, accUserID, accOrder, accStatement, accComment);
 }
 
-export { CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword };
+async function getAccountInfo(accountID){
+    const user = await app().logIn(credentials());
+    return await user.functions.getAccountInfo(accountID);
+}
+
+export { CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo };

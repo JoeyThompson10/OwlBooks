@@ -57,7 +57,7 @@ const AdminDashboard = () => {
   const [currentSuspendUsername, setCurrentSuspendUsername] = useState("");
   const [suspensionDays, setSuspensionDays] = useState("");
 
-  const [showChartOfAccounts, setShowChartOfAccounts] = useState(false);
+  // const [showChartOfAccounts, setShowChartOfAccounts] = useState(false);
 
   useEffect(() => {
     handleGetAllUsers();
@@ -132,11 +132,6 @@ const AdminDashboard = () => {
     setNewUserLastName("");
     setNewUserAddress("");
     setNewUserDOB("");
-  }
-
-  function openEmailModal(email) {
-    setCurrentEmailRecipient(email);
-    setEmailModalVisible(true);
   }
 
   function openEmailModal(email) {

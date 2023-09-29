@@ -1,41 +1,40 @@
-import React, { useState } from 'react';
-import { CreateUser, LoginFunction, sendEmail, CreateAccount } from "./MongoDbClient";
-import { MDBContainer, MDBBtn, MDBInput, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
+import Header from './Header';
+import Footer from "./Footer";
+import { CreateAccount, CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
+import CryptoJS from 'crypto-js';
 
 const ChartOfAccounts = () => {
-  const [accounts, setAccounts] = useState([]);
-  const [newAccount, setNewAccount] = useState({
-    accountName: '',
-    accountNumber: '',
-    accountDescription: '',
-    accountNormalSide: '',
-    accountCategory: '',
-    accountSubcategory: '',
-    accountInitialBalance: 0,
-    accountDebit: 0,
-    accountCredit: 0,
-    accountBalance: 0,
-    accountTimeCreated: new Date(),
-    accountUserId: '',
-    accountOrder: '',
-    accountStatement: '',
-    accountComment: ''
-  });
+  const [accountName, setAccountName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [accountDescription, setAccountDescription] = useState('');
+  const [accountNormalSide, setAccountNormalSide] = useState('');
+  const [accountCategory, setAccountCategory] = useState('');
+  const [accountSubcategory, setAccountSubcategory] = useState('');
+  const [accountInitialBalance, setAccountInitialBalance] = useState(0.0);
+  const [accountDebit, setAccountDebit] = useState(0.0);
+  const [accountCredit, setAccountCredit] = useState(0.0);
+  const [accountBalance, setAccountBalance] = useState(0.0);
+  const [accountTimeCreated, setAccountTimeCreated] = useState(Date);
+  const [accountUserId, setAccountUserId] = useState('');
+  const [accountOrder, setAccountOrder] = useState('');
+  const [accountStatement, setAccountStatement] = useState('');
+  const [accountComment, setAccountComment] = useState('');
+  
+  
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewAccount({ ...newAccount, [name]: value });
-  };
+  
 
   async function handleAddAccount (e) {
-    setAccounts([...accounts, newAccount]);
     // TODO: Add logic to save the new account to the database
     e.preventDefault();
 
     {/*const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserID, accountOrder, accountStatement, accountComment);
   */}
 
-    const response = await CreateAccount(newAccount);
+    const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserId, accountOrder, accountStatement, accountComment);
     window.alert(response.message);
   };
 
@@ -43,31 +42,22 @@ const ChartOfAccounts = () => {
     <MDBContainer>
       <MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name" name="name" onChange={handleInputChange} />
-          <MDBInput label="Account Description" name="description" onChange={handleInputChange} />
-          <MDBInput label="Normal Side" name="normalSide" onChange={handleInputChange} />
-          <MDBInput label="Account Category" name="category" onChange={handleInputChange} />
-          <MDBInput label="Account Subcategory" name="subcategory" onChange={handleInputChange} />
-          <MDBInput label="Initial Balance" name="initialBalance" onChange={handleInputChange} />
-          <MDBInput label="Debit" name="debit" onChange={handleInputChange} />
-          <MDBInput label="Credit" name="credit" onChange={handleInputChange} />
-          <MDBInput label="Balance" name="balance" onChange={handleInputChange} />
-          <MDBInput label="Order" name="order" onChange={handleInputChange} />
-          <MDBInput label="Statement" name="statement" onChange={handleInputChange} />
-          <MDBInput label="Comment" name="comment" onChange={handleInputChange} />
+          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} />
+          <MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} />
+          <MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} />
+          <MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} />
+          <MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} />
+          <MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} />
+          <MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} />
+          <MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} />
+          <MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} />
+          <MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} />
+          <MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} />
+          <MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} />
           <MDBBtn onClick={handleAddAccount}>Add Account</MDBBtn>
         </MDBCardBody>
       </MDBCard>
-      {/* Render the list of accounts */}
-      {accounts.map(account => (
-        <MDBCard key={account.number}>
-          <MDBCardBody>
-            {/* Render account details */}
-            {account.name}
-            {/* Add logic for editing and deactivating accounts */}
-          </MDBCardBody>
-        </MDBCard>
-      ))}
+      
     </MDBContainer>
   );
 };

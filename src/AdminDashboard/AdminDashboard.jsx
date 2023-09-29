@@ -8,7 +8,7 @@ import {
   sendEmail,
   GetAlmostExpiredUsers,
   SuspendUser,
-} from "./MongoDbClient";
+} from "../MongoDbClient";
 import {
   MDBBtn,
   MDBInput,
@@ -20,9 +20,9 @@ import {
   MDBCol,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import Header from "./Header";
-import Footer from "./Footer";
-import ChartOfAccounts from './ChartOfAccounts';
+import Header from "../Header";
+import Footer from "../Footer";
+import ChartOfAccounts from '../ChartOfAccounts';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();

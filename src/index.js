@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import Dashboard from './Dashboard';
-import AdminDashboard  from './AdminDashboard';
+import AdminDashboard  from './AdminDashboard/AdminDashboard';
 import ManagerDashboard from './ManagerDashboard';
 import ResetPassword from './ResetPassword';
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from "./Footer";
 import {MDBCard, MDBContainer, MDBTable, MDBTableHead, MDBTableBody} from "mdb-react-ui-kit";
 
 const ManagerDashboard = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     return (
         <MDBContainer fluid className="p-0 bg-light bg-gradient text-dark">

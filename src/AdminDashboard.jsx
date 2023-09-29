@@ -22,6 +22,7 @@ import {
 } from "mdb-react-ui-kit";
 import Header from "./Header";
 import Footer from "./Footer";
+import ChartOfAccounts from './ChartOfAccounts';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -52,6 +53,8 @@ const AdminDashboard = () => {
   const [isSuspendModalVisible, setSuspendModalVisible] = useState(false);
   const [currentSuspendUsername, setCurrentSuspendUsername] = useState("");
   const [suspensionDays, setSuspensionDays] = useState("");
+
+  const [showChartOfAccounts, setShowChartOfAccounts] = useState(false);
 
   async function handleGetAllUsers() {
     const usersReport = await GetAllUsers();
@@ -282,6 +285,17 @@ const AdminDashboard = () => {
         </MDBRow>
       </MDBCard>
 
+{/*Button to Toggle ChartOfAccounts with some margin for spacing */}
+<MDBBtn 
+      onClick={() => setShowChartOfAccounts(!showChartOfAccounts)}
+      className="mt-4" //margin-top for spacing
+    >
+      Toggle Chart of Accounts
+    </MDBBtn>
+
+    {/* Conditionally Render ChartOfAccounts with some margin for spacing */}
+    {showChartOfAccounts && <div className="mt-4"><ChartOfAccounts /></div>}
+
       <MDBCard className="mb-4">
         <MDBRow right className="p-4">
           <MDBCol md="8">
@@ -353,6 +367,7 @@ const AdminDashboard = () => {
               <MDBBtn className="px-2 p-3 bg-Primary text-light" onClick={handleGetAlmostExpiredUsers}>Display Expired Users</MDBBtn>
             </MDBCol>
           </MDBRow>
+
            
           <MDBRow className="mb-3 pt-4 mx-2">
             <MDBCol>

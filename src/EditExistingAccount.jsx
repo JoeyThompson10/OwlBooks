@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from "./Footer";
-import { CreateAccount, CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
+import { CreateAccount, CreateUser, LoginFunction, sendEmail, getAccountInfo } from "./MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
 
@@ -30,20 +30,36 @@ const ChartOfAccounts = () => {
   
 
   async function handleEditAccount (e) {
-    // TODO: Add logic to edit the account's info
-    e.preventDefault();
+    const response = await getAccountInfo(accountName);
 
-    
+    if (response.message === "User found!") {
+      setIsFormVisible(true);
+      
+      setAccountName(response.accName);
+      setAccountNumber(response.accNumber);
+      setAccountDescription(response.accDescription);
+      setAccountNormalSide(response.accNormalSide);
+      setAccountCategory(response.accCategory);
+      setAccountSubcategory(response.accountSubcategory);
+      setAccountInitialBalance(response.accInitialBalance);
+      setAccountDebit(response.accDebit);
+      setAccountCredit(response.accCredit);
+      setAccountBalance(response.accBalance);
+      setAccountTimeCreated(response.accTimeCreated);
+      setAccountOrder(response.accOrder);
+      setAccountStatement(response.accStatement);
+      setAccountComment(response.accComment);
+      setAccountIsActive(response.isActive);
+    }
 
-    window.alert("You clicked a button!");
-    setIsFormVisible(true);
+    window.alert(response.message);
   };
 
   return (
     <MDBContainer>
       <MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} required />
+          <MDBInput label="Account Name or Number" name="name" onChange={e => setAccountName(e.target.value)} required />
           <MDBBtn onClick={handleEditAccount}>Edit Account Info</MDBBtn>
         </MDBCardBody>
       </MDBCard>

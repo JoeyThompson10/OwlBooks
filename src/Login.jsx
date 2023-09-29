@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from "./Footer";
@@ -23,7 +23,9 @@ const Login = () => {
     const [isForgotPasswordVisible, setForgotPasswordVisible] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
-
+    useEffect(() => {
+        navigateToDashboard();
+    }, []);
 
     function toggleNewUserForm() {
         const newUserForm = document.getElementById('newUserForm');

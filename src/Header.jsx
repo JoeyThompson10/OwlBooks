@@ -59,16 +59,17 @@ export default function Header() {
               </MDBBtn>
 
               {username && ( // Conditionally render the username if it exists
-                <span className="text-light me-3">Welcome, {username}</span>
+                <>
+                  <span className="text-light me-3">Welcome, {username}</span>
+                  <MDBBtn className="px-4 text-light" onClick={navigateToDashboard}>
+                    Home
+                  </MDBBtn>
+                  
+                  <MDBBtn className="px-4 text-light" onClick={logOut}>
+                    Log Out
+                  </MDBBtn>
+                </>
               )}
-
-              <MDBBtn className="px-4 text-light" onClick={navigateToDashboard}>
-                Home
-              </MDBBtn>
-
-              <MDBBtn className="px-4 text-light" onClick={logOut}>
-                Log Out
-              </MDBBtn>
             </MDBNavbarBrand>
           </MDBNavbarNav>
         </MDBContainer>

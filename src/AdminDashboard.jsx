@@ -22,7 +22,8 @@ import {
 } from "mdb-react-ui-kit";
 import Header from "./Header";
 import Footer from "./Footer";
-import ChartOfAccounts from './ChartOfAccounts';
+import AddNewAccount from './AddNewAccount';
+import EditExistingAccount from './EditExistingAccount';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -192,7 +193,7 @@ const AdminDashboard = () => {
           <Tab>Expired Passwords</Tab>
           <Tab>Add New Account</Tab>
           <Tab>Edit Existing Account</Tab>
-          <Tab>All Accounts</Tab>
+          <Tab>Chart of Accounts</Tab>
         </TabList>
 
         <TabPanel>
@@ -461,9 +462,15 @@ const AdminDashboard = () => {
         </TabPanel>
 
         <TabPanel>
-          {/* Chart of Accounts Tab */}
-          <ChartOfAccounts />
+          {/* Add New Accounts */}
+          <AddNewAccount />
         </TabPanel>
+
+        <TabPanel>
+          {/* Edit Existing Accounts Tab*/}
+          <EditExistingAccount />
+        </TabPanel>
+
       </Tabs>
 
       {/* Email Customization Modal */}

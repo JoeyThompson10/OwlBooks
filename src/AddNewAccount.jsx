@@ -34,7 +34,8 @@ const ChartOfAccounts = () => {
     {/*const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserID, accountOrder, accountStatement, accountComment);
   */}
 
-    const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserId, accountOrder, accountStatement, accountComment);
+    const storedUsername = localStorage.getItem("username");
+    const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, storedUsername, accountOrder, accountStatement, accountComment);
     window.alert(response.message);
   };
 
@@ -42,18 +43,18 @@ const ChartOfAccounts = () => {
     <MDBContainer>
       <MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} />
-          <MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} />
-          <MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} />
-          <MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} />
-          <MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} />
-          <MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} />
-          <MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} />
-          <MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} />
-          <MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} />
-          <MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} />
-          <MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} />
-          <MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} />
+          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} required />
+          <MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} required />
+          <MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} required />
+          <MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} required />
+          <MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} required />
+          <MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} required />
+          <MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} required />
+          <MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} required />
+          <MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} required />
+          <MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} required />
+          <MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} required />
+          <MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} required />
           <MDBBtn onClick={handleAddAccount}>Add Account</MDBBtn>
         </MDBCardBody>
       </MDBCard>

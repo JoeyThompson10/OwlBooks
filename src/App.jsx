@@ -6,47 +6,47 @@ import Footer from "./Footer";
 function App() {
   const navigate = useNavigate();
 
-  
+
   return (
 
     <div className='bg-warning shadow-1-strong'>
-    <Header />
-    <MDBContainer className="mt-5" >
-      
-      <MDBRow center>
-        <MDBCol md="5">
-          <MDBCard>
-            <MDBCardBody>
-              <MDBTypography variant="h1" className="text-center mb-4">
-                Welcome to the OwlBooks Accounting Web Application
-              </MDBTypography>
-              
-              <MDBTypography variant="h6" className="mb-4">
-                We will develop a comprehensive accounting web application accessible to administrators, managers, and basic users. 
-                This platform empowers users to effortlessly create charts of accounts, input date-stamped transactions with source documents, post transactions to designated 
-                accounts, generate trial balances, perform ratio analyses, and produce income statements, balance sheets, and cash flow statements. 
-                Our web application will be compatible with all major web browsers and can be accessed seamlessly from both desktop and mobile devices.
-              </MDBTypography>
-              
-              <MDBTypography variant="h6" className="mb-4">
-                This project was created for Kennesaw State University's SWE Application Domain class (SWE 4713) 
-                by Denice Jaquez, Owen Murphree, Joey Thompson, and Moreland Walthour.
-              </MDBTypography>
-              
-              <MDBTypography className="text-center">
-              <MDBBtn rounded color="primary" onClick={() => navigate("/login")}>
-               LOGIN
-              </MDBBtn>
-              </MDBTypography>
+      <Header />
+      <MDBContainer className="mt-5" >
 
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-  
-    </MDBContainer>
+        <MDBRow center>
+          <MDBCol md="5">
+            <MDBCard>
+              <MDBCardBody>
+                <MDBTypography variant="h1" className="text-center mb-4">
+                  Welcome to the OwlBooks Accounting Web Application
+                </MDBTypography>
 
-    <Footer />
+                <MDBTypography variant="h6" className="mb-4">
+                  We will develop a comprehensive accounting web application accessible to administrators, managers, and basic users.
+                  This platform empowers users to effortlessly create charts of accounts, input date-stamped transactions with source documents, post transactions to designated
+                  accounts, generate trial balances, perform ratio analyses, and produce income statements, balance sheets, and cash flow statements.
+                  Our web application will be compatible with all major web browsers and can be accessed seamlessly from both desktop and mobile devices.
+                </MDBTypography>
+
+                <MDBTypography variant="h6" className="mb-4">
+                  This project was created for Kennesaw State University's SWE Application Domain class (SWE 4713)
+                  by Denice Jaquez, Owen Murphree, Joey Thompson, and Moreland Walthour.
+                </MDBTypography>
+
+                <MDBTypography className="text-center">
+                  <MDBBtn rounded color="primary" onClick={() => navigate("/login")}>
+                    LOGIN
+                  </MDBBtn>
+                </MDBTypography>
+
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+
+      </MDBContainer>
+
+      <Footer />
     </div>
   );
 }

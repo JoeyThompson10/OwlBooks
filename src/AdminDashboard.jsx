@@ -139,6 +139,11 @@ const AdminDashboard = () => {
     setEmailModalVisible(true);
   }
 
+  function openEmailModal(email) {
+    setCurrentEmailRecipient(email);
+    setEmailModalVisible(true);
+  }
+
   async function handleSendCustomEmail() {
     const response = await sendEmail(
       currentEmailRecipient,
@@ -464,6 +469,83 @@ const AdminDashboard = () => {
         </TabPanel>
       </Tabs>
 
+      {/* Email Customization Modal */}
+      {isEmailModalVisible && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              width: "400px",
+              margin: "100px auto",
+              padding: "20px",
+              background: "white",
+              borderRadius: "10px",
+            }}
+          >
+            <h3>Customize Email</h3>
+            <label>Subject:</label>
+            <input
+              type="text"
+              value={customEmailSubject}
+              onChange={(e) => setCustomEmailSubject(e.target.value)}
+            />
+            <label>Body:</label>
+            <textarea
+              value={customEmailBody}
+              onChange={(e) => setCustomEmailBody(e.target.value)}
+            />
+            <button onClick={handleSendCustomEmail}>Send</button>
+            <button onClick={() => setEmailModalVisible(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isSuspendModalVisible && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              width: "400px",
+              margin: "100px auto",
+              padding: "20px",
+              background: "white",
+              borderRadius: "10px",
+            }}
+          >
+            <h3>Suspend User: {currentSuspendUsername}</h3>
+            <label>Number of days:</label>
+            <input
+              type="number"
+              value={suspensionDays}
+              onChange={(e) => setSuspensionDays(e.target.value)}
+            />
+            <button onClick={handleSuspendUser}>Suspend</button>
+            <button onClick={() => setSuspendModalVisible(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
       <Footer />
     </MDBContainer>
   );

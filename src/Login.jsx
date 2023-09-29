@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from "./Footer";
@@ -23,9 +23,20 @@ const Login = () => {
     const [isForgotPasswordVisible, setForgotPasswordVisible] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
+    const navigateToDashboard = useCallback(() => {
+        if (localStorage.getItem("privilages") === "admin") {
+          navigate("/AdminDashboard");
+        } else if (localStorage.getItem("privilages") === "manager") {
+          navigate("/ManagerDashboard");
+        } else if(localStorage.getItem("privilages") === "baseUser") {
+          navigate("/UserDashboard");
+        }
+    }, [navigate]); // Added dependencies array with 'navigate'
+    
     useEffect(() => {
         navigateToDashboard();
-    }, []);
+    }, [navigateToDashboard]); // This now refers to the memoized version of the function
+    
 
     function toggleNewUserForm() {
         const newUserForm = document.getElementById('newUserForm');
@@ -44,16 +55,6 @@ const Login = () => {
         setAddress('');
         setDob('');
     }
-
-    function navigateToDashboard() {
-        if (localStorage.getItem("privilages") === "admin") {
-          navigate("/AdminDashboard");
-        } else if (localStorage.getItem("privilages") === "manager") {
-          navigate("/ManagerDashboard");
-        } else if(localStorage.getItem("privilages") === "baseUser") {
-          navigate("/UserDashboard");
-        }
-      }
   
     async function loginButton(e) {
         e.preventDefault();

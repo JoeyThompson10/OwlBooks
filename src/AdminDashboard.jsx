@@ -190,7 +190,9 @@ const AdminDashboard = () => {
           <Tab>Create User</Tab>
           <Tab>All Users</Tab>
           <Tab>Expired Passwords</Tab>
-          <Tab>Chart of Accounts</Tab>
+          <Tab>Add New Account</Tab>
+          <Tab>Edit Existing Account</Tab>
+          <Tab>All Accounts</Tab>
         </TabList>
 
         <TabPanel>

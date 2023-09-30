@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
-import AddNewAccount from './pages/AddNewAccount.jsx';
+import AddNewAccount from './pages/AddNewAccount';
 
 //import './css/global.css';
 

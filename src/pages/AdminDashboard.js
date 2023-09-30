@@ -20,8 +20,8 @@ import {
   MDBCol,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import AddNewAccount from './AddNewAccount.jsx';
-import EditExistingAccount from './EditExistingAccounts.jsx';
+import AddNewAccount from './AddNewAccount.js';
+import EditExistingAccount from './EditExistingAccounts.js';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -459,12 +459,10 @@ const AdminDashboard = () => {
         </TabPanel>
 
         <TabPanel>
-          {/* Add New Accounts */}
           <AddNewAccount />
         </TabPanel>
 
         <TabPanel>
-          {/* Edit Existing Accounts Tab*/}
           <EditExistingAccount />
         </TabPanel>
       </Tabs>

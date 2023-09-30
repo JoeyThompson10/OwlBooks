@@ -35,20 +35,20 @@ const ChartOfAccounts = () => {
     if (response.message === "User found!") {
       setIsFormVisible(true);
       
-      setAccountName(response.accName);
-      setAccountNumber(response.accNumber);
-      setAccountDescription(response.accDescription);
-      setAccountNormalSide(response.accNormalSide);
-      setAccountCategory(response.accCategory);
+      setAccountName(response.accountName);
+      setAccountNumber(response.accountNumber);
+      setAccountDescription(response.accountDescription);
+      setAccountNormalSide(response.accountNormalSide);
+      setAccountCategory(response.accountCategory);
       setAccountSubcategory(response.accountSubcategory);
-      setAccountInitialBalance(response.accInitialBalance);
-      setAccountDebit(response.accDebit);
-      setAccountCredit(response.accCredit);
-      setAccountBalance(response.accBalance);
-      setAccountTimeCreated(response.accTimeCreated);
-      setAccountOrder(response.accOrder);
-      setAccountStatement(response.accStatement);
-      setAccountComment(response.accComment);
+      setAccountInitialBalance(response.accountInitialBalance);
+      setAccountDebit(response.accountDebit);
+      setAccountCredit(response.accountCredit);
+      setAccountBalance(response.accountBalance);
+      setAccountTimeCreated(response.accountTimeCreated);
+      setAccountOrder(response.accountOrder);
+      setAccountStatement(response.accountStatement);
+      setAccountComment(response.accountComment);
       setAccountIsActive(response.isActive);
     }
 
@@ -59,7 +59,7 @@ const ChartOfAccounts = () => {
     <MDBContainer>
       <MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name or Number" name="name" onChange={e => setAccountName(e.target.value)} required />
+          <MDBInput label="Account Name or Number" name="searchname" onChange={e => setAccountName(e.target.value)} required />
           <MDBBtn onClick={handleEditAccount}>Edit Account Info</MDBBtn>
         </MDBCardBody>
       </MDBCard>

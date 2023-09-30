@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
+import AddNewAccount from './pages/AddNewAccount.jsx';
 
 //import './css/global.css';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/userdashboard" element={<Dashboard />} />
           <Route path="/managerdashboard" element={<ManagerDashboard />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/addnewaccount" element={<AddNewAccount />} />
         </Routes>
         <Footer />
       </div>

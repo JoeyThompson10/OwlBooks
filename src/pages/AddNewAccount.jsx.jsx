@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CreateAccount } from "../MongoDbClient";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit'; 
 
-const ChartOfAccounts = () => {
+const AddNewAccount = () => {
   const [accountName, setAccountName] = useState('');
   const [accountNumber] = useState('');
   const [accountDescription, setAccountDescription] = useState('');
@@ -55,8 +55,4 @@ const ChartOfAccounts = () => {
   );
 };
 
-export default ChartOfAccounts;
-
-
-
-
+export default AddNewAccount;

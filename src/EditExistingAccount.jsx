@@ -7,7 +7,7 @@ import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, M
 import CryptoJS from 'crypto-js';
 
 const ChartOfAccounts = () => {
-  const [accountName, setAccountName] = useState('');
+  const [accountName, setAccountName] = useState("");
   const [tempAccountID, setTempAccountID] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [accountDescription, setAccountDescription] = useState('');
@@ -32,11 +32,11 @@ const ChartOfAccounts = () => {
 
   async function handleEditAccount (e) {
     setTempAccountID("test1");
-    window.alert("accountName before calling getAccountInfo:", tempAccountID.toString());
+    
     const response = await getAccountInfo(tempAccountID);
-    window.alert("accountName after calling getAccountInfo:", tempAccountID);
+    
 
-    if (response.message === "User found!") {
+    if (response.message === "Account found!") {
       setIsFormVisible(true);
       
       setAccountName(response.accountName);

@@ -26,7 +26,7 @@ export default function Header() {
       navigate("/AdminDashboard");
     } else if (localStorage.getItem("privilages") === "manager") {
       navigate("/ManagerDashboard");
-    } else if(localStorage.getItem("privilages") === "baseUser") {
+    } else if (localStorage.getItem("privilages") === "baseUser") {
       navigate("/UserDashboard");
     }
   }
@@ -57,7 +57,7 @@ export default function Header() {
                   <MDBBtn className="px-4 text-light" onClick={navigateToDashboard}>
                     Home
                   </MDBBtn>
-                  
+
                   <MDBBtn className="px-4 text-light" onClick={logOut}>
                     Log Out
                   </MDBBtn>

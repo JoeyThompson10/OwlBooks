@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { CreateAccount } from "../MongoDbClient";
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit'; 
+import { CreateAccount } from "../../MongoDbClient";
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 
 const AddNewAccount = () => {
   const [accountName, setAccountName] = useState('');
@@ -18,12 +18,9 @@ const AddNewAccount = () => {
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');
-  
-  
 
   
-
-  async function handleAddAccount (e) {
+  async function handleAddAccount(e) {
     // TODO: Add logic to save the new account to the database
     e.preventDefault();
 
@@ -50,7 +47,7 @@ const AddNewAccount = () => {
           <MDBBtn onClick={handleAddAccount}>Add Account</MDBBtn>
         </MDBCardBody>
       </MDBCard>
-      
+
     </MDBContainer>
   );
 };

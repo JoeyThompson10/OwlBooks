@@ -6,9 +6,9 @@ import SplashScreen from './pages/SplashScreen';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
-import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
-import AddNewAccount from './pages/AddNewAccount';
+import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
 
 //import './css/global.css';
 

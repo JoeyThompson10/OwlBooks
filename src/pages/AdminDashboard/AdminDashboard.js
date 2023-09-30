@@ -1,9 +1,6 @@
 import React from "react";
 
-import {
-  MDBContainer,
-  MDBTypography
-} from "mdb-react-ui-kit";
+import {MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 import AddNewAccount from './AddNewAccount.js';
 import EditExistingAccount from './EditExistingAccounts.js';
 import ExpiredPasswords from './ExpiredPasswords.js';
@@ -38,29 +35,12 @@ const AdminDashboard = () => {
           <Tab>All Accounts</Tab>
         </TabList>
 
-        <TabPanel>
-          <EditUser />
-        </TabPanel>
-
-        <TabPanel>
-          <CreateUserPage />
-        </TabPanel>
-
-        <TabPanel>
-          <AllUsers />
-        </TabPanel>
-
-        <TabPanel>
-          <ExpiredPasswords />
-        </TabPanel>
-
-        <TabPanel>
-          <AddNewAccount />
-        </TabPanel>
-
-        <TabPanel>
-          <EditExistingAccount />
-        </TabPanel>
+        <TabPanel> <EditUser/> </TabPanel>
+        <TabPanel> <CreateUserPage/> </TabPanel>
+        <TabPanel> <AllUsers/> </TabPanel>
+        <TabPanel> <ExpiredPasswords/> </TabPanel>
+        <TabPanel> <AddNewAccount /> </TabPanel>
+        <TabPanel> <EditExistingAccount /> </TabPanel>
       </Tabs>
     </MDBContainer>
   );

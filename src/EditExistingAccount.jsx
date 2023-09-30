@@ -31,7 +31,6 @@ const ChartOfAccounts = () => {
   
 
   async function handleEditAccount (e) {
-    setTempAccountID("test1");
     
     const response = await getAccountInfo(tempAccountID);
     
@@ -39,20 +38,20 @@ const ChartOfAccounts = () => {
     if (response.message === "Account found!") {
       setIsFormVisible(true);
       
-      setAccountName(response.accountName);
-      setAccountNumber(response.accountNumber);
-      setAccountDescription(response.accountDescription);
-      setAccountNormalSide(response.accountNormalSide);
-      setAccountCategory(response.accountCategory);
-      setAccountSubcategory(response.accountSubcategory);
-      setAccountInitialBalance(response.accountInitialBalance);
-      setAccountDebit(response.accountDebit);
-      setAccountCredit(response.accountCredit);
-      setAccountBalance(response.accountBalance);
-      setAccountTimeCreated(response.accountTimeCreated);
-      setAccountOrder(response.accountOrder);
-      setAccountStatement(response.accountStatement);
-      setAccountComment(response.accountComment);
+      setAccountName(response.accName);
+      setAccountNumber(response.accNumber);
+      setAccountDescription(response.accDescription);
+      setAccountNormalSide(response.accNormalSide);
+      setAccountCategory(response.accCategory);
+      setAccountSubcategory(response.accSubcategory);
+      setAccountInitialBalance(response.accInitialBalance);
+      setAccountDebit(response.accDebit);
+      setAccountCredit(response.accCredit);
+      setAccountBalance(response.accBalance);
+      setAccountTimeCreated(response.accTimeCreated);
+      setAccountOrder(response.accOrder);
+      setAccountStatement(response.accStatement);
+      setAccountComment(response.accComment);
       setAccountIsActive(response.isActive);
     }
 
@@ -64,26 +63,26 @@ const ChartOfAccounts = () => {
       <MDBCard>
         <MDBCardBody>
           <MDBInput label="Account Name or Number" name="searchname" onChange={e => setTempAccountID(e.target.value)} required />
-          <MDBBtn onClick={handleEditAccount}>Edit Account Info</MDBBtn>
+          <div style = {{marginTop: '1rem'}}><MDBBtn onClick={handleEditAccount}>Edit Account Info</MDBBtn></div>
         </MDBCardBody>
       </MDBCard>
 
 
         {isFormVisible && (
-        <MDBCard>
+        <div style = {{marginTop: '1rem'}}><MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} required />
-          <MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} required />
-          <MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} required />
-          <MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} required />
-          <MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} required />
-          <MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} required />
-          <MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} required />
-          <MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} required />
-          <MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} required />
-          <MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} required />
-          <MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} required />
-          <MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} required />
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Account Name" name="name" value={accountName} onChange={e => setAccountName(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Account Description" name="description" value={accountDescription} onChange={e => setAccountDescription(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Normal Side" name="normalSide" value={accountNormalSide} onChange={e => setAccountNormalSide(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Account Category" name="category" value={accountCategory} onChange={e => setAccountCategory(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Account Subcategory" name="subcategory" value={accountSubcategory} onChange={e => setAccountSubcategory(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Initial Balance" name="initialBalance" value={accountInitialBalance} onChange={e => setAccountInitialBalance(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Debit" name="debit" value={accountDebit} onChange={e => setAccountDebit(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Credit" name="credit" value={accountCredit} onChange={e => setAccountCredit(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Balance" name="balance" value={accountBalance} onChange={e => setAccountBalance(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Order" name="order" value={accountOrder} onChange={e => setAccountOrder(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Statement" name="statement" value={accountStatement} onChange={e => setAccountStatement(e.target.value)} required /></div>
+        <div style = {{marginTop: '1rem'}}><MDBInput label="Comment" name="comment" value={accountComment} onChange={e => setAccountComment(e.target.value)} required /></div>
           <div style = {{ display: 'flex', alignItems: 'center'}}>
           <input className="form-check-input" type="checkbox" id="accountActiveCheckbox" checked={accountIsActive} onChange={(e) => setAccountIsActive(e.target.checked)}/>
           <label className="form-check-label" htmlFor="accountActiveCheckbox"> Account Activated </label>
@@ -93,6 +92,7 @@ const ChartOfAccounts = () => {
           </div>
         </MDBCardBody>
         </MDBCard>
+        </div>
         )}
     </MDBContainer>
   );

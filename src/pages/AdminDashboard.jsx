@@ -8,7 +8,7 @@ import {
   sendEmail,
   GetAlmostExpiredUsers,
   SuspendUser,
-} from "./MongoDbClient";
+} from "../MongoDbClient";
 import {
   MDBBtn,
   MDBInput,
@@ -20,8 +20,6 @@ import {
   MDBCol,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import Header from "./Header";
-import Footer from "./Footer";
 import ChartOfAccounts from './ChartOfAccounts';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -173,7 +171,6 @@ const AdminDashboard = () => {
 
   return (
     <MDBContainer fluid className="p-0 bg-warning text-dark">
-      <Header />
       <h1>
         <MDBTypography tag="div" className="display-1 mb-3 mx-4 text-light">
           Admin Dashboard
@@ -543,7 +540,6 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
-      <Footer />
     </MDBContainer>
   );
 };

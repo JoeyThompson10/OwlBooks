@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Footer from "./Footer";
-import { CreateAccount, CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
-import CryptoJS from 'crypto-js';
+import React, { useState } from "react";
+import { CreateAccount } from "../MongoDbClient";
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit'; 
 
 const ChartOfAccounts = () => {
   const [accountName, setAccountName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
+  const [accountNumber] = useState('');
   const [accountDescription, setAccountDescription] = useState('');
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
@@ -17,8 +13,8 @@ const ChartOfAccounts = () => {
   const [accountDebit, setAccountDebit] = useState(0.0);
   const [accountCredit, setAccountCredit] = useState(0.0);
   const [accountBalance, setAccountBalance] = useState(0.0);
-  const [accountTimeCreated, setAccountTimeCreated] = useState(Date);
-  const [accountUserId, setAccountUserId] = useState('');
+  const [accountTimeCreated] = useState(Date);
+  const [accountUserId] = useState('');
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');
@@ -30,9 +26,6 @@ const ChartOfAccounts = () => {
   async function handleAddAccount (e) {
     // TODO: Add logic to save the new account to the database
     e.preventDefault();
-
-    {/*const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserID, accountOrder, accountStatement, accountComment);
-  */}
 
     const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserId, accountOrder, accountStatement, accountComment);
     window.alert(response.message);

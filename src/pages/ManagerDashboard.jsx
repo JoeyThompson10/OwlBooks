@@ -1,7 +1,5 @@
 import React from "react";
 //import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Footer from "./Footer";
 import {MDBCard, MDBContainer, MDBTable, MDBTableHead, MDBTableBody} from "mdb-react-ui-kit";
 
 const ManagerDashboard = () => {
@@ -9,7 +7,6 @@ const ManagerDashboard = () => {
 
     return (
         <MDBContainer fluid className="p-0 bg-light bg-gradient text-dark">
-        <Header />
         <MDBCard  alignment='right'>
 
             <h1 className="display-1 mx-3">Manager Dashboard</h1>
@@ -54,7 +51,6 @@ const ManagerDashboard = () => {
         </tr>
         </MDBTableBody>
         </MDBTable>
-      <Footer />
     </MDBContainer>
     );
 };

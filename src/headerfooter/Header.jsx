@@ -50,13 +50,6 @@ export default function Header() {
                 height="65"
                 onClick={() => navigate("/")}
               ></img>
-              <MDBBtn
-                className="p-0 fs-5"
-                color="dark bg-gradient"
-                onClick={() => navigate("/")}
-              >
-                OwlBooks
-              </MDBBtn>
 
               {username && ( // Conditionally render the username if it exists
                 <>

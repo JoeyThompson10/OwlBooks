@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Footer from "./Footer";
-import { CreateUser, LoginFunction, sendEmail } from "./MongoDbClient";
+import { CreateUser, LoginFunction, sendEmail } from "../MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
 
@@ -167,7 +165,6 @@ const Login = () => {
     
     return (
         <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
-            <Header/>
             <MDBRow center className="p-3">
                 <MDBCol md="6">
 
@@ -227,7 +224,6 @@ const Login = () => {
                     </div>
                 </div>
             )}
-            <div><Footer/></div>
         </MDBContainer>   
     );
 }

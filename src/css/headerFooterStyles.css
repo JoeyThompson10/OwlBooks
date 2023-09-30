@@ -33,10 +33,10 @@ header {
   /* Footer Styles */
   footer {
     background-color: #34495e;  /* Slightly lighter blue shade */
-    padding: 1rem 2rem;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   }
   

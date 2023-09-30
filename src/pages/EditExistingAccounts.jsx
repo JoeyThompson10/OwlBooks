@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { getAccountInfo } from "../MongoDbClient";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
-import CryptoJS from 'crypto-js';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit'; 
 
 const ChartOfAccounts = () => {
   const [accountName, setAccountName] = useState("");
   const [tempAccountID, setTempAccountID] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
+  const [setAccountNumber] = useState('');
   const [accountDescription, setAccountDescription] = useState('');
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
@@ -15,8 +14,7 @@ const ChartOfAccounts = () => {
   const [accountDebit, setAccountDebit] = useState(0.0);
   const [accountCredit, setAccountCredit] = useState(0.0);
   const [accountBalance, setAccountBalance] = useState(0.0);
-  const [accountTimeCreated, setAccountTimeCreated] = useState(Date);
-  const [accountUserId, setAccountUserId] = useState('');
+  const [setAccountTimeCreated] = useState(Date);
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');

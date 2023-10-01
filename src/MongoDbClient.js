@@ -74,5 +74,9 @@ async function getAccountInfo(accountID){
     const user = await app().logIn(credentials());
     return await user.functions.getAccountInfo(accountID);
 }
+async function setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accOrder, accStatement, accComment, isActive){
+    const user = await app().logIn(credentials());
+    return await user.functions.setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accOrder, accStatement, accComment, isActive);
+}
 
-export { CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo };
+export { setAccountInfo, CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo };

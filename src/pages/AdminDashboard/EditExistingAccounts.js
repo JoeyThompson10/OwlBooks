@@ -74,6 +74,7 @@ const ChartOfAccounts = () => {
         <div style={{ marginTop: '1rem' }}><MDBCard>
           <MDBCardBody>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Account Name" name="name" value={accountName} onChange={e => setAccountName(e.target.value)} required /></div>
+            <div style={{ marginTop: '1rem' }}><MDBInput label="Account Number" name="number" value={accountNumber} readOnly /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Account Description" name="description" value={accountDescription} onChange={e => setAccountDescription(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Normal Side" name="normalSide" value={accountNormalSide} onChange={e => setAccountNormalSide(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Account Category" name="category" value={accountCategory} onChange={e => setAccountCategory(e.target.value)} required /></div>

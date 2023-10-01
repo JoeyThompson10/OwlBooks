@@ -45,10 +45,10 @@ const ChartOfAccounts = () => {
       setAccountNormalSide(response.accNormalSide);
       setAccountCategory(response.accCategory);
       setAccountSubcategory(response.accSubcategory);
-      setAccountInitialBalance(parseFloat(response.accInitialBalance.toString().replace(",.",".")));
-      setAccountDebit(parseFloat(response.accDebit.toString().replace(",.",".")));
-      setAccountCredit(parseFloat(response.accCredit.toString().replace(",.",".")));
-      setAccountBalance(parseFloat(response.accBalance.toString().replace(",.",".")));
+      setAccountInitialBalance(response.accInitialBalance.toString().replace(",.","."));
+      setAccountDebit(response.accDebit.replace(",.","."));
+      setAccountCredit(response.accCredit.replace(",.","."));
+      setAccountBalance(response.accBalance.replace(",.","."));
       setAccountTimeCreated(response.accTimeCreated);
       setAccountOrder(response.accOrder);
       setAccountStatement(response.accStatement);

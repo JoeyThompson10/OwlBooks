@@ -32,19 +32,19 @@ const AddNewAccount = () => {
     <MDBContainer>
       <MDBCard>
         <MDBCardBody>
-          <MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} />
-          <MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} />
-          <MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} />
-          <MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} />
-          <MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} />
-          <MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} />
-          <MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} />
-          <MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} />
-          <MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} />
-          <MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} />
-          <MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} />
-          <MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} />
-          <MDBBtn onClick={handleAddAccount}>Add Account</MDBBtn>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Account Name" name="name" onChange={e => setAccountName(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Account Description" name="description" onChange={e => setAccountDescription(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBBtn onClick={handleAddAccount}>Add Account</MDBBtn></div>
         </MDBCardBody>
       </MDBCard>
 

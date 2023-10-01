@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { getAccountInfo, setAccountInfo } from "../../MongoDbClient";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 
+
+
 const ChartOfAccounts = () => {
   const [accountName, setAccountName] = useState("");
   const [tempAccountID, setTempAccountID] = useState('');
@@ -26,7 +28,6 @@ const ChartOfAccounts = () => {
 
 
   async function handleEditAccount(e) {
-    window.alert("active value before handle edit: " + accountIsActive);
 
 
     const response = await getAccountInfo(tempAccountID);
@@ -51,16 +52,13 @@ const ChartOfAccounts = () => {
       setAccountComment(response.accComment);
       setAccountIsActive(response.isActive);
     }
-    window.alert("active value before handle edit: " + accountIsActive);
     window.alert(response.message);
   };
 
   async function handleSaveChanges(e){
-    window.alert("active value before handle save: " + accountIsActive);
     e.preventDefault();
     const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
 
-    window.alert("active value before handle save: " + accountIsActive);
     window.alert(response.message);
   }
 
@@ -83,7 +81,7 @@ const ChartOfAccounts = () => {
             <div style={{ marginTop: '1rem' }}><MDBInput label="Normal Side" name="normalSide" value={accountNormalSide} onChange={e => setAccountNormalSide(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Account Category" name="category" value={accountCategory} onChange={e => setAccountCategory(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Account Subcategory" name="subcategory" value={accountSubcategory} onChange={e => setAccountSubcategory(e.target.value)} required /></div>
-            <div style={{ marginTop: '1rem' }}><MDBInput label="Initial Balance" name="initialBalance" value={accountInitialBalance} onChange={e => setAccountInitialBalance(e.target.value)} required /></div>
+            <div style={{ marginTop: '1rem' }}><MDBInput label="Initial Balance" name="initialBalance" value={accountInitialBalance.toLocaleString('en-US', {style: 'currency', currency: 'USD' })} onChange={e => setAccountInitialBalance(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Debit" name="debit" value={accountDebit} onChange={e => setAccountDebit(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Credit" name="credit" value={accountCredit} onChange={e => setAccountCredit(e.target.value)} required /></div>
             <div style={{ marginTop: '1rem' }}><MDBInput label="Balance" name="balance" value={accountBalance} onChange={e => setAccountBalance(e.target.value)} required /></div>

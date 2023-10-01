@@ -9,10 +9,10 @@ const AddNewAccount = () => {
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
   const [accountSubcategory, setAccountSubcategory] = useState('');
-  var [accountInitialBalance, setAccountInitialBalance] = useState(0.0);
-  var [accountDebit, setAccountDebit] = useState(0.0);
-  var [accountCredit, setAccountCredit] = useState(0.0);
-  var [accountBalance, setAccountBalance] = useState(0.0);
+  const [accountInitialBalance, setAccountInitialBalance] = useState(0.00);
+  const [accountDebit, setAccountDebit] = useState(0.00);
+  const [accountCredit, setAccountCredit] = useState(0.00);
+  const [accountBalance, setAccountBalance] = useState(0.00);
   const [accountTimeCreated] = useState(Date);
   const [accountUserId] = useState('');
   const [accountOrder, setAccountOrder] = useState('');
@@ -23,12 +23,8 @@ const AddNewAccount = () => {
   
   async function handleAddAccount(e) {
 
-      // Parse input values as doubles
-    accountInitialBalance = parseFloat(accountInitialBalance);
-    accountDebit = parseFloat(accountDebit);
-    accountCredit = parseFloat(accountCredit);
-    accountBalance = parseFloat(accountBalance);
 
+    
     e.preventDefault();
 
     const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserId, accountOrder, accountStatement, accountComment);
@@ -44,10 +40,10 @@ const AddNewAccount = () => {
         <div style={{ marginTop: '1rem' }}><MDBInput label="Normal Side" name="normalSide" onChange={e => setAccountNormalSide(e.target.value)} /></div>
         <div style={{ marginTop: '1rem' }}><MDBInput label="Account Category" name="category" onChange={e => setAccountCategory(e.target.value)} /></div>
         <div style={{ marginTop: '1rem' }}><MDBInput label="Account Subcategory" name="subcategory" onChange={e => setAccountSubcategory(e.target.value)} /></div>
-        <div style={{ marginTop: '1rem' }}><MDBInput label="Initial Balance" name="initialBalance" onChange={e => setAccountInitialBalance(e.target.value)} /></div>
-        <div style={{ marginTop: '1rem' }}><MDBInput label="Debit" name="debit" onChange={e => setAccountDebit(e.target.value)} /></div>
-        <div style={{ marginTop: '1rem' }}><MDBInput label="Credit" name="credit" onChange={e => setAccountCredit(e.target.value)} /></div>
-        <div style={{ marginTop: '1rem' }}><MDBInput label="Balance" name="balance" onChange={e => setAccountBalance(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Initial Balance" name="initialBalance" value={accountInitialBalance} onChange={e => setAccountInitialBalance(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Debit" name="debit" value={accountDebit} onChange={e => setAccountDebit(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Credit" name="credit" value={accountCredit} onChange={e => setAccountCredit(e.target.value)} /></div>
+        <div style={{ marginTop: '1rem' }}><MDBInput label="Balance" name="balance" value={accountBalance} onChange={e => setAccountBalance(e.target.value)} /></div>
         <div style={{ marginTop: '1rem' }}><MDBInput label="Order" name="order" onChange={e => setAccountOrder(e.target.value)} /></div>
         <div style={{ marginTop: '1rem' }}><MDBInput label="Statement" name="statement" onChange={e => setAccountStatement(e.target.value)} /></div>
         <div style={{ marginTop: '1rem' }}><MDBInput label="Comment" name="comment" onChange={e => setAccountComment(e.target.value)} /></div>

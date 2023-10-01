@@ -214,8 +214,8 @@ export default function Header() {
               <MDBDropdownMenu>
                 {/* TDB My profile and logout */}
                 <MDBDropdownItem href="#">My profile</MDBDropdownItem> 
-                <MDBDropdownItem href="#">Logout</MDBDropdownItem>
-                <MDBDropdownItem href="#" onClick={() => navigate("/")}>Home</MDBDropdownItem>
+                <MDBDropdownItem href="#" onClick={logOut}>Logout</MDBDropdownItem>
+                <MDBDropdownItem href="#" onClick={navigateToDashboard}>Home</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
       

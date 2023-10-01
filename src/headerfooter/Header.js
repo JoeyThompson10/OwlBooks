@@ -200,7 +200,7 @@ export default function Header() {
                   </MDBBtn>
                   </>
               )} */}
-<p>Hi, UserName</p>
+<p>Hi, {username}</p>
              {/* For User profile icon */}
             <MDBDropdown className="bg-dark bg-gradient">
               <MDBDropdownToggle className="bg-dark bg-gradient nav-link">

@@ -79,4 +79,4 @@ async function setAccountInfo(accountID, accName, accDescription, accNormalSide,
     return await user.functions.setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accOrder, accStatement, accComment);
 }
 
-export { CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo };
+export { setAccountInfo, CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo };

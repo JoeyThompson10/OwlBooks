@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { getAccountInfo } from "../../MongoDbClient";
+import { getAccountInfo, setAccountInfo } from "../../MongoDbClient";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
 
 const ChartOfAccounts = () => {
   const [accountName, setAccountName] = useState("");
   const [tempAccountID, setTempAccountID] = useState('');
-  const [setAccountNumber] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
   const [accountDescription, setAccountDescription] = useState('');
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
@@ -14,7 +14,7 @@ const ChartOfAccounts = () => {
   const [accountDebit, setAccountDebit] = useState(0.0);
   const [accountCredit, setAccountCredit] = useState(0.0);
   const [accountBalance, setAccountBalance] = useState(0.0);
-  const [setAccountTimeCreated] = useState(Date);
+  const [accountTimeCreated, setAccountTimeCreated] = useState(Date);
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');
@@ -53,6 +53,13 @@ const ChartOfAccounts = () => {
     window.alert(response.message);
   };
 
+  async function handleSaveChanges(e){
+    e.preventDefault();
+    const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
+
+    window.alert(response.message);
+  }
+
   return (
     <MDBContainer>
       <MDBCard>
@@ -83,7 +90,7 @@ const ChartOfAccounts = () => {
               <label className="form-check-label" htmlFor="accountActiveCheckbox"> Account Activated </label>
             </div>
             <div style={{ marginTop: '1rem' }}>
-              <MDBBtn onClick={handleEditAccount}>Save Changes</MDBBtn>
+              <MDBBtn onClick={handleSaveChanges}>Save Changes</MDBBtn>
             </div>
           </MDBCardBody>
         </MDBCard>

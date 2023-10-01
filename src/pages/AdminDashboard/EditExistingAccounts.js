@@ -26,6 +26,8 @@ const ChartOfAccounts = () => {
 
 
   async function handleEditAccount(e) {
+    window.alert("active value before handle edit: " + accountIsActive);
+
 
     const response = await getAccountInfo(tempAccountID);
 
@@ -49,14 +51,16 @@ const ChartOfAccounts = () => {
       setAccountComment(response.accComment);
       setAccountIsActive(response.isActive);
     }
-
+    window.alert("active value before handle edit: " + accountIsActive);
     window.alert(response.message);
   };
 
   async function handleSaveChanges(e){
+    window.alert("active value before handle save: " + accountIsActive);
     e.preventDefault();
     const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
 
+    window.alert("active value before handle save: " + accountIsActive);
     window.alert(response.message);
   }
 

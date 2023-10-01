@@ -124,10 +124,10 @@ export default function Header() {
                 </div>
                 <Divider />
                   <List>
-                    {[{ text: 'Inbox', icon: <InboxIcon /> },
-                      { text: 'Starred', icon: <MailIcon /> },
-                      { text: 'Send email', icon: <MailIcon /> },
-                      { text: 'Drafts', icon: <InboxIcon /> }, ].map((item) => (
+                    {[{ text: 'Dashboard', icon: <InboxIcon /> },
+                      { text: 'Accounts', icon: <MailIcon /> },
+                      { text: 'Journal', icon: <MailIcon /> },
+                      { text: 'Documents', icon: <InboxIcon /> }, ].map((item) => (
                       <ListItem key={item.text} disablePadding>
                         <ListItemButton>
                         <ListItemIcon>
@@ -141,7 +141,7 @@ export default function Header() {
                   <Divider />
                     
                   <List>
-                    {[{ text: 'Users', icon: <InboxIcon /> }, ].map((item) => (
+                    {[{ text: 'Users (AdminOnly)', icon: <InboxIcon /> }, ].map((item) => (
                       <ListItem key={item.text} disablePadding>
                         <ListItemButton>
                         <ListItemIcon>

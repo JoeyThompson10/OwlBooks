@@ -9,19 +9,26 @@ const AddNewAccount = () => {
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
   const [accountSubcategory, setAccountSubcategory] = useState('');
-  const [accountInitialBalance, setAccountInitialBalance] = useState(0.0);
-  const [accountDebit, setAccountDebit] = useState(0.0);
-  const [accountCredit, setAccountCredit] = useState(0.0);
-  const [accountBalance, setAccountBalance] = useState(0.0);
+  var [accountInitialBalance, setAccountInitialBalance] = useState(0.0);
+  var [accountDebit, setAccountDebit] = useState(0.0);
+  var [accountCredit, setAccountCredit] = useState(0.0);
+  var [accountBalance, setAccountBalance] = useState(0.0);
   const [accountTimeCreated] = useState(Date);
   const [accountUserId] = useState('');
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');
 
+
   
   async function handleAddAccount(e) {
-    // TODO: Add logic to save the new account to the database
+
+      // Parse input values as doubles
+    accountInitialBalance = parseFloat(accountInitialBalance);
+    accountDebit = parseFloat(accountDebit);
+    accountCredit = parseFloat(accountCredit);
+    accountBalance = parseFloat(accountBalance);
+
     e.preventDefault();
 
     const response = await CreateAccount(accountName, accountNumber, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountUserId, accountOrder, accountStatement, accountComment);

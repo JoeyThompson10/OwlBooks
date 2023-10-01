@@ -36,22 +36,27 @@ const ChartOfAccounts = () => {
     if (response.message === "Account found!") {
       setIsFormVisible(true);
 
+      
+
+
       setAccountName(response.accName);
       setAccountNumber(response.accNumber);
       setAccountDescription(response.accDescription);
       setAccountNormalSide(response.accNormalSide);
       setAccountCategory(response.accCategory);
       setAccountSubcategory(response.accSubcategory);
-      setAccountInitialBalance(response.accInitialBalance);
-      setAccountDebit(response.accDebit);
-      setAccountCredit(response.accCredit);
-      setAccountBalance(response.accBalance);
+      setAccountInitialBalance(response.accInitialBalance.toString().replace(",.","."));
+      setAccountDebit(response.accDebit.replace(",.","."));
+      setAccountCredit(response.accCredit.replace(",.","."));
+      setAccountBalance(response.accBalance.replace(",.","."));
       setAccountTimeCreated(response.accTimeCreated);
       setAccountOrder(response.accOrder);
       setAccountStatement(response.accStatement);
       setAccountComment(response.accComment);
       setAccountIsActive(response.isActive);
+
     }
+
     window.alert(response.message);
   };
 

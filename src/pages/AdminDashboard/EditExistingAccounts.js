@@ -12,10 +12,10 @@ const ChartOfAccounts = () => {
   const [accountNormalSide, setAccountNormalSide] = useState('');
   const [accountCategory, setAccountCategory] = useState('');
   const [accountSubcategory, setAccountSubcategory] = useState('');
-  const [accountInitialBalance, setAccountInitialBalance] = useState(0.0);
-  const [accountDebit, setAccountDebit] = useState(0.0);
-  const [accountCredit, setAccountCredit] = useState(0.0);
-  const [accountBalance, setAccountBalance] = useState(0.0);
+  const [accountInitialBalance, setAccountInitialBalance] = useState(0.00);
+  const [accountDebit, setAccountDebit] = useState(0.00);
+  const [accountCredit, setAccountCredit] = useState(0.00);
+  const [accountBalance, setAccountBalance] = useState(0.00);
   const [accountTimeCreated, setAccountTimeCreated] = useState(Date);
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');

@@ -64,7 +64,6 @@ const ChartOfAccounts = () => {
 
     e.preventDefault();
 
-    window.alert(accountBalance);
 
     if((accountIsActive===false) && ( (accountBalance!="0")&&(accountBalance!="0.00")&&(accountBalance!="$0")&&(accountBalance!="$0.00") ) ){
       window.alert("Error: Accounts can not be deactivated while balance is greater than 0. The account has been updated, and is set to active.");

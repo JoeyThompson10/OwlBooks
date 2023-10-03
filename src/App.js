@@ -25,6 +25,7 @@ function App() {
           <Route path="/managerdashboard" element={<ManagerDashboard />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/addnewaccount" element={<AddNewAccount />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Footer />
       </div>

@@ -9,6 +9,7 @@ import ManagerDashboard from './pages/ManagerDashboard';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
 import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
+import Profile from './pages/Profile';
 
 //import './css/global.css';
 

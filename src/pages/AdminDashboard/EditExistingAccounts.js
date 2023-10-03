@@ -61,11 +61,26 @@ const ChartOfAccounts = () => {
   };
 
   async function handleSaveChanges(e){
-    e.preventDefault();
-    const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
 
-    window.alert(response.message);
+    e.preventDefault();
+
+    if((accountIsActive===false) && (accountBalance>0)){
+      window.alert("Error: Accounts can not be deactivated while balance is greater than 0. The account has been updated, but is still set to active.");
+      setAccountIsActive(true);
+      const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
+
+    }else{
+      const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
+      window.alert(response.message);
+    }
+    
+    //e.preventDefault();
+    //const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, accountOrder, accountStatement, accountComment, accountIsActive);
+
+    //window.alert(response.message);
   }
+
+  
 
   return (
     <MDBContainer>

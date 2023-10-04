@@ -13,7 +13,7 @@ import 'react-tabs/style/react-tabs.css';
 
 const AdminDashboard = () => {
   return (
-    <MDBContainer fluid className="p-0 bg-warning text-dark">
+    <MDBContainer fluid className="p-0 bg-warning text-dark ">
       <h1>
         <MDBTypography tag="div" className="display-1 mb-3 mx-4 text-light">
           Admin Dashboard

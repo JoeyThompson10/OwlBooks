@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBTypography, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import IntroHeader from '../headerfooter/IntroHeader';
 
 function App() {
   const navigate = useNavigate();
@@ -8,11 +9,12 @@ function App() {
   return (
 
     <div className='bg-warning shadow-1-strong'>
-      <MDBContainer className="mt-5" >
+      <IntroHeader currentPage="SplashScreen" />
+      <MDBContainer className="mt-5"  breakpoint="xxl">
 
         <MDBRow center>
           <MDBCol md="5">
-            <MDBCard>
+            <MDBCard className='mb-5'>
               <MDBCardBody>
                 <MDBTypography variant="h1" className="text-center mb-4">
                   Welcome to the OwlBooks Accounting Web Application

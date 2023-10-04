@@ -86,6 +86,14 @@ export default function Header() {
     navigate("/");
   }
 
+  function HelpButton({ message }) {
+    return (
+        <button onClick={() => alert(message)}>
+            Help
+        </button>
+    );
+   }
+
   return (
     <>
       <MDBNavbar stikcy className="mx-auto py-1 bg-dark bg-gradient">

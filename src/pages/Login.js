@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CreateUser, LoginFunction, sendEmail } from "../MongoDbClient";
+import { CreateUser, LoginFunction, sendEmail, getUserInfoFunction } from "../MongoDbClient";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBCardText, MDBCardTitle } from 'mdb-react-ui-kit'; 
 import CryptoJS from 'crypto-js';
+import IntroHeader from "../headerfooter/IntroHeader";
 
 
 const Login = () => {
@@ -63,9 +64,10 @@ const Login = () => {
         if(response.message.includes("Login successful.")) {
             localStorage.setItem("username", username);
             localStorage.setItem("privilages", response.privilages);
+            console.log(`USERNAME: ${localStorage.getItem("username")}`)
             navigateToDashboard();
         }
-        
+
         window.alert(response.message);
     }
 
@@ -165,6 +167,7 @@ const Login = () => {
     
     return (
         <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
+            <IntroHeader currentPage="Login" />
             <MDBRow center className="p-3">
                 <MDBCol md="6">
 
@@ -182,7 +185,7 @@ const Login = () => {
                     </MDBCardBody>
                 </MDBCard>
 
-                <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-3">
+                <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-3 mb-4">
                     <MDBCardBody className='text-primary'>
                     <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
                     <MDBCardText>

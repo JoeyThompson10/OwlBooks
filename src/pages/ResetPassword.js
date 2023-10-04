@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChangePassword, GetUserAuth } from "../MongoDbClient";
 import CryptoJS from 'crypto-js';
 import { MDBInput, MDBCard, MDBCardBody, MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdb-react-ui-kit";
+import IntroHeader from "../headerfooter/IntroHeader";
 
 
 const ResetPassword = () => {
@@ -41,6 +42,7 @@ const ResetPassword = () => {
 
   return (
   <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
+    <IntroHeader currentPage="ResetPassword" />
       <h1 className="display-2 mx-3">Reset Password</h1>
       <h4 className="display-7 mx-3">This is the password reset page</h4>
     <MDBRow center className="mx-3">

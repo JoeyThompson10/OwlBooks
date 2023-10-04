@@ -53,8 +53,9 @@ const AdminDashboard = () => {
   
   const accountItems = [
     { text: 'Add New Account', icon: <AccountBalanceIcon /> },
-    { text: 'Edit Existing Account', icon: <EditNoteIcon /> }
-  ];;
+    { text: 'Edit Existing Account', icon: <EditNoteIcon /> },
+    {text: 'All Accounts', icon: <AccountBalanceIcon />}
+  ];; 
 
   return (
     <MDBContainer fluid className="p-0 bg-warning text-dark ">

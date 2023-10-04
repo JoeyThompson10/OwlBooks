@@ -7,6 +7,7 @@ import ExpiredPasswords from './ExpiredPasswords.js';
 import AllUsers from './AllUsers.js';
 import EditUser from './EditUser.js';
 import CreateUserPage from "./CreateUserPage";
+import AllAccounts from './AllAccounts.js';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -130,6 +131,7 @@ const AdminDashboard = () => {
         <TabPanel> <ExpiredPasswords/> </TabPanel>
         <TabPanel> <AddNewAccount /> </TabPanel>
         <TabPanel> <EditExistingAccount /> </TabPanel>
+        <TabPanel> <AllAccounts/> </TabPanel>
       </Tabs>
     </MDBContainer>
   );

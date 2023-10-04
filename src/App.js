@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './headerfooter/Header';
 import Footer from './headerfooter/Footer';
 import SplashScreen from './pages/SplashScreen';
@@ -10,14 +10,21 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
 import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
 import Profile from './pages/Profile';
-
+import IntroHeader from './headerfooter/IntroHeader';
 //import './css/global.css';
 
-function App() {
+function Content() {
+  const location = useLocation(); // Get the current location
+
+  const shouldDisplayHeader = () => {
+    const noHeaderPaths = ["/", "/login", "/App", "/resetpassword"];
+    return !noHeaderPaths.includes(location.pathname);
+  };
+
+
   return (
-    <Router>
       <div>
-        <Header />
+        {shouldDisplayHeader() && <Header />}
         <Routes>
           <Route path="/" element={<SplashScreen />} />
           <Route path="/login" element={<Login />} />
@@ -30,6 +37,12 @@ function App() {
         </Routes>
         <Footer />
       </div>
+  );
+}
+function App() {
+  return (
+    <Router>
+      <Content />
     </Router>
   );
 }

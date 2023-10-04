@@ -10,21 +10,6 @@ import {
 } from "mdb-react-ui-kit";
 // Mui Elements
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Popover from '@mui/material/Popover';
 import Calendar from "react-calendar";
@@ -36,17 +21,13 @@ export default function Header() {
   const navigate = useNavigate();
   const [username, setUsername] = useState(''); // Add a state for username
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  //calendar
+  //calendar info
   const today = new Date();
   const month = today.getMonth()+1;
   const year = today.getFullYear();
   const date = today. getDate();
   const currentDate = month + "/" + date + "/" + year;
-  // Drawer
-  const handleDrawerOpen = () => { setOpen(true); };
-  const handleDrawerClose = () => { setOpen(false); };
-  //Calendar
+  //Calendar popover
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => { setAnchorEl(event.currentTarget); };
   const handleClose = () => { setAnchorEl(null); };
@@ -101,67 +82,8 @@ export default function Header() {
           <MDBNavbarNav>
           <MDBNavbarBrand href="#" class="h-100 d-flex flex-row justify-content-between align-items-center">
 
-          {/* for drawer */}
-          <div class="flex-sm-shrink-1">
-            <Box sx={{ display: 'flex'}}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-              >
-              <MenuIcon />
-              </IconButton>
-              <Drawer
-                sx={{
-                  width: 50,
-                  flexShrink: 0,
-                  '& .MuiDrawer-paper': {
-                   width: 240,
-                    boxSizing: 'border-box',
-                  },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={open}
-                >
-                <div>
-                  <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                  </IconButton>
-                </div>
-                <Divider />
-                  <List>
-                    {[{ text: 'Dashboard', icon: <InboxIcon /> },
-                      { text: 'Accounts', icon: <MailIcon /> },
-                      { text: 'Journal', icon: <MailIcon /> },
-                      { text: 'Documents', icon: <InboxIcon /> }, ].map((item) => (
-                      <ListItem key={item.text} disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                        {item.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={item.text} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                  <Divider />
-                    
-                  <List>
-                    {[{ text: 'Users (AdminOnly)', icon: <InboxIcon /> }, ].map((item) => (
-                      <ListItem key={item.text} disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                        {item.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={item.text} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Drawer>
-              </Box>
+            <div>
+            <p>Hi, UserName</p>
             </div>
 
             {/* For Calender */}
@@ -208,7 +130,7 @@ export default function Header() {
                   </MDBBtn>
                   </>
               )} */}
-<p>Hi, {username}</p>
+            <p>Hi, {username}</p>
              {/* For User profile icon */}
             <MDBDropdown className="bg-dark bg-gradient">
               <MDBDropdownToggle className="bg-dark bg-gradient nav-link">

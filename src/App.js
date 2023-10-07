@@ -8,9 +8,16 @@ import Dashboard from './pages/Dashboard';
 import ManagerDashboard from './pages/ManagerDashboard';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
-import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
 import Profile from './pages/Profile';
-import IntroHeader from './headerfooter/IntroHeader';
+//Routes header
+import EditUser from './pages/AdminDashboard/EditUser';
+import CreateUserPage from './pages/AdminDashboard/CreateUserPage';
+import AllUsers from './pages/AdminDashboard/AllUsers';
+import ExpiredPasswords from './pages/AdminDashboard/ExpiredPasswords';
+import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
+import EditExistingAccounts from './pages/AdminDashboard/EditExistingAccounts';
+import AllAccounts from './pages/AdminDashboard/AllAccounts'
+
 //import './css/global.css';
 
 function Content() {
@@ -32,8 +39,15 @@ function Content() {
           <Route path="/userdashboard" element={<Dashboard />} />
           <Route path="/managerdashboard" element={<ManagerDashboard />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/addnewaccount" element={<AddNewAccount />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/edituser" element={<EditUser />} />
+          <Route path="/createuser" element={<CreateUserPage />} />
+          <Route path="/allusers" element={<AllUsers />} />
+          <Route path="/expiredpasswords" element={<ExpiredPasswords />} />
+          <Route path="/addaccount" element={<AddNewAccount />} />
+          <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
+          <Route path="/allaccounts" element={<AllAccounts />} />
+
         </Routes>
         <Footer />
       </div>

@@ -25,7 +25,7 @@ function Content() {
   const currentPath = location.pathname.slice(1);
 
   const shouldDisplayHeader = () => {
-    const noHeaderPaths = ["/splashscreen", "/login", "/App", "/resetpassword"];
+    const noHeaderPaths = ["/", "/login", "/App", "/resetpassword"];
     return !noHeaderPaths.includes(location.pathname);
   };
 
@@ -34,20 +34,20 @@ function Content() {
       <div>
         {shouldDisplayHeader() && <Header />}
         <Routes>
-          <Route path="splashscreen" element={<SplashScreen />} />
-          <Route path="login" element={<Login />} />
-          <Route path="resetpassword" element={<ResetPassword />} />
-          <Route path="userdashboard" element={<Dashboard />} />
-          <Route path="managerdashboard" element={<ManagerDashboard />} />
-          <Route path="admindashboard" element={<AdminDashboard />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="edituser" element={<EditUser />} />
-          <Route path="createuser" element={<CreateUserPage />} />
-          <Route path="allusers" element={<AllUsers />} />
-          <Route path="expiredpasswords" element={<ExpiredPasswords />} />
-          <Route path="addaccount" element={<AddNewAccount />} />
-          <Route path="editexistingaccounts" element={<EditExistingAccounts />} />
-          <Route path="allaccounts" element={<AllAccounts />} />
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/userdashboard" element={<Dashboard />} />
+          <Route path="/managerdashboard" element={<ManagerDashboard />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edituser" element={<EditUser />} />
+          <Route path="/createuser" element={<CreateUserPage />} />
+          <Route path="/allusers" element={<AllUsers />} />
+          <Route path="/expiredpasswords" element={<ExpiredPasswords />} />
+          <Route path="/addaccount" element={<AddNewAccount />} />
+          <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
+          <Route path="/allaccounts" element={<AllAccounts />} />
 
         </Routes>
         <Footer currentPath={currentPath} />

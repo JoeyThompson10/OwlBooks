@@ -79,7 +79,7 @@ export default function IntroHeader({ currentPage }) {
               src="/assets/img/AppLogo.png"
               alt="OwlBooks Logo"
               height="65"
-              onClick={() => navigate("/splashscreen")}
+              onClick={() => navigate("/")}
             ></img>
             </Tooltip>
             <p>WELCOME</p>

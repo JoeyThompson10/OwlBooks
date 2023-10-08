@@ -15,7 +15,7 @@ const AddNewAccount = () => {
   const [accountCredit, setAccountCredit] = useState(0.00);
   const [accountBalance, setAccountBalance] = useState(0.00);
   const [accountTimeCreated] = useState(Date);
-  const [accountUserId] = useState('');
+  const [accountUserId] = localStorage.getItem("username");
   const [accountOrder, setAccountOrder] = useState('');
   const [accountStatement, setAccountStatement] = useState('');
   const [accountComment, setAccountComment] = useState('');

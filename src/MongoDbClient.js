@@ -74,9 +74,9 @@ async function getAccountInfo(accountID){
     const user = await app().logIn(credentials());
     return await user.functions.getAccountInfo(accountID);
 }
-async function setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accOrder, accStatement, accComment, isActive){
+async function setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accUserId, accOrder, accStatement, accComment, isActive){
     const user = await app().logIn(credentials());
-    return await user.functions.setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accOrder, accStatement, accComment, isActive);
+    return await user.functions.setAccountInfo(accountID, accName, accDescription, accNormalSide, accCategory, accSubcategory, accInitialBalance, accDebit, accCredit, accBalance, accTimeCreated, accUserId, accOrder, accStatement, accComment, isActive);
 }
 
 async function GetAllAccounts() {
@@ -84,4 +84,26 @@ async function GetAllAccounts() {
     return await user.functions.GetAllAccounts(); 
   }
 
-export { setAccountInfo, CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo, GetAllAccounts };
+async function GetAllAccountEvents() {
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAllAccountEvents();
+}
+
+export { 
+    GetAllAccountEvents, 
+    setAccountInfo, 
+    CreateAccount, 
+    CreateUser, 
+    LoginFunction, 
+    getUserInfoFunction, 
+    setUserInfoFunction, 
+    isCurrentUser, 
+    sendEmail, 
+    GetAllUsers, 
+    GetAlmostExpiredUsers, 
+    SuspendUser, 
+    GetUserAuth, 
+    ChangePassword, 
+    getAccountInfo, 
+    GetAllAccounts 
+};

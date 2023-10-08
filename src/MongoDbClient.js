@@ -84,4 +84,26 @@ async function GetAllAccounts() {
     return await user.functions.GetAllAccounts(); 
   }
 
-export { setAccountInfo, CreateAccount ,CreateUser, LoginFunction, getUserInfoFunction, setUserInfoFunction , isCurrentUser, sendEmail, GetAllUsers, GetAlmostExpiredUsers, SuspendUser, GetUserAuth, ChangePassword, getAccountInfo, GetAllAccounts };
+async function GetAllAccountEvents() {
+    const user = await app().logIn(credentials());
+    return await user.functions.GetAllAccountEvents();
+}
+
+export { 
+    GetAllAccountEvents, 
+    setAccountInfo, 
+    CreateAccount, 
+    CreateUser, 
+    LoginFunction, 
+    getUserInfoFunction, 
+    setUserInfoFunction, 
+    isCurrentUser, 
+    sendEmail, 
+    GetAllUsers, 
+    GetAlmostExpiredUsers, 
+    SuspendUser, 
+    GetUserAuth, 
+    ChangePassword, 
+    getAccountInfo, 
+    GetAllAccounts 
+};

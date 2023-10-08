@@ -25,7 +25,7 @@ function Content() {
   const currentPath = location.pathname.slice(1);
 
   const shouldDisplayHeader = () => {
-    const noHeaderPaths = ["/", "/login", "/App", "/resetpassword"];
+    const noHeaderPaths = ["/splashscreen", "/login", "/App", "/resetpassword"];
     return !noHeaderPaths.includes(location.pathname);
   };
 

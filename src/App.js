@@ -49,7 +49,7 @@ function Content() {
           <Route path="/addaccount" element={<AddNewAccount />} />
           <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
           <Route path="/allaccounts" element={<AllAccounts />} />
-          <Route path="accounteventlog" element={<AccountEventLog />} />  
+          <Route path="/accounteventlog" element={<AccountEventLog />} />  
 
         </Routes>
         <Footer currentPath={currentPath} />

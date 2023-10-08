@@ -17,7 +17,7 @@ const Footer = ({ currentPath }) => {
     <p>&copy; 2023 Owl Books. All rights reserved.</p>
     <div>
       {/* Conditional rendering for HelpButton */}
-      {currentPath === 'splashscreen' && <HelpButton message="This is the splash screen. Click Login to start." />}
+      {currentPath === '' && <HelpButton message="This is the splash screen. Click Login to start." />}
       {currentPath === 'login' && <HelpButton message="Enter your credentials to login. If you do not have a user, create one. After you create a user your new username will be sent to your email you used to register. 
                           If you forgot your password, select the forgot password button to continue. " />}
       {currentPath === 'app' && <HelpButton message="This is the main app. Click the Owl in the taskbar to go back to the Home Page" />}

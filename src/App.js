@@ -16,7 +16,8 @@ import AllUsers from './pages/AdminDashboard/AllUsers';
 import ExpiredPasswords from './pages/AdminDashboard/ExpiredPasswords';
 import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
 import EditExistingAccounts from './pages/AdminDashboard/EditExistingAccounts';
-import AllAccounts from './pages/AdminDashboard/AllAccounts'
+import AllAccounts from './pages/AdminDashboard/AllAccounts';
+import AccountEventLog from './pages/AdminDashboard/AccountEventLog';
 
 //import './css/global.css';
 
@@ -48,6 +49,7 @@ function Content() {
           <Route path="/addaccount" element={<AddNewAccount />} />
           <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
           <Route path="/allaccounts" element={<AllAccounts />} />
+          <Route path="accounteventlog" element={<AccountEventLog />} />  
 
         </Routes>
         <Footer currentPath={currentPath} />

@@ -117,10 +117,6 @@ const AllAccountEvents = () => {
                 <td>{selectedEvent.befAccBalance}</td>
               </tr>
               <tr>
-                <td>Time Created</td>
-                <td>{formatDate(selectedEvent.befAccTimeCreated)}</td>
-              </tr>
-              <tr>
                 <td>Order</td>
                 <td>{selectedEvent.befAccOrder}</td>
               </tr>
@@ -179,10 +175,6 @@ const AllAccountEvents = () => {
               <tr>
                 <td>Balance</td>
                 <td>{selectedEvent.aftAccBalance}</td>
-              </tr>
-              <tr>
-                <td>Time Created</td>
-                <td>{formatDate(selectedEvent.accTimeEdited)}</td>
               </tr>
               <tr>
                 <td>Order</td>

@@ -102,7 +102,7 @@ export default function Header() {
   function logOut() {
     localStorage.removeItem("privilages");
     localStorage.removeItem("username");
-    navigate("/");
+    navigate("/splashscreen");
   }
 
   function HelpButton({ message }) {
@@ -203,7 +203,7 @@ export default function Header() {
               src="/assets/img/AppLogo.png"
               alt="OwlBooks Logo"
               height="65"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/splashscreen")}
             ></img>
             </Tooltip>
 

@@ -7,6 +7,7 @@ import AllUsers from './AllUsers.js';
 import EditUser from './EditUser.js';
 import CreateUserPage from "./CreateUserPage";
 import AllAccounts from './AllAccounts.js';
+import AccountEventLog from './AccountEventLog.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -34,6 +35,7 @@ const AdminDashboard = () => {
           <Tab>Add New Account</Tab>
           <Tab>Edit Existing Account</Tab>
           <Tab>All Accounts</Tab>
+          <Tab>Account Event Log</Tab>
         </TabList>
 
         <TabPanel> <EditUser/> </TabPanel>
@@ -43,6 +45,7 @@ const AdminDashboard = () => {
         <TabPanel> <AddNewAccount /> </TabPanel>
         <TabPanel> <EditExistingAccount /> </TabPanel>
         <TabPanel> <AllAccounts/> </TabPanel>
+        <TabPanel> <AccountEventLog/> </TabPanel> 
       </Tabs>
     </MDBContainer>
   );

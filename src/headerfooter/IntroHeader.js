@@ -38,13 +38,6 @@ export default function IntroHeader({ currentPage }) {
     return `${year}/${month}/${date}`;
   }
 
-  function HelpButton({ message }) {
-    return (
-        <button onClick={() => alert(message)}>
-            Help
-        </button>
-    );
-   }
 
   //This Header does not have loggin elements.
   return (
@@ -89,18 +82,7 @@ export default function IntroHeader({ currentPage }) {
               onClick={() => navigate("/")}
             ></img>
             </Tooltip>
-
-            <div>
-            {/* Conditional rendering for HelpButton */}
-            {currentPage === 'SplashScreen' && <HelpButton message="This is the splash screen. Click Login to start." />}
-            {currentPage === 'Login' && <HelpButton message="Enter your credentials to login. If you do not have a user, create one. After you create a user you new username will be sent to your email you used to register. 
-                                If you forgot you password, select the forgot password button to continue. " />}
-            {currentPage === 'App' && <HelpButton message="This is the main app. Click the Owl in the taskto go back to the Home Page" />}
-            {currentPage === 'ResetPassword' && <HelpButton message="After you reset your password go to the login page to login in with the new password. 
-                                If you do not want to reset you password anymore, click on the owl in the taskbar to go back to Home Page." />}
-            {/* Add similar conditions for other pages as needed */}
-            </div>
-
+            <p>WELCOME</p>
             </MDBNavbarBrand>
           </MDBNavbarNav>
         </MDBContainer>

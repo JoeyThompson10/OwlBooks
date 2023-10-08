@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MDBBtn, MDBInput, MDBCard, MDBCardBody, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { CreateUser } from "../../MongoDbClient";
+import Tooltip from '@mui/material/Tooltip';
 
 const CreateUserPage = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -42,6 +43,7 @@ const CreateUserPage = () => {
             <form onSubmit={handleCreateUser}>
               <h2>Create New User</h2>
 
+              <Tooltip title="Enter the email for the new user">
               <MDBInput
                 label="Email"
                 type="email"
@@ -49,7 +51,8 @@ const CreateUserPage = () => {
                 value={newUserEmail}
                 onChange={(e) => setNewUserEmail(e.target.value)}
                 required
-              />
+              /> </Tooltip>
+              <Tooltip title="Enter the first name of the new user">
               <MDBInput
                 label="First Name"
                 type="text"
@@ -57,7 +60,8 @@ const CreateUserPage = () => {
                 value={newUserFirstName}
                 onChange={(e) => setNewUserFirstName(e.target.value)}
                 required
-              />
+              /></Tooltip>
+              <Tooltip title="Enter the last name of the new user">
               <MDBInput
                 label="Last Name"
                 type="text"
@@ -65,7 +69,8 @@ const CreateUserPage = () => {
                 value={newUserLastName}
                 onChange={(e) => setNewUserLastName(e.target.value)}
                 required
-              />
+              /></Tooltip>
+              <Tooltip title="Enter the address of the new user">
               <MDBInput
                 label="Address"
                 type="text"
@@ -73,7 +78,8 @@ const CreateUserPage = () => {
                 value={newUserAddress}
                 onChange={(e) => setNewUserAddress(e.target.value)}
                 required
-              />
+              /></Tooltip>
+              <Tooltip title="Enter the birth date of the new user">
               <MDBInput
                 label="Date of Birth"
                 type="date"
@@ -81,7 +87,8 @@ const CreateUserPage = () => {
                 value={newUserDOB}
                 onChange={(e) => setNewUserDOB(e.target.value)}
                 required
-              />
+              /></Tooltip>
+              <Tooltip title="Enter a secure password for the new user">
               <MDBInput
                 label="Password"
                 type="password"
@@ -89,7 +96,7 @@ const CreateUserPage = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-              />
+              /></Tooltip>
               <MDBBtn type="submit">Create User</MDBBtn>
             </form>
           </MDBCardBody>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { GetAllAccounts } from '../../MongoDbClient'; // Adjust the import path as needed
+import { GetAllAccountEvents } from '../../MongoDbClient'; // Adjust the import path as needed
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdb-react-ui-kit';
 
-const AccountEventLog = () => {
+const AllAccountEvents = () => {
   const [accountEvents, setAccountEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,9 +11,8 @@ const AccountEventLog = () => {
     const fetchAccountEvents = async () => {
       try {
         setLoading(true);
-        // Replace this with a function that fetches account events from your backend
-        const accountEventsData = await fetchAccountEventsFromBackend();
-        setAccountEvents(accountEventsData);
+        const eventsData = await GetAllAccountEvents();
+        setAccountEvents(eventsData);
       } catch (error) {
         console.error('Error fetching account events:', error);
         setError(error.toString());
@@ -25,33 +24,35 @@ const AccountEventLog = () => {
     fetchAccountEvents();
   }, []);
 
-  if (loading) return <p>Loading account events...</p>;
+  if (loading) return <p>Loading events...</p>;
   if (error) return <p>Error loading account events: {error}</p>;
 
   return (
     <div>
-      <h2>Account Event Log</h2>
+      <h2>All Account Events</h2>
       <MDBTable hover>
         <MDBTableHead>
           <tr>
             <th>Event Number</th>
             <th>Account Name</th>
-            <th>Account Number</th>
-            <th>Balance Before</th>
-            <th>Balance After</th>
-            {/* Add additional columns for before and after values */}
+            <th>Field</th>
+            <th>Before</th>
+            <th>After</th>
+            <th>Edited Time</th>
           </tr>
         </MDBTableHead>
         <MDBTableBody>
           {accountEvents.map(event => (
-            <tr key={event.eventNumber}>
-              <td>{event.eventNumber}</td>
-              <td>{event.aftAccName}</td>
-              <td>{event.aftAccNumber}</td>
-              <td>{event.befAccBalance}</td>
-              <td>{event.aftAccBalance}</td>
-              {/* Add additional columns for before and after values */}
-            </tr>
+            event.changes.map(change => (
+              <tr key={event._id}>
+                <td>{event.eventNumber}</td>
+                <td>{event.accName}</td>
+                <td>{change.field}</td>
+                <td>{change.before}</td>
+                <td>{change.after}</td>
+                <td>{event.accTimeEdited}</td>
+              </tr>
+            ))
           ))}
         </MDBTableBody>
       </MDBTable>
@@ -59,4 +60,4 @@ const AccountEventLog = () => {
   );
 };
 
-export default AccountEventLog;
+export default AllAccountEvents;

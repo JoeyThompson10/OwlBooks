@@ -3,7 +3,7 @@ import { ChangePassword, GetUserAuth } from "../MongoDbClient";
 import CryptoJS from 'crypto-js';
 import { MDBInput, MDBCard, MDBCardBody, MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdb-react-ui-kit";
 import IntroHeader from "../headerfooter/IntroHeader";
-
+import Tooltip from '@mui/material/Tooltip';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -50,26 +50,36 @@ const ResetPassword = () => {
       
       <MDBCard  alignment='center' shadow='0'>
       <MDBCardBody>
+      <Tooltip title="Enter the email associated with your account">
           <MDBInput
             type="email" className="mb-4 mt-3"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          </Tooltip>
+
+          <Tooltip title="Enter your date of birth for verification">
           <MDBInput
             type="date" className="mb-4"
             placeholder="Enter your DOB"
             validate value={dob}
             onChange={(e) => setDob(e.target.value)}
           />
+          </Tooltip>
+
+          <Tooltip title="Enter a strong new password">
           <MDBInput
             type="password" className="mb-4" 
             placeholder="Enter your new password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
+          </Tooltip>
         <div>
+        <Tooltip title="Click to set the new password">
         <MDBBtn outline color="primary" onClick={handleResetPassword}>Reset Password</MDBBtn>
+        </Tooltip>
         </div>
 
         <div>

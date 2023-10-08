@@ -14,6 +14,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Popover from '@mui/material/Popover';
 import Calendar from "react-calendar";
 import "../css/calendar.css";
+import Tooltip from '@mui/material/Tooltip';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
@@ -120,6 +121,7 @@ export default function Header() {
           <MDBNavbarBrand href="#" class="h-100 d-flex flex-row justify-content-between align-items-center">
 
             <div>
+            <Tooltip title="Open Menu">
               <IconButton
                   color="inherit"
                   className="p-3 mx-3"
@@ -129,6 +131,7 @@ export default function Header() {
                   sx={{ mr: 2 }}   >
                   <MenuIcon />  <h5 className="mt-2 mx-3">MENU</h5>
               </IconButton>
+              </Tooltip>
             <Drawer variant="persistent" anchor="left" open={open}>
               <IconButton onClick={handleDrawerClose}>
                   {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -170,9 +173,11 @@ export default function Header() {
 
             {/* For Calender */}
           <div>
+          <Tooltip title="View Calendar">
             <MDBBtn outline rounded aria-describedby={id} variant="contained" onClick={handleClick}>
             <CalendarMonthIcon color="bg-primary" />
             </MDBBtn>
+            </Tooltip>
             <Popover
               id={id}
               open={open2}
@@ -192,6 +197,7 @@ export default function Header() {
           </div>
 
             {/* For Logo */}
+            <Tooltip title="Go to Home">
             <img
               className="App Logo" 
               src="/assets/img/AppLogo.png"
@@ -199,9 +205,11 @@ export default function Header() {
               height="65"
               onClick={() => navigate("/")}
             ></img>
+            </Tooltip>
 
             <p>Hi, {username}</p>
              {/* For User profile icon */}
+             <Tooltip title="User Options">
             <MDBDropdown className="bg-dark bg-gradient">
               <MDBDropdownToggle className="bg-dark bg-gradient nav-link">
                 <img 
@@ -218,6 +226,7 @@ export default function Header() {
                 <MDBDropdownItem href="#" onClick={navigateToDashboard}>Home</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
+            </Tooltip>
       
 
             </MDBNavbarBrand>

@@ -11,6 +11,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Popover from '@mui/material/Popover';
 import Calendar from "react-calendar";
 import "../css/calendar.css";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function IntroHeader({ currentPage }) {
     const navigate = useNavigate();
@@ -55,9 +56,11 @@ export default function IntroHeader({ currentPage }) {
 
                 {/* For Calender */}
             <div>
+            <Tooltip title="View Calendar"> 
                 <MDBBtn outline rounded aria-describedby={id} variant="contained" onClick={handleClick}>
                 <CalendarMonthIcon color="bg-primary" />
                 </MDBBtn>
+                </Tooltip>
                 <Popover
                 id={id}
                 open={open2}
@@ -77,6 +80,7 @@ export default function IntroHeader({ currentPage }) {
             </div>
 
             {/* For Logo */}
+            <Tooltip title="Go to Home">
             <img
               className="App Logo" 
               src="/assets/img/AppLogo.png"
@@ -84,6 +88,7 @@ export default function IntroHeader({ currentPage }) {
               height="65"
               onClick={() => navigate("/")}
             ></img>
+            </Tooltip>
 
             <div>
             {/* Conditional rendering for HelpButton */}

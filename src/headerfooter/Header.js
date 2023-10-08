@@ -69,7 +69,8 @@ export default function Header() {
   const accountItems = [
     { text: 'Add New Account', icon: <AccountBalanceIcon />, path: "/addaccount" },
     { text: 'Edit Existing Account', icon: <EditNoteIcon />, path: "/editexistingaccounts" },
-    { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" }
+    { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
+    { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: "/accounteventlog"}
   ];
 
   useEffect(() => {

@@ -18,6 +18,9 @@ import AddNewAccount from './pages/AdminDashboard/AddNewAccount';
 import EditExistingAccounts from './pages/AdminDashboard/EditExistingAccounts';
 import AllAccounts from './pages/AdminDashboard/AllAccounts';
 import AccountEventLog from './pages/AdminDashboard/AccountEventLog';
+import LedgerPage from './pages/AdminDashboard/LedgerPage';
+
+
 
 //import './css/global.css';
 
@@ -49,7 +52,8 @@ function Content() {
           <Route path="/addaccount" element={<AddNewAccount />} />
           <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
           <Route path="/allaccounts" element={<AllAccounts />} />
-          <Route path="/accounteventlog" element={<AccountEventLog />} />  
+          <Route path="/accounteventlog" element={<AccountEventLog />} /> 
+          <Route path="/ledger/:accountId" element={<LedgerPage />} /> 
 
         </Routes>
         <Footer currentPath={currentPath} />

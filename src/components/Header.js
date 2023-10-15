@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react"; // Import useEffect and useState hooks
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBBtn,
-  MDBNavbarNav,
-  MDBDropdownItem, MDBDropdownToggle, MDBDropdownMenu, MDBDropdown
-} from "mdb-react-ui-kit";
-// Mui Elements
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import Popover from '@mui/material/Popover';
-import Calendar from "react-calendar";
-import "../css/calendar.css";
-import Tooltip from '@mui/material/Tooltip';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav } from "mdb-react-ui-kit";
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from "./Sidebar";
+import CalendarPopover from "./CalendarPopover";
+import UserOptions from "./UserOptions";
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/Drawer';
 
 
 export default function Header() {
@@ -25,23 +15,9 @@ export default function Header() {
 
   const [username, setUsername] = useState(''); // Add a state for username
   const [open, setOpen] = React.useState(false);
-  // const [activeTab, setActiveTab] = React.useState(0);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  // Drawer
   const handleDrawerOpen = () => { setOpen(true); };
   const handleDrawerClose = () => { setOpen(false); };
   const isAdmin = localStorage.getItem("privilages") === "admin";
-  //calendar info
-  const today = new Date();
-  const month = today.getMonth() + 1;
-  const year = today.getFullYear();
-  const date = today.getDate();
-  const currentDate = month + "/" + date + "/" + year;
-  //Calendar popover
-  const handleClick = (event) => { setAnchorEl(event.currentTarget); };
-  const handleClose = () => { setAnchorEl(null); };
-  const open2 = Boolean(anchorEl);
-  const id = open2 ? 'simple-popover' : undefined;
 
   useEffect(() => {
     // This function will be called when the component mounts and whenever the username in localStorage changes
@@ -50,14 +26,6 @@ export default function Header() {
       setUsername(storedUsername); // Set the username in state if it exists in local storage
     }
   }, []); // The empty array means this useEffect will only run on mount and unmount
-
-  // function getDate() {
-  //   const today = new Date();
-  //   const month = today.getMonth() + 1;
-  //   const year = today.getFullYear();
-  //   const date = today.getDate();
-  //   return `${year}/${month}/${date}`;
-  // }
 
   function navigateToDashboard() {
     if (localStorage.getItem("privilages") === "admin") {
@@ -75,99 +43,47 @@ export default function Header() {
     navigate("/");
   }
 
-  // function HelpButton({ message }) {
-  //   return (
-  //     <button onClick={() => alert(message)}>
-  //       Help
-  //     </button>
-  //   );
-  // }
-
   return (
     <>
-      <MDBNavbar stikcy className="mx-auto py-1 bg-dark bg-gradient">
-        <MDBContainer fluid className="m-0">
-          <MDBNavbarNav>
-            <MDBNavbarBrand href="#" class="h-100 d-flex flex-row justify-content-between align-items-center">
+      <MDBNavbar className="mx-auto py-1 bg-dark bg-gradient">
+        <MDBNavbarNav>
+          <MDBNavbarBrand className="h-100 d-flex flex-row justify-content-between align-items-center">
 
-              <div>
-                <Tooltip title="Open Menu">
-                  <IconButton
-                    color="inherit"
-                    className="p-3 mx-3"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerOpen}
-                    sx={{ mr: 2 }}   >
-                    <MenuIcon />  <h5 className="mt-2 mx-3">MENU</h5>
-                  </IconButton>
-                </Tooltip>
-                <Drawer variant="persistent" anchor="left" open={open}>
-                  <Sidebar open={open} handleDrawerClose={handleDrawerClose} isAdmin={isAdmin} />
-                </Drawer>
-              </div>
-
-              {/* For Calender */}
-              <div>
-                <Tooltip title="View Calendar">
-                  <MDBBtn outline rounded aria-describedby={id} variant="contained" onClick={handleClick}>
-                    <CalendarMonthIcon color="bg-primary" />
-                  </MDBBtn>
-                </Tooltip>
-                <Popover
-                  id={id}
-                  open={open2}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                >
-                  <div>
-                    <h6>Today's Date</h6>
-                    <p>{currentDate}</p>
-                    <Calendar />
-                  </div>
-                </Popover>
-              </div>
-
-              {/* For Logo */}
-              <Tooltip title="Go to Home">
-                <img
-                  className="App Logo"
-                  src="/assets/img/AppLogo.png"
-                  alt="OwlBooks Logo"
-                  height="65"
-                  onClick={() => navigate("/")}
-                ></img>
+            {/* Menu Button and Sidebar */}
+            <div>
+              <Tooltip title="Open Menu">
+                <IconButton onClick={handleDrawerOpen} style={{ color: 'white' }}>
+                  <MenuIcon />
+                </IconButton>
               </Tooltip>
+              <Drawer variant="persistent" anchor="left" open={open}>
+                <Sidebar open={open} handleDrawerClose={handleDrawerClose} isAdmin={isAdmin} />
+              </Drawer>
+            </div>
 
-              <p>Hi, {username}</p>
-              {/* For User profile icon */}
-              <Tooltip title="User Options">
-                <MDBDropdown className="bg-dark bg-gradient">
-                  <MDBDropdownToggle className="bg-dark bg-gradient nav-link">
-                    <img
-                      src="/assets/img/AppLogo.png" //change this image for user image
-                      className="rounded-circle bg-dark bg-gradient"
-                      height="45"
-                      alt="Portrait"
-                    />
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu>
-                    {/* TDB My profile and logout */}
-                    <MDBDropdownItem href="#">My profile</MDBDropdownItem>
-                    <MDBDropdownItem href="#" onClick={logOut}>Logout</MDBDropdownItem>
-                    <MDBDropdownItem href="#" onClick={navigateToDashboard}>Home</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
+            {/* Calendar */}
+            <CalendarPopover />
+
+            {/* Logo */}
+            <Tooltip title="Go to Home">
+              <img
+                src="/assets/img/AppLogo.png"
+                alt="Logo"
+                height="65"
+                onClick={() => navigate("/")}
+              />
+            </Tooltip>
+
+            {/* User Greeting and Options */}
+            <div className="d-flex align-items-center">
+              <Tooltip title="Your Username">
+                <p className="m-0 mr-2" style={{ color: 'white' }}>Hi, {username}</p>
               </Tooltip>
+              <UserOptions logOut={logOut} navigateToDashboard={navigateToDashboard} />
+            </div>
 
-
-            </MDBNavbarBrand>
-          </MDBNavbarNav>
-        </MDBContainer>
+          </MDBNavbarBrand>
+        </MDBNavbarNav>
       </MDBNavbar>
     </>
   );

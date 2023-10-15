@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import Header from './headerfooter/Header';
-import Footer from './headerfooter/Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import SplashScreen from './pages/SplashScreen';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';

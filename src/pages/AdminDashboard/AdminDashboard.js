@@ -1,18 +1,8 @@
 import React from "react";
-import {MDBContainer, MDBTypography } from "mdb-react-ui-kit";
-import AddNewAccount from './AddNewAccount.js';
-import EditExistingAccount from './EditExistingAccounts.js';
-import ExpiredPasswords from './ExpiredPasswords.js';
-import AllUsers from './AllUsers.js';
-import EditUser from './EditUser.js';
-import CreateUserPage from "./CreateUserPage";
-import AllAccounts from './AllAccounts.js';
-import AccountEventLog from './AccountEventLog.js';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 import 'react-tabs/style/react-tabs.css';
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = React.useState(0);
 
   return (
     <MDBContainer fluid className="p-0 bg-warning text-dark ">
@@ -25,28 +15,6 @@ const AdminDashboard = () => {
         This is the admin dashboard page. System admins can complete
         admin-specific tasks and abilities from here.
       </MDBTypography>
-              
-      <Tabs selectedIndex={activeTab} onSelect={index => setActiveTab(index)}>
-        <TabList style={{ display: 'none' }}>
-          <Tab>Edit User</Tab>
-          <Tab>Create User</Tab>
-          <Tab>All Users</Tab>
-          <Tab>Expired Passwords</Tab>
-          <Tab>Add New Account</Tab>
-          <Tab>Edit Existing Account</Tab>
-          <Tab>All Accounts</Tab>
-          <Tab>Account Event Log</Tab>
-        </TabList>
-
-        <TabPanel> <EditUser/> </TabPanel>
-        <TabPanel> <CreateUserPage/> </TabPanel>
-        <TabPanel> <AllUsers/> </TabPanel>
-        <TabPanel> <ExpiredPasswords/> </TabPanel>
-        <TabPanel> <AddNewAccount /> </TabPanel>
-        <TabPanel> <EditExistingAccount /> </TabPanel>
-        <TabPanel> <AllAccounts/> </TabPanel>
-        <TabPanel> <AccountEventLog/> </TabPanel> 
-      </Tabs>
     </MDBContainer>
   );
 };

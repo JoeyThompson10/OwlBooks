@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import IntroHeader from './components/IntroHeader';
 import Footer from './components/Footer';
 import SplashScreen from './pages/SplashScreen';
 import Login from './pages/Login';
@@ -35,29 +36,30 @@ function Content() {
 
 
   return (
-      <div>
-        {shouldDisplayHeader() && <Header />}
-        <Routes>
-          <Route path="/" element={<SplashScreen />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="/userdashboard" element={<Dashboard />} />
-          <Route path="/managerdashboard" element={<ManagerDashboard />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/edituser" element={<EditUser />} />
-          <Route path="/createuser" element={<CreateUserPage />} />
-          <Route path="/allusers" element={<AllUsers />} />
-          <Route path="/expiredpasswords" element={<ExpiredPasswords />} />
-          <Route path="/addaccount" element={<AddNewAccount />} />
-          <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
-          <Route path="/allaccounts" element={<AllAccounts />} />
-          <Route path="/accounteventlog" element={<AccountEventLog />} /> 
-          <Route path="/ledger/:accountId" element={<LedgerPage />} /> 
+    <div>
+      {shouldDisplayHeader() && <Header />}
+      {!shouldDisplayHeader() && <IntroHeader />}
+      <Routes>
+        <Route path="/" element={<SplashScreen />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/userdashboard" element={<Dashboard />} />
+        <Route path="/managerdashboard" element={<ManagerDashboard />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edituser" element={<EditUser />} />
+        <Route path="/createuser" element={<CreateUserPage />} />
+        <Route path="/allusers" element={<AllUsers />} />
+        <Route path="/expiredpasswords" element={<ExpiredPasswords />} />
+        <Route path="/addaccount" element={<AddNewAccount />} />
+        <Route path="/editexistingaccounts" element={<EditExistingAccounts />} />
+        <Route path="/allaccounts" element={<AllAccounts />} />
+        <Route path="/accounteventlog" element={<AccountEventLog />} />
+        <Route path="/ledger/:accountId" element={<LedgerPage />} />
 
-        </Routes>
-        <Footer currentPath={currentPath} />
-      </div>
+      </Routes>
+      <Footer currentPath={currentPath} />
+    </div>
   );
 }
 function App() {

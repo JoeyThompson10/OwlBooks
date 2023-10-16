@@ -1,18 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBTypography, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
-import IntroHeader from '../headerfooter/IntroHeader';
 import Tooltip from '@mui/material/Tooltip';
 
-function App() {
+function SplashScreen() {
   const navigate = useNavigate();
 
-
   return (
-
     <div className='bg-warning shadow-1-strong'>
-      <IntroHeader currentPage="SplashScreen" />
-      <MDBContainer className="mt-5"  breakpoint="xxl">
-
+      <MDBContainer className="mt-5" breakpoint="xxl">
         <MDBRow center>
           <MDBCol md="5">
             <MDBCard className='mb-5'>
@@ -31,20 +26,19 @@ function App() {
                   by Denice Jaquez, Owen Murphree, Joey Thompson, and Moreland Walthour.
                 </MDBTypography>
                 <MDBTypography className="text-center">
-                <Tooltip title="Click to log into the application">
-                  <MDBBtn rounded color="primary" onClick={() => navigate("/login")}>
-                    LOGIN
-                  </MDBBtn>
+                  <Tooltip title="Click to log into the application">
+                    <MDBBtn rounded color="primary" onClick={() => navigate("/login")}>
+                      LOGIN
+                    </MDBBtn>
                   </Tooltip>
                 </MDBTypography>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
         </MDBRow>
-
       </MDBContainer>
     </div>
   );
 }
 
-export default App;
+export default SplashScreen;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { MDBContainer, MDBTypography, MDBBtn } from 'mdb-react-ui-kit';
-import 'react-tabs/style/react-tabs.css';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';

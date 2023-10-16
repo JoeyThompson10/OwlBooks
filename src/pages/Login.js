@@ -22,12 +22,8 @@ const Login = () => {
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
 
     const navigateToDashboard = useCallback(() => {
-        if (localStorage.getItem("privilages") === "admin") {
-            navigate("/AdminDashboard");
-        } else if (localStorage.getItem("privilages") === "manager") {
-            navigate("/ManagerDashboard");
-        } else if (localStorage.getItem("privilages") === "baseUser") {
-            navigate("/UserDashboard");
+        if (localStorage.getItem("privilages")) {
+            navigate("/dashboard");
         }
     }, [navigate]); // Added dependencies array with 'navigate'
 

@@ -6,8 +6,6 @@ import Footer from './components/Footer';
 import SplashScreen from './pages/SplashScreen';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import ManagerDashboard from './pages/ManagerDashboard';
-import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
 //Routes header
@@ -43,9 +41,7 @@ function Content() {
         <Route path="/" element={<SplashScreen />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/userdashboard" element={<Dashboard />} />
-        <Route path="/managerdashboard" element={<ManagerDashboard />} />
-        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edituser" element={<EditUser />} />
         <Route path="/createuser" element={<CreateUserPage />} />

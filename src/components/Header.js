@@ -29,13 +29,7 @@ export default function Header() {
   }, []); // The empty array means this useEffect will only run on mount and unmount
 
   function navigateToDashboard() {
-    if (localStorage.getItem("privilages") === "admin") {
-      navigate("/AdminDashboard");
-    } else if (localStorage.getItem("privilages") === "manager") {
-      navigate("/ManagerDashboard");
-    } else if (localStorage.getItem("privilages") === "baseUser") {
-      navigate("/UserDashboard");
-    }
+      navigate("/dashboard");
   }
 
   function logOut() {
@@ -65,12 +59,12 @@ export default function Header() {
                 {/* Center Section - Logo */}
                 <div className="flex-grow-1 d-flex justify-content-center">
                     <MDBNavbarBrand className="m-0 p-0">
-                        <Tooltip title="Go to Home">
+                        <Tooltip title="Go to Dashboard">
                             <img
                                 src="/assets/img/AppLogo.png"
                                 alt="Logo"
                                 height="65"
-                                onClick={() => navigate("/")}
+                                onClick={() => navigate("/dashboard")}
                             />
                         </Tooltip>
                     </MDBNavbarBrand>

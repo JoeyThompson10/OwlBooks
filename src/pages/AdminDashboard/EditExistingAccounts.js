@@ -65,11 +65,11 @@ const ChartOfAccounts = () => {
     e.preventDefault();
 
 
-    if((accountIsActive===false) && ( (accountBalance!="0")&&(accountBalance!="0.00")&&(accountBalance!="$0")&&(accountBalance!="$0.00") ) ){
+    if((accountIsActive===false) && ( (accountBalance!=="0")&&(accountBalance!=="0.00")&&(accountBalance!=="$0")&&(accountBalance!=="$0.00") ) ){
       window.alert("Error: Accounts can not be deactivated while balance is greater than 0. The account has been updated, and is set to active.");
       setAccountIsActive(true);
       const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, localStorage.getItem("username"), accountOrder, accountStatement, accountComment, true);
-
+      window.alert(response.message);
     }else{
       const response = await setAccountInfo(tempAccountID, accountName, accountDescription, accountNormalSide, accountCategory, accountSubcategory, accountInitialBalance, accountDebit, accountCredit, accountBalance, accountTimeCreated, localStorage.getItem("username"), accountOrder, accountStatement, accountComment, accountIsActive);
       window.alert(response.message);

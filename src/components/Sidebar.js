@@ -20,22 +20,25 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { useTheme } from '@mui/material/styles';
 
-export default function Sidebar({ open, handleDrawerClose, isAdmin }) {
+export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager }) {
     const theme = useTheme();
     const navigate = useNavigate();
 
-    const userItems = [
+    const manageUserItems = [
         { text: 'Edit User', icon: <EditIcon />, path: "/edituser" },
         { text: 'Create User', icon: <AddBoxIcon />, path: "/createuser" },
         { text: 'All Users', icon: <PeopleAltIcon />, path: "/allusers" },
         { text: 'Expired Password', icon: <KeyOffIcon />, path: "/expiredpasswords" }
     ];
 
-    const accountItems = [
+    const manageAccountItems = [
         { text: 'Add New Account', icon: <AccountBalanceIcon />, path: "/addaccount" },
         { text: 'Edit Existing Account', icon: <EditNoteIcon />, path: "/editexistingaccounts" },
-        { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
         { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: "/accounteventlog" }
+    ];
+
+    const everyoneItems = [
+        { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
     ];
 
     return (
@@ -44,11 +47,23 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin }) {
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
 
-            {isAdmin && (
+            <Divider/>View Accounts
+            {everyoneItems.map((item) => (
+                <ListItem button key={item.text} onClick={() => { navigate(item.path); handleDrawerClose(); }}>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.text} />
+                    </ListItemButton>
+                </ListItem>
+            ))}
+
+            {(isManager, isAdmin) && (
                 <>
-                    <Divider className="mx-2" /> Users
+                    <Divider /> Manage Accounts
                     <List>
-                        {userItems.map((item) => (
+                        {manageAccountItems.map((item) => (
                             <ListItem button key={item.text} onClick={() => { navigate(item.path); handleDrawerClose(); }}>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -62,19 +77,23 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin }) {
                 </>
             )}
 
-            <Divider /> Accounts
-            <List>
-                {accountItems.map((item) => (
-                    <ListItem button key={item.text} onClick={() => { navigate(item.path); handleDrawerClose(); }}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
+            {isAdmin && (
+                <>
+                    <Divider className="mx-2" /> Manage Users
+                    <List>
+                        {manageUserItems.map((item) => (
+                            <ListItem button key={item.text} onClick={() => { navigate(item.path); handleDrawerClose(); }}>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={item.text} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </>
+            )}
         </>
     );
 }

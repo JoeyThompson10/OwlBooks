@@ -18,6 +18,7 @@ export default function Header() {
   const handleDrawerOpen = () => { setOpen(true); };
   const handleDrawerClose = () => { setOpen(false); };
   const isAdmin = localStorage.getItem("privilages") === "admin";
+  const isManager = localStorage.getItem("privilages") === "manager";
 
   useEffect(() => {
     // This function will be called when the component mounts and whenever the username in localStorage changes
@@ -87,7 +88,7 @@ export default function Header() {
             </MDBNavbarNav>
         </MDBNavbar>
         <Drawer variant="persistent" anchor="left" open={open}>
-            <Sidebar open={open} handleDrawerClose={handleDrawerClose} isAdmin={isAdmin} />
+            <Sidebar open={open} handleDrawerClose={handleDrawerClose} isAdmin={isAdmin} isManager={isManager}/>
         </Drawer>
     </>
 );

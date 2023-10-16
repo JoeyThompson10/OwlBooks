@@ -76,7 +76,7 @@ const Dashboard = () => {
                         {item.icon} {item.text}
                     </MDBBtn>
                 ))}
-                {(isManager, isAdmin) && manageAccountItems.map((item) => (
+                {(isManager || isAdmin) && manageAccountItems.map((item) => (
                     <MDBBtn color="secondary" className="m-2" onClick={() => navigate(item.path)}>
                         {item.icon} {item.text}
                     </MDBBtn>

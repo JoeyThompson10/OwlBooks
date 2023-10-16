@@ -59,7 +59,7 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
                 </ListItem>
             ))}
 
-            {(isManager, isAdmin) && (
+            {(isManager || isAdmin) && (
                 <>
                     <Divider /> Manage Accounts
                     <List>

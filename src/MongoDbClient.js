@@ -89,6 +89,17 @@ async function GetAllAccountEvents() {
     return await user.functions.GetAllAccountEvents();
 }
 
+async function setJournalEntry (journalNumber, dateCreated, debit, credit, status, docsJournalEntry){
+    const user = await app().logIn(credentials());
+    return await user.functions.JournalEntry( journalNumber, dateCreated, debit, credit, status, docsJournalEntry);
+}
+
+async function getJournalEntry(){
+    const user = await app().logIn(credentials());
+    return await user.functions.getJournalEntry();
+}
+
+
 export { 
     GetAllAccountEvents, 
     setAccountInfo, 
@@ -105,5 +116,7 @@ export {
     GetUserAuth, 
     ChangePassword, 
     getAccountInfo, 
-    GetAllAccounts 
+    GetAllAccounts,
+    setJournalEntry,
+    getJournalEntry
 };

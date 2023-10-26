@@ -39,6 +39,7 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
 
     const everyoneItems = [
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
+        { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },
     ];
 
     return (
@@ -47,7 +48,7 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
 
-            <Divider/>View Accounts
+            <Divider/> Home
             {everyoneItems.map((item) => (
                 <ListItem button key={item.text} onClick={() => { navigate(item.path); handleDrawerClose(); }}>
                     <ListItemButton>
@@ -94,6 +95,7 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
                     </List>
                 </>
             )}
+            
         </>
     );
 }

@@ -17,7 +17,7 @@ const Dashboard = () => {
     const hasAccount = localStorage.getItem("privilages");
 
     const manageUserItems = [
-        { text: 'r', icon: <EditIcon />, path: '/edituser' },
+        { text: 'Edit User', icon: <EditIcon />, path: '/edituser' },
         { text: 'Create User', icon: <AddBoxIcon />, path: '/createuser' },
         { text: 'All Users', icon: <PeopleAltIcon />, path: '/allusers' },
         { text: 'Expired Password', icon: <KeyOffIcon />, path: '/expiredpasswords' },

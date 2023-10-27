@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GetAllAccountEvents } from '../../MongoDbClient';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdb-react-ui-kit';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledTable = styled(MDBTable)`
   th {
@@ -19,9 +20,9 @@ const StyledTable = styled(MDBTable)`
 `;
 
 const formatDate = (date) => {
-    const formattedDate = date instanceof Date ? date.toLocaleString() : 'N/A';
-    return formattedDate;
-  };
+  const formattedDate = date instanceof Date ? date.toLocaleString() : 'N/A';
+  return formattedDate;
+};
 
 const EventRow = styled.tr`
   &:hover {
@@ -34,6 +35,7 @@ const AllAccountEvents = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchAccountEvents = async () => {
@@ -60,25 +62,36 @@ const AllAccountEvents = () => {
     setSelectedEvent(null);
   };
 
-  if (loading) return <p>Loading events...</p>;
-  if (error) return <p style={{ color: 'red' }}>Error loading account events: {error}</p>;
+  const filteredEvents = accountEvents.filter((event) => {
+    const accountName = event.aftAccName || '';
+    return accountName.toLowerCase().includes(searchTerm.toLowerCase());
+});
 
   return (
     <div>
       <h2>All Account Events</h2>
+      <input
+        type="text"
+        placeholder="Search by Account Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       {selectedEvent ? (
         <div>
           <button onClick={handleBackClick}>Back</button>
           <h3>Event Details</h3>
           <p>Event Number: {selectedEvent.eventNumber}</p>
-          <p>Account Name: {selectedEvent.aftAccName}</p>
+          <p>
+            Account Name:{' '}
+            <Link to={`/ledger/${selectedEvent.aftAccName}`}>
+              {selectedEvent.aftAccName}
+            </Link>
+          </p>
           <p>Time of Event: {formatDate(selectedEvent.accTimeEdited)}</p>
           <p>Edited By: {selectedEvent.editedBy}</p>
           <h4>Before</h4>
           <StyledTable>
-            <MDBTableHead>
-              
-            </MDBTableHead>
+            <MDBTableHead></MDBTableHead>
             <MDBTableBody>
               <tr>
                 <td>Account Number</td>
@@ -136,11 +149,9 @@ const AllAccountEvents = () => {
           </StyledTable>
           <h4>After</h4>
           <StyledTable>
-            <MDBTableHead>
-              
-            </MDBTableHead>
+            <MDBTableHead></MDBTableHead>
             <MDBTableBody>
-            <tr>
+              <tr>
                 <td>Account Number</td>
                 <td>{selectedEvent.aftAccNumber}</td>
               </tr>
@@ -192,7 +203,6 @@ const AllAccountEvents = () => {
                 <td>Is Active</td>
                 <td>{selectedEvent.aftIsActive.toString()}</td>
               </tr>
-              {/* Add more rows for other variables */}
             </MDBTableBody>
           </StyledTable>
         </div>
@@ -206,14 +216,16 @@ const AllAccountEvents = () => {
             </tr>
           </MDBTableHead>
           <MDBTableBody>
-            {accountEvents.map(event => (
-            <EventRow key={event._id} onClick={() => handleEventClick(event)}>
-              
+            {filteredEvents.map((event) => (
+              <EventRow key={event._id} onClick={() => handleEventClick(event)}>
                 <td>{event.eventNumber}</td>
-                <td>{event.aftAccName}</td>
+                <td>
+                  <Link to={`/ledger/${event.aftAccName}`}>
+                    {event.aftAccName}
+                  </Link>
+                </td>
                 <td>{formatDate(event.accTimeEdited)}</td>
-              
-            </EventRow>
+              </EventRow>
             ))}
           </MDBTableBody>
         </StyledTable>

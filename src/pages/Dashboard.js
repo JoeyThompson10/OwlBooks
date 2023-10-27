@@ -17,7 +17,7 @@ const Dashboard = () => {
     const hasAccount = localStorage.getItem("privilages");
 
     const manageUserItems = [
-        { text: 'Edit User', icon: <EditIcon />, path: '/edituser' },
+        { text: 'r', icon: <EditIcon />, path: '/edituser' },
         { text: 'Create User', icon: <AddBoxIcon />, path: '/createuser' },
         { text: 'All Users', icon: <PeopleAltIcon />, path: '/allusers' },
         { text: 'Expired Password', icon: <KeyOffIcon />, path: '/expiredpasswords' },
@@ -26,12 +26,13 @@ const Dashboard = () => {
     const manageAccountItems = [
         { text: 'Add New Account', icon: <AccountBalanceIcon />, path: '/addaccount' },
         { text: 'Edit Existing Account', icon: <EditNoteIcon />, path: '/editexistingaccounts' },
-        { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
+        
     ];
 
     const everyoneItems = [
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: '/allaccounts' },
         { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
+        { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },
     ];
 
     return (

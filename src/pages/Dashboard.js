@@ -31,6 +31,7 @@ const Dashboard = () => {
 
     const everyoneItems = [
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: '/allaccounts' },
+        { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
     ];
 
     return (

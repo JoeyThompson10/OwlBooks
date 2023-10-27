@@ -34,12 +34,11 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
     const manageAccountItems = [
         { text: 'Add New Account', icon: <AccountBalanceIcon />, path: "/addaccount" },
         { text: 'Edit Existing Account', icon: <EditNoteIcon />, path: "/editexistingaccounts" },
-        { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: "/accounteventlog" }
     ];
 
     const everyoneItems = [
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
-        //{ text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
+        { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
         { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },
         
     ];

@@ -89,9 +89,9 @@ async function GetAllAccountEvents() {
     return await user.functions.GetAllAccountEvents();
 }
 
-async function setJournalEntry (journalNumber, dateCreated, debit, credit, status, docsJournalEntry){
+async function setJournalStatus (journalNumber, status){
     const user = await app().logIn(credentials());
-    return await user.functions.JournalEntry( journalNumber, dateCreated, debit, credit, status, docsJournalEntry);
+    return await user.functions.setJournalStatus( journalNumber, status );
 }
 
 async function getJournalEntry(){
@@ -99,6 +99,10 @@ async function getJournalEntry(){
     return await user.functions.getJournalEntry();
 }
 
+async function addJournalEntry(entryData){
+    const user = await app().logIn(credentials());
+    return await user.functions.addJournalEntry(entryData);
+}
 
 export { 
     GetAllAccountEvents, 
@@ -117,6 +121,7 @@ export {
     ChangePassword, 
     getAccountInfo, 
     GetAllAccounts,
-    setJournalEntry,
-    getJournalEntry
+    setJournalStatus,
+    getJournalEntry,
+    addJournalEntry
 };

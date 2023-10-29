@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { IconButton, TextField, FormControl, InputLabel, Select, MenuItem, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
-import { Add, Check, Block, RemoveRedEye } from "@mui/icons-material";
+import { Add, Check, Block, Delete, RemoveRedEye } from "@mui/icons-material";
 import { getJournalEntry, setJournalStatus, addJournalEntry, deleteJournalEntry, GetAllAccounts } from '../MongoDbClient';
 
 function AddJournalEntryModal({ open, onClose, onSave }) {
@@ -204,7 +204,7 @@ function Journal() {
         {
             field: 'action',
             headerName: 'Action',
-            width: 150,
+            width: 165,
             renderCell: (params) => (
                 <>
                     <IconButton onClick={() => handleApprove(params.row.id)} color="primary">
@@ -214,7 +214,7 @@ function Journal() {
                         <Block />
                     </IconButton>
                     <IconButton onClick={() => handleDelete(params.row.id)}>
-                        <Block />
+                        <Delete />
                     </IconButton>
                     <IconButton onClick={() => goToLedger(params.row.accountName)}>
                         <RemoveRedEye />

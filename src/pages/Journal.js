@@ -191,7 +191,7 @@ function Journal() {
     };
 
     return (
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box sx={{ height: '100%', width: '100%' }}>
             <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
                 <TextField
                     label="Search"

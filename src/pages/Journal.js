@@ -3,13 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { IconButton, TextField, FormControl, InputLabel, Select, MenuItem, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import { Add, Check, Block, RemoveRedEye } from "@mui/icons-material";
-import { getJournalEntry, setJournalStatus, addJournalEntry } from '../MongoDbClient';
+import { getJournalEntry, setJournalStatus, addJournalEntry, deleteJournalEntry, GetAllAccounts } from '../MongoDbClient';
 
 function AddJournalEntryModal({ open, onClose, onSave }) {
+    const [accounts, setAccounts] = useState([]);
+    const [selectedAccount, setSelectedAccount] = useState("");
+
+    useEffect(() => {
+        const fetchAccounts = async () => {
+            const fetchedAccounts = await GetAllAccounts();
+            setAccounts(fetchedAccounts);
+        };
+        fetchAccounts();
+    }, []);
+
     const date = new Date();
 
     const [newEntry, setNewEntry] = useState({
         journalID: '',
+        accountName: '',
         journalNumber: '',
         debit: '',
         credit: '',
@@ -18,14 +30,38 @@ function AddJournalEntryModal({ open, onClose, onSave }) {
     });
 
     const handleSave = () => {
-        onSave(newEntry);
+        onSave({ ...newEntry, account: selectedAccount });
         onClose();
     };
+
+    function handleSelectChange(event) {
+        const accountId = event.target.value;
+        const accountName = accounts.find(acc => acc._id === accountId)?.accName || '';
+
+        setSelectedAccount(accountId);
+        setNewEntry({ ...newEntry, accountName: accountName });
+    }
+
+
 
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Add Journal Entry</DialogTitle>
             <DialogContent>
+                <FormControl fullWidth margin="dense" variant="standard">
+                    <InputLabel>Account</InputLabel>
+                    <Select
+                        value={selectedAccount}
+                        label="Account"
+                        onChange={handleSelectChange}
+                    >
+                        {Object.values(accounts).filter(acc => acc.accName).map((account) => (
+                            <MenuItem key={account._id} value={account._id}>
+                                {account.accName}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -114,6 +150,7 @@ function Journal() {
             const entries = await getJournalEntry();
             const adjustedEntries = entries.map(entry => ({
                 id: entry._id.toString(),
+                accountName: entry.accountName,
                 journalID: entry.journalID,
                 journalNumber: parseInt(entry.journalNumber),
                 dateCreated: entry.datecreated,
@@ -150,6 +187,7 @@ function Journal() {
     const columns = [
         { field: 'dateCreated', headerName: 'Date Created', width: 150 },
         { field: 'id', headerName: 'Database ID', width: 150 },
+        { field: 'accountName', headerName: 'Account Name', width: 200 },
         { field: 'journalID', headerName: 'Journal ID', width: 150 },
         { field: 'journalNumber', headerName: 'Journal Number', width: 150 },
         { field: 'debit', headerName: 'Debit', type: 'number', width: 120 },
@@ -221,9 +259,9 @@ function Journal() {
                     Toolbar: EditToolbar,
                 }}
                 componentsProps={{
-                    toolbar: { 
+                    toolbar: {
                         onAddNew: handleAddNewClick, // Passing the function to open the modal
-                        setRows, 
+                        setRows,
                         setRowModesModel
                     },
                 }}
@@ -236,6 +274,7 @@ function Journal() {
                 open={isModalOpen}
                 onClose={() => setModalOpen(false)}
                 onSave={async (newEntry) => {
+                    console.log(newEntry)
                     const response = await addJournalEntry(newEntry);
                     if (response.entry) {
                         setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
@@ -243,7 +282,7 @@ function Journal() {
                         console.error(response.message);
                     }
                 }}
-                
+
             />
         </Box>
     );

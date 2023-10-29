@@ -104,6 +104,11 @@ async function addJournalEntry(entryData){
     return await user.functions.addJournalEntry(entryData);
 }
 
+async function deleteJournalEntry(_id){
+    const user = await app().logIn(credentials());
+    return await user.functions.deleteJournalEntry(_id);
+}
+
 export { 
     GetAllAccountEvents, 
     setAccountInfo, 
@@ -123,5 +128,6 @@ export {
     GetAllAccounts,
     setJournalStatus,
     getJournalEntry,
-    addJournalEntry
+    addJournalEntry,
+    deleteJournalEntry
 };

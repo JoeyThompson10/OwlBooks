@@ -180,6 +180,14 @@ function Journal() {
         setRows(rows.map(row => row.id === id ? { ...row, status: 'Rejected' } : row));
     };
 
+    const handleDelete = async (id) => {
+        const res = await deleteJournalEntry(id);
+        window.alert(JSON.stringify(res));
+
+        // Update local state to reflect the change
+        setRows(rows.filter(row => row.id !== id));
+    }
+
     const goToLedger = (accountName) => {
         navigate(`/ledger/${accountName}`);
     };
@@ -203,6 +211,9 @@ function Journal() {
                         <Check />
                     </IconButton>
                     <IconButton onClick={() => handleReject(params.row.id)} color="secondary">
+                        <Block />
+                    </IconButton>
+                    <IconButton onClick={() => handleDelete(params.row.id)}>
                         <Block />
                     </IconButton>
                     <IconButton onClick={() => goToLedger(params.row.accountName)}>

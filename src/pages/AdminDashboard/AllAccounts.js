@@ -72,7 +72,7 @@ const AllAccounts = () => {
                         (!filter.balance || (account.accBalance && account.accBalance.toString().includes(filter.balance)))
                     ).map(account => (
                         <tr key={account._id}>
-                            <td><Link to={`/ledger/${account._id}`}>{account.accName}</Link></td>
+                            <td><Link to={`/ledger/${account.accName}`}>{account.accName}</Link></td>
                             <td>{account.accNumber}</td>
                             <td>{account.accBalance}</td>
                             <td>{account.accDebit}</td>

@@ -25,7 +25,7 @@ function LedgerPage() {
 
   // Function to format a date to display only the date
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const options = { month: '2-digit', day: '2-digit' };
     return new Date(dateString).toLocaleString(undefined, options);
   };
 
@@ -52,7 +52,7 @@ function LedgerPage() {
             <th>Debit</th>
             <th>Credit</th>
             <th>Balance</th>
-            <th>Status</th>
+            <th>Details</th> {/* New "Details" column */}
           </tr>
         </MDBTableHead>
         <MDBTableBody>
@@ -62,7 +62,7 @@ function LedgerPage() {
               <td>{entry.debits}</td>
               <td>{entry.credits}</td>
               <td>{entry.balance}</td>
-              <td>{entry.status}</td>
+              <td>{entry.details}</td> {/* Display "Details" from the entry */}
             </tr>
           ))}
         </MDBTableBody>

@@ -5,7 +5,7 @@ import { IconButton, TextField, FormControl, InputLabel, Select, MenuItem, Box, 
 import { Add, Check, Block, Delete, RemoveRedEye } from "@mui/icons-material";
 import { getJournalEntry, setJournalStatus, addJournalEntry, deleteJournalEntry, GetAllAccounts } from '../MongoDbClient';
 
-function AddJournalEntryModal({ open, onClose, onSave }) {
+function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
     const [accounts, setAccounts] = useState([]);
     const [selectedAccount, setSelectedAccount] = useState("");
 
@@ -20,9 +20,9 @@ function AddJournalEntryModal({ open, onClose, onSave }) {
     const date = new Date();
 
     const [newEntry, setNewEntry] = useState({
-        journalID: '',
+        //journalID: '',
         accountName: '',
-        journalNumber: '',
+        //journalNumber: '',
         debit: '',
         credit: '',
         dateCreated: date.toISOString().slice(0, 10),
@@ -58,25 +58,25 @@ function AddJournalEntryModal({ open, onClose, onSave }) {
                         {Object.values(accounts).filter(acc => acc.accName).map((account) => (
                             <MenuItem key={account._id} value={account._id}>
                                 {account.accName}
-                            </MenuItem>
+                            </MenuItem> 
                         ))}
                     </Select>
                 </FormControl>
-                <TextField
+                {/* <TextField 
                     autoFocus
                     margin="dense"
                     label="Journal ID"
                     fullWidth
                     variant="standard"
                     onChange={(e) => setNewEntry({ ...newEntry, journalID: e.target.value })}
-                />
-                <TextField
+                /> */}
+                {/* <TextField 
                     margin="dense"
                     label="Journal Number"
                     fullWidth
                     variant="standard"
                     onChange={(e) => setNewEntry({ ...newEntry, journalNumber: e.target.value })}
-                />
+                /> */}
                 <TextField
                     margin="dense"
                     label="Debit"
@@ -139,6 +139,8 @@ function EditToolbar(props) {
 
 function Journal() {
     const navigate = useNavigate();
+    const isAdmin = localStorage.getItem("privilages") === "admin";
+    const isManager = localStorage.getItem("privilages") === "manager";
     const [rows, setRows] = useState([]);
     const [rowModesModel, setRowModesModel] = useState({});
     const [isModalOpen, setModalOpen] = useState(false);
@@ -151,8 +153,8 @@ function Journal() {
             const adjustedEntries = entries.map(entry => ({
                 id: entry._id.toString(),
                 accountName: entry.accountName,
-                journalID: entry.journalID,
-                journalNumber: parseInt(entry.journalNumber),
+                //journalID: entry.journalID,
+                //journalNumber: parseInt(entry.journalNumber),
                 dateCreated: entry.datecreated,
                 debit: parseInt(entry.debits),
                 credit: parseInt(entry.credits),
@@ -194,10 +196,10 @@ function Journal() {
 
     const columns = [
         { field: 'dateCreated', headerName: 'Date Created', width: 150 },
-        { field: 'id', headerName: 'Database ID', width: 150 },
+        //{ field: 'id', headerName: 'Database ID', width: 150 },
         { field: 'accountName', headerName: 'Account Name', width: 200 },
-        { field: 'journalID', headerName: 'Journal ID', width: 150 },
-        { field: 'journalNumber', headerName: 'Journal Number', width: 150 },
+        //{ field: 'journalID', headerName: 'Journal ID', width: 150 },
+       // { field: 'journalNumber', headerName: 'Journal Number', width: 150 },
         { field: 'debit', headerName: 'Debit', type: 'number', width: 120 },
         { field: 'credit', headerName: 'Credit', type: 'number', width: 120 },
         { field: 'status', headerName: 'Status', width: 120 },
@@ -206,6 +208,8 @@ function Journal() {
             headerName: 'Action',
             width: 165,
             renderCell: (params) => (
+                <>
+                {(isManager || isAdmin ) && (
                 <>
                     <IconButton onClick={() => handleApprove(params.row.id)} color="primary">
                         <Check />
@@ -216,10 +220,13 @@ function Journal() {
                     <IconButton onClick={() => handleDelete(params.row.id)}>
                         <Delete />
                     </IconButton>
+                </>
+                )}
                     <IconButton onClick={() => goToLedger(params.row.accountName)}>
                         <RemoveRedEye />
                     </IconButton>
                 </>
+                
             ),
         }
     ];
@@ -255,7 +262,7 @@ function Journal() {
                         label="Status Filter"
                     >
                         <MenuItem value="All">All</MenuItem>
-                        <MenuItem value="Approved">Approved</MenuItem>
+                        <MenuItem value="Approved" >Approved</MenuItem>
                         <MenuItem value="Rejected">Rejected</MenuItem>
                         <MenuItem value="Pending">Pending</MenuItem>
                     </Select>
@@ -288,7 +295,10 @@ function Journal() {
                     console.log(newEntry)
                     const response = await addJournalEntry(newEntry);
                     if (response.entry) {
-                        setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
+                        setRows([...rows, { ...response.entry, 
+                            id: response.entry._id.toString(),
+                            accountName: newEntry.accountName
+                         }]);
                     } else {
                         console.error(response.message);
                     }

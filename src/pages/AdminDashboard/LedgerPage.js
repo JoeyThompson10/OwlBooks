@@ -13,7 +13,10 @@ function LedgerPage() {
       try {
         const journalEntries = await getJournalEntry();
         // Filter the journal entries for the specified account
-        const filteredEntries = journalEntries.filter(entry => entry.accountName === accountId);
+        //const filteredEntries = journalEntries.filter(entry => entry.accountName === accountId);
+        const filteredEntries = journalEntries.filter(entry =>
+          entry.debitAccount === accountId || entry.creditAccount === accountId
+        );
         setLedgerDetails(filteredEntries);
       } catch (error) {
         console.error('Error fetching ledger details:', error);
@@ -49,7 +52,9 @@ function LedgerPage() {
         <MDBTableHead>
           <tr>
             <th>Date Created</th>
+            <th>Debit Account</th>
             <th>Debit</th>
+            <th>Credit Account</th>
             <th>Credit</th>
             <th>Balance</th>
             <th>Details</th> {/* New "Details" column */}
@@ -59,6 +64,8 @@ function LedgerPage() {
           {ledgerDataWithBalance.map(entry => (
             <tr key={entry._id}>
               <td>{formatDate(entry.datecreated)}</td>
+              <td>{entry.debitAccount}</td>
+              <td>{entry.creditAccount}</td>
               <td>{entry.debits}</td>
               <td>{entry.credits}</td>
               <td>{entry.balance}</td>

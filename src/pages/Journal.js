@@ -8,7 +8,10 @@ import { getJournalEntry, setJournalStatus, addJournalEntry, deleteJournalEntry,
 function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
     const [accounts, setAccounts] = useState([]);
     const [selectedAccount, setSelectedAccount] = useState("");
+    const [selectedDebitAccount, setSelectedDebitAccount] = useState("");
+    const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
 
+    
     useEffect(() => {
         const fetchAccounts = async () => {
             const fetchedAccounts = await GetAllAccounts();
@@ -22,6 +25,8 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
     const [newEntry, setNewEntry] = useState({
         //journalID: '',
         accountName: '',
+        debitAccount: '',
+        creditAccount: ' ',
         //journalNumber: '',
         debit: '',
         credit: '',
@@ -34,31 +39,52 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
         onClose();
     };
 
-    function handleSelectChange(event) {
+    function handleSelectChange(event, type) {
         const accountId = event.target.value;
         const accountName = accounts.find(acc => acc._id === accountId)?.accName || '';
-
-        setSelectedAccount(accountId);
-        setNewEntry({ ...newEntry, accountName: accountName });
+        //setSelectedAccount(accountId);
+        //setNewEntry({ ...newEntry, accountName: accountName });
+        if (type == 'debit') {
+            setSelectedDebitAccount(accountId);
+            setNewEntry({ ...newEntry, debitAccount: accountName });
+        } else {
+            setSelectedCreditAccount(accountId);
+            setNewEntry({ ...newEntry, creditAccount: accountName });
+        }
     }
 
 
-
+// this is the pop-up to add accounts
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Add Journal Entry</DialogTitle>
             <DialogContent>
                 <FormControl fullWidth margin="dense" variant="standard">
-                    <InputLabel>Account</InputLabel>
+                    <InputLabel>Debit Account</InputLabel>
                     <Select
-                        value={selectedAccount}
-                        label="Account"
-                        onChange={handleSelectChange}
+                        value={selectedDebitAccount}
+                        label="Debit Account"
+                        onChange={(e) => handleSelectChange(e, 'debit')}
                     >
                         {Object.values(accounts).filter(acc => acc.accName).map((account) => (
                             <MenuItem key={account._id} value={account._id}>
                                 {account.accName}
-                            </MenuItem> 
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl fullWidth margin="dense" variant="standard">
+                    <InputLabel>Credit Account</InputLabel>
+                    <Select
+                        value={selectedCreditAccount}
+                        label="Credit Account"
+                        onChange={(e) => handleSelectChange(e, 'credit')}
+                    >
+                        {Object.values(accounts).filter(acc => acc.accName).map((account) => (
+                            <MenuItem key={account._id} value={account._id}>
+                                {account.accName}
+                            </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -152,7 +178,9 @@ function Journal() {
             const entries = await getJournalEntry();
             const adjustedEntries = entries.map(entry => ({
                 id: entry._id.toString(),
-                accountName: entry.accountName,
+                //accountName: entry.accountName,
+                debitAccount: entry.debitAccount,
+                creditAccount: entry.creditAccount,
                 //journalID: entry.journalID,
                 //journalNumber: parseInt(entry.journalNumber),
                 dateCreated: entry.datecreated,
@@ -160,6 +188,7 @@ function Journal() {
                 credit: parseInt(entry.credits),
                 status: entry.status,
                 action: entry.action
+                
             }));
             setRows(adjustedEntries);
         };
@@ -197,12 +226,20 @@ function Journal() {
     const columns = [
         { field: 'dateCreated', headerName: 'Date Created', width: 150 },
         //{ field: 'id', headerName: 'Database ID', width: 150 },
-        { field: 'accountName', headerName: 'Account Name', width: 200 },
         //{ field: 'journalID', headerName: 'Journal ID', width: 150 },
        // { field: 'journalNumber', headerName: 'Journal Number', width: 150 },
+        { field: 'debitAccount', headerName: 'Account Debited', width: 180,  renderCell: (params) => (
+            <a onClick={() => goToLedger(params.value)} style={{cursor: 'pointer'}}>
+                {params.value}
+            </a>
+        )},
         { field: 'debit', headerName: 'Debit', type: 'number', width: 120 },
+        { field: 'creditAccount', headerName: 'Account Credited', width: 180, renderCell: (params) => (
+            <a onClick={() => goToLedger(params.value)} style={{cursor: 'pointer'}}>
+                {params.value}
+            </a> )},
         { field: 'credit', headerName: 'Credit', type: 'number', width: 120 },
-        { field: 'status', headerName: 'Status', width: 120 },
+        { field: 'status', headerName: 'Status', width: 150 },
         {
             field: 'action',
             headerName: 'Action',
@@ -297,7 +334,8 @@ function Journal() {
                     if (response.entry) {
                         setRows([...rows, { ...response.entry, 
                             id: response.entry._id.toString(),
-                            accountName: newEntry.accountName
+                            debitAccount: newEntry.debitAccount,
+                            creditAccount: newEntry.creditAccount
                          }]);
                     } else {
                         console.error(response.message);

@@ -65,8 +65,8 @@ function LedgerPage() {
             <tr key={entry._id}>
               <td>{formatDate(entry.datecreated)}</td>
               <td>{entry.debitAccount}</td>
-              <td>{entry.creditAccount}</td>
               <td>{entry.debits}</td>
+              <td>{entry.creditAccount}</td>
               <td>{entry.credits}</td>
               <td>{entry.balance}</td>
               <td>{entry.details}</td> {/* Display "Details" from the entry */}

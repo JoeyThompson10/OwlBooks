@@ -342,6 +342,15 @@ function Journal() {
         );
       });
       
+      function CustomToolbar(props) {
+        return (
+            <>
+                <GridToolbar {...props} />
+                <EditToolbar {...props} />
+            </>
+        );
+    }
+      
 
     return (
         <Box sx={{ height: '100%', width: '100%' }}>
@@ -405,8 +414,8 @@ function Journal() {
                 rowModesModel={rowModesModel}
                 onRowModesModelChange={setRowModesModel}
                 components={{
-                    Toolbar: GridToolbar, // Added GridToolbar here
-                }}
+                    Toolbar: CustomToolbar
+                }}                
                 componentsProps={{
                     toolbar: {
                         onAddNew: handleAddNewClick, // Passing the function to open the modal
@@ -463,8 +472,9 @@ function Journal() {
                     rowModesModel={rowModesModel}
                     onRowModesModelChange={setRowModesModel}
                     components={{
-                        Toolbar: GridToolbar, // Added GridToolbar here
+                        Toolbar: CustomToolbar
                     }}
+                    
                     componentsProps={{
                         toolbar: {
                             onAddNew: handleAddNewClick, // Passing the function to open the modal

@@ -146,10 +146,10 @@ const AllAccounts = () => {
                     <div
                         style={{
                             width: "600px",
-                            margin: "500px auto",
-                            padding: "20px",
+                            margin: "200px auto",
+                            padding: "10px",
                             background: "white",
-                            borderRadius: "10px",
+                            borderRadius: "5px",
                         }}
                     >
                         <h3>Customize Email</h3>

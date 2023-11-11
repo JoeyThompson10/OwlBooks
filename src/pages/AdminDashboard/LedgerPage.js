@@ -57,7 +57,9 @@ function LedgerPage() {
             <th>Credit Account</th>
             <th>Credit</th>
             <th>Balance</th>
-            <th>Details</th> {/* New "Details" column */}
+            <th>Entry Type</th>
+            <th>Comments</th>
+            <th>Description</th> {/* New "Details" column */}
           </tr>
         </MDBTableHead>
         <MDBTableBody>
@@ -69,6 +71,8 @@ function LedgerPage() {
               <td>{entry.creditAccount}</td>
               <td>{entry.credits}</td>
               <td>{entry.balance}</td>
+              <td>{entry.typeEntry}</td>
+              <td>{entry.comment}</td>
               <td>{entry.details}</td> {/* Display "Details" from the entry */}
             </tr>
           ))}

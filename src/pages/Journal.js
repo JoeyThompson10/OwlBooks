@@ -1,15 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { IconButton, TextField, FormControl, InputLabel, Select, MenuItem, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import { Add, Check, Block, Delete, RemoveRedEye } from "@mui/icons-material";
 import { getJournalEntry, setJournalStatus, addJournalEntry, deleteJournalEntry, GetAllAccounts } from '../MongoDbClient';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
 
-function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
+function CustomTabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+            <Box sx={{ p: 3 }}>
+                {children}
+            </Box>
+            )}
+        </div>
+    );
+}
+CustomTabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabValue }) {
     const [accounts, setAccounts] = useState([]);
     const [selectedAccount, setSelectedAccount] = useState("");
     const [selectedDebitAccount, setSelectedDebitAccount] = useState("");
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
+
+
 
     
     useEffect(() => {
@@ -17,21 +55,29 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
             const fetchedAccounts = await GetAllAccounts();
             setAccounts(fetchedAccounts);
         };
+
+        if (open) {
+            setNewEntry({
+              ...newEntry,
+              typeEntry: tabValue === 1 ? 'Adjusted' : 'Regular'
+            });
+          }
+
         fetchAccounts();
-    }, []);
+    }, [open, tabValue]);
 
     const date = new Date();
 
     const [newEntry, setNewEntry] = useState({
-        //journalID: '',
         accountName: '',
         debitAccount: '',
-        creditAccount: ' ',
-        //journalNumber: '',
+        creditAccount: '',
         debit: '',
         credit: '',
         dateCreated: date.toISOString().slice(0, 10),
+        typeEntry: '',
         status: 'Pending',
+        comment: ''
     });
 
     const handleSave = () => {
@@ -42,8 +88,6 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
     function handleSelectChange(event, type) {
         const accountId = event.target.value;
         const accountName = accounts.find(acc => acc._id === accountId)?.accName || '';
-        //setSelectedAccount(accountId);
-        //setNewEntry({ ...newEntry, accountName: accountName });
         if (type == 'debit') {
             setSelectedDebitAccount(accountId);
             setNewEntry({ ...newEntry, debitAccount: accountName });
@@ -52,7 +96,6 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
             setNewEntry({ ...newEntry, creditAccount: accountName });
         }
     }
-
 
 // this is the pop-up to add accounts
     return (
@@ -88,21 +131,7 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin }) {
                         ))}
                     </Select>
                 </FormControl>
-                {/* <TextField 
-                    autoFocus
-                    margin="dense"
-                    label="Journal ID"
-                    fullWidth
-                    variant="standard"
-                    onChange={(e) => setNewEntry({ ...newEntry, journalID: e.target.value })}
-                /> */}
-                {/* <TextField 
-                    margin="dense"
-                    label="Journal Number"
-                    fullWidth
-                    variant="standard"
-                    onChange={(e) => setNewEntry({ ...newEntry, journalNumber: e.target.value })}
-                /> */}
+               
                 <TextField
                     margin="dense"
                     label="Debit"
@@ -172,23 +201,38 @@ function Journal() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterStatus, setFilterStatus] = useState("All");
+    const [tabValue, setTabValue] = useState(0);
+    const [newEntry, setNewEntry] = useState({});
+    const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+    const [rejectComment, setRejectComment] = useState('');
+    const [rejectingRowId, setRejectingRowId] = useState(null);
+    const handleTabChange = (event, newValue) => {
+        setTabValue(newValue);
+        setNewEntry({ ...newEntry, typeEntry: newValue === 1 ? 'Adjusted' : 'Regular' });
+    };
+    const handleAddNewClick = () => {
+        setNewEntry(currentNewEntry => ({
+            ...currentNewEntry,
+            typeEntry: tabValue === 0 ? 'Regular' : 'Adjusted',
+            
+        }));
+        setModalOpen(true);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             const entries = await getJournalEntry();
             const adjustedEntries = entries.map(entry => ({
                 id: entry._id.toString(),
-                //accountName: entry.accountName,
+                typeEntry: entry.typeEntry,
                 debitAccount: entry.debitAccount,
                 creditAccount: entry.creditAccount,
-                //journalID: entry.journalID,
-                //journalNumber: parseInt(entry.journalNumber),
                 dateCreated: entry.datecreated,
                 debit: parseInt(entry.debits),
                 credit: parseInt(entry.credits),
                 status: entry.status,
-                action: entry.action
-                
+                action: entry.action,
+                comment: entry.comment
             }));
             setRows(adjustedEntries);
         };
@@ -204,12 +248,27 @@ function Journal() {
     };
 
     const handleReject = async (id) => {
-        const res = await setJournalStatus(id, 'Rejected');
-        window.alert(JSON.stringify(res));
-
-        // Update local state to reflect the change
-        setRows(rows.map(row => row.id === id ? { ...row, status: 'Rejected' } : row));
+        setIsRejectModalOpen(true);
+        setRejectingRowId(id);
     };
+
+    const submitRejection = async () => {
+        if (rejectComment.trim()) {
+            // Now you call the function to reject the entry with the comment
+            const res = await setJournalStatus(rejectingRowId, 'Rejected', rejectComment);
+            window.alert(JSON.stringify(res));
+    
+            // Update local state to reflect the change only after the comment has been submitted
+            setRows(rows.map(row => row.id === rejectingRowId ? { ...row, status: 'Rejected', comment: rejectComment } : row));
+    
+            // Reset the comment and close the rejection dialog
+            setRejectComment('');
+            setIsRejectModalOpen(false);
+        } else {
+            window.alert("Comment is required to reject an entry.");
+        }
+    };
+    
 
     const handleDelete = async (id) => {
         const res = await deleteJournalEntry(id);
@@ -239,7 +298,9 @@ function Journal() {
                 {params.value}
             </a> )},
         { field: 'credit', headerName: 'Credit', type: 'number', width: 120 },
-        { field: 'status', headerName: 'Status', width: 150 },
+        { field: 'typeEntry', headerName: 'Entry Type', width: 150 },
+        { field: 'status', headerName: 'Status', width: 120 },
+        { field: 'comment', headerName: 'Comments', width: 200 },
         {
             field: 'action',
             headerName: 'Action',
@@ -269,28 +330,34 @@ function Journal() {
     ];
 
     const filteredRows = rows.filter((row) => {
+        const searchTermLower = searchTerm.toLowerCase();
+        const isCorrectType = (tabValue === 0 && row.typeEntry === 'Regular') || (tabValue === 1 && row.typeEntry === 'Adjusted');
         return (
+            isCorrectType &&
             (filterStatus === "All" || row.status === filterStatus) &&
             ((row.accountName && row.accountName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                (row.debit !== null && row.debit !== undefined && row.debit.toString().includes(searchTerm)) ||
-                (row.credit !== null && row.credit !== undefined && row.credit.toString().includes(searchTerm)) ||
-                (row.dateCreated && row.dateCreated.includes(searchTerm)))
+            (row.debit !== null && row.debit !== undefined && row.debit.toString().includes(searchTerm)) ||
+            (row.credit !== null && row.credit !== undefined && row.credit.toString().includes(searchTerm)) ||
+            (row.dateCreated && row.dateCreated.includes(searchTerm)))
         );
-    });
-
-    // Function to open the Add Journal Entry Modal
-    const handleAddNewClick = () => {
-        setModalOpen(true);
-    };
+      });
+      
 
     return (
         <Box sx={{ height: '100%', width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={tabValue} onChange={handleTabChange} centered aria-label="journal tabs" >
+                    <Tab label="Journal Entries" {...a11yProps(0)} />
+                    <Tab label="Adjusted Journal Entries" {...a11yProps(1)} />
+                </Tabs>
+            </Box>
+            <CustomTabPanel value={tabValue} index={0}>
             <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <TextField
+                {/* <TextField
                     label="Search"
                     variant="outlined"
                     onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                /> */}
                 <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel>Status Filter</InputLabel>
                     <Select
@@ -305,13 +372,40 @@ function Journal() {
                     </Select>
                 </FormControl>
             </Box>
+            <Dialog open={isRejectModalOpen} onClose={() => setIsRejectModalOpen(false)}>
+                <DialogTitle>Reject Journal Entry</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Rejection Comment"
+                        fullWidth
+                        variant="standard"
+                        value={rejectComment}
+                        onChange={(e) => setRejectComment(e.target.value)}
+                        required
+                    />
+                </DialogContent>
+
+                {/* call the backend function to process rejection */}
+                <DialogActions>
+                    {/* <Button onClick={() => setIsRejectModalOpen(false)}>Cancel</Button> */}
+                    <Button onClick={() => { setIsRejectModalOpen(false); 
+                        setRejectComment('');
+                        }}>Cancel</Button>
+                    <Button onClick={submitRejection} color="secondary">
+                        Submit Rejection
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <DataGrid
                 rows={filteredRows}
                 columns={columns}
                 rowModesModel={rowModesModel}
                 onRowModesModelChange={setRowModesModel}
                 components={{
-                    Toolbar: EditToolbar,
+                    Toolbar: GridToolbar, // Added GridToolbar here
                 }}
                 componentsProps={{
                     toolbar: {
@@ -322,28 +416,86 @@ function Journal() {
                 }}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
                 disableSelectionOnClick
             />
             <AddJournalEntryModal
                 open={isModalOpen}
                 onClose={() => setModalOpen(false)}
-                onSave={async (newEntry) => {
-                    console.log(newEntry)
-                    const response = await addJournalEntry(newEntry);
+                tabValue={tabValue}
+                onSave={async (entry) => {
+                    console.log(entry);
+                    const response = await addJournalEntry(entry);
                     if (response.entry) {
-                        setRows([...rows, { ...response.entry, 
-                            id: response.entry._id.toString(),
-                            debitAccount: newEntry.debitAccount,
-                            creditAccount: newEntry.creditAccount
-                         }]);
+                        setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
                     } else {
                         console.error(response.message);
                     }
                 }}
-
+                newEntry={newEntry}
+                setNewEntry={setNewEntry}
             />
+            </CustomTabPanel>
+
+            <CustomTabPanel value={tabValue} index={1}>
+                <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                {/* <TextField
+                    label="Search"
+                    variant="outlined"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                /> */}
+                <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel>Status Filter</InputLabel>
+                    <Select
+                        value={filterStatus}
+                        onChange={(e) => setFilterStatus(e.target.value)}
+                        label="Status Filter"
+                    >
+                        <MenuItem value="All">All</MenuItem>
+                        <MenuItem value="Approved" >Approved</MenuItem>
+                        <MenuItem value="Rejected">Rejected</MenuItem>
+                        <MenuItem value="Pending">Pending</MenuItem>
+                    </Select>
+                </FormControl>
+                </Box>
+                <DataGrid
+                    rows={filteredRows}
+                    columns={columns}
+                    rowModesModel={rowModesModel}
+                    onRowModesModelChange={setRowModesModel}
+                    components={{
+                        Toolbar: GridToolbar, // Added GridToolbar here
+                    }}
+                    componentsProps={{
+                        toolbar: {
+                            onAddNew: handleAddNewClick, // Passing the function to open the modal
+                            setRows,
+                            setRowModesModel
+                        },
+                    }}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    disableSelectionOnClick
+                />
+                <AddJournalEntryModal
+                    open={isModalOpen}
+                    onClose={() => setModalOpen(false)}
+                    tabValue={tabValue}
+                    onSave={async (entry) => {
+                        console.log(entry);
+                        const response = await addJournalEntry(entry);
+                        if (response.entry) {
+                            setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
+                        } else {
+                            console.error(response.message);
+                        }
+                    }}
+                    newEntry={newEntry}
+                    setNewEntry={setNewEntry}
+
+                />
+            </CustomTabPanel>
         </Box>
+        
     );
 }
 

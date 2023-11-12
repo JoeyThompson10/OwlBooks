@@ -11,6 +11,9 @@ function LedgerPage() {
   const [endDate, setEndDate] = useState('');
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [modal, setModal] = useState(false);
+  
+
+
 
   useEffect(() => {
     const fetchJournalEntries = async () => {

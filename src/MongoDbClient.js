@@ -114,9 +114,9 @@ async function showOneJournalEntry(searchCriteria){
     return await user.functions.showOneJournalEntry(searchCriteria);
 }
 
-async function displayEventsForOneAccount(befAccName){
+async function displayEventsForOneAccount(accName){
     const user = await app().logIn(credentials());
-    return await user.functions.displayEventsForOneAccount(befAccName);
+    return await user.functions.displayEventsForOneAccount(accName);
 }
 
 export { 

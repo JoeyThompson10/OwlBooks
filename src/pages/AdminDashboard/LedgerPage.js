@@ -110,7 +110,7 @@ function LedgerPage() {
           )}
         </MDBModalBody>
         <MDBModalFooter>
-          {/* You can add buttons or controls here */}
+          
         </MDBModalFooter>
       </MDBModal>
 

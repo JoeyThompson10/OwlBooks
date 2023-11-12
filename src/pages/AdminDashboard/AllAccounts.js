@@ -29,7 +29,7 @@ const AllAccounts = () => {
           setShowEventsModal(true);
         } catch (error) {
           console.error('Error fetching account events:', error);
-          
+          setShowEventsModal(false);
         }
       };
 

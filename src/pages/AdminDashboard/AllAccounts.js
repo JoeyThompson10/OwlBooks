@@ -18,6 +18,21 @@ const AllAccounts = () => {
     const [selectedUserId, setSelectedUserId] = useState("");
     const selectedUserEmail = allUsers.find(user => user._id === selectedUserId)?.email;
 
+    const [events, setEvents] = useState([]);
+    const [selectedAccount, setSelectedAccount] = useState(null);
+    const [showEventsModal, setShowEventsModal] = useState(false);
+
+    const fetchEventsForAccount = async (accountName) => {
+        try {
+          const accountEvents = await displayEventsForOneAccount(accountName);
+          setEvents(accountEvents);
+          setShowEventsModal(true);
+        } catch (error) {
+          console.error('Error fetching account events:', error);
+          
+        }
+      };
+
     useEffect(() => {
         const fetchAccounts = async () => {
             try {
@@ -126,7 +141,19 @@ const AllAccounts = () => {
                             <td>{account.accSubcategory}</td>
                             <td>{account.accDescription}</td>
                             <td>{account.accComment}</td>
-                            <td><MDBBtn center className="p-2" size="sm" onClick={() => openEmailModal()}>Account Events</MDBBtn></td>
+                            <td> 
+                                <MDBBtn
+                                center
+                                className="p-2"
+                                size="sm"
+                                onClick={() => {
+                                    setSelectedAccount(account.accName);
+                                    fetchEventsForAccount(account.accName);
+                                }}
+                                >
+                                Account Events
+                                </MDBBtn>
+                            </td>
                         </tr>
                     ))}
                 </MDBTableBody>

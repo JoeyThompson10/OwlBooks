@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { GetAllAccounts, sendEmail, GetAllUsers } from '../../MongoDbClient'; // Adjust the import path as needed
+import { GetAllAccounts, sendEmail, GetAllUsers, displayEventsForOneAccount } from '../../MongoDbClient'; // Adjust the import path as needed
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
@@ -118,7 +118,7 @@ const AllAccounts = () => {
                     ).map(account => (
                         <tr key={account._id}>
                             <td><Link to={`/ledger/${account.accName}`}>{account.accName}</Link></td>
-                            <td>{account.accNumber}</td>
+                            <td><Link to={`/ledger/${account.accName}`}>{account.accNumber}</Link></td>
                             <td>{account.accBalance}</td>
                             <td>{account.accDebit}</td>
                             <td>{account.accCredit}</td>
@@ -126,6 +126,7 @@ const AllAccounts = () => {
                             <td>{account.accSubcategory}</td>
                             <td>{account.accDescription}</td>
                             <td>{account.accComment}</td>
+                            
                         </tr>
                     ))}
                 </MDBTableBody>

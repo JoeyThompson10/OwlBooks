@@ -109,6 +109,16 @@ async function deleteJournalEntry(_id){
     return await user.functions.deleteJournalEntry(_id);
 }
 
+async function showOneJournalEntry(searchCriteria){
+    const user = await app().logIn(credentials());
+    return await user.functions.showOneJournalEntry(searchCriteria);
+}
+
+async function displayEventsForOneAccount(BefAccName){
+    const user = await app().logIn(credentials());
+    return await user.functions.displayEventsForOneAccount(BefAccName);
+}
+
 export { 
     GetAllAccountEvents, 
     setAccountInfo, 
@@ -129,5 +139,7 @@ export {
     setJournalStatus,
     getJournalEntry,
     addJournalEntry,
-    deleteJournalEntry
+    deleteJournalEntry,
+    showOneJournalEntry,
+    displayEventsForOneAccount
 };

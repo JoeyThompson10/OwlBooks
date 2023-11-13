@@ -206,6 +206,10 @@ function Journal() {
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
     const [rejectComment, setRejectComment] = useState('');
     const [rejectingRowId, setRejectingRowId] = useState(null);
+    const [searchAccountName, setSearchAccountName] = useState('');
+    const [searchAmount, setSearchAmount] = useState('');
+    const [searchDate, setSearchDate] = useState('');
+    
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
         setNewEntry({ ...newEntry, typeEntry: newValue === 1 ? 'Adjusted' : 'Regular' });
@@ -330,17 +334,17 @@ function Journal() {
     ];
 
     const filteredRows = rows.filter((row) => {
-        const searchTermLower = searchTerm.toLowerCase();
-        const isCorrectType = (tabValue === 0 && row.typeEntry === 'Regular') || (tabValue === 1 && row.typeEntry === 'Adjusted');
+        const trimmedSearchAccountName = searchAccountName.trim().toLowerCase();
+        const accountName = row.accountDebited ? row.accountDebited.trim().toLowerCase() : '';
+    
         return (
-            isCorrectType &&
-            (filterStatus === "All" || row.status === filterStatus) &&
-            ((row.accountName && row.accountName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (row.debit !== null && row.debit !== undefined && row.debit.toString().includes(searchTerm)) ||
-            (row.credit !== null && row.credit !== undefined && row.credit.toString().includes(searchTerm)) ||
-            (row.dateCreated && row.dateCreated.includes(searchTerm)))
+            (trimmedSearchAccountName === '' || accountName.includes(trimmedSearchAccountName)) &&
+            (searchAmount === '' || (row.debit !== null && row.debit.toString().includes(searchAmount)) || (row.credit !== null && row.credit.toString().includes(searchAmount))) &&
+            (searchDate === '' || (row.dateCreated && row.dateCreated.includes(searchDate)))
         );
-      });
+    });
+    
+    
       
       function CustomToolbar(props) {
         return (
@@ -407,6 +411,30 @@ function Journal() {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                <TextField
+                    label="Account Name"
+                    variant="outlined"
+                    value={searchAccountName}
+                    onChange={(e) => setSearchAccountName(e.target.value)}
+                />
+                <TextField
+                    label="Amount"
+                    variant="outlined"
+                    type="number"
+                    value={searchAmount}
+                    onChange={(e) => setSearchAmount(e.target.value)}
+                />
+                <TextField
+                    label="Date"
+                    variant="outlined"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+                    value={searchDate}
+                    onChange={(e) => setSearchDate(e.target.value)}
+                />
+            </Box>
 
             <DataGrid
                 rows={filteredRows}

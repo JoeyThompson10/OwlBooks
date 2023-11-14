@@ -47,6 +47,8 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
     const [selectedDebitAccount, setSelectedDebitAccount] = useState("");
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
+    const [hasError, setHasError] = useState(false);
+
 
     
     useEffect(() => {
@@ -79,15 +81,40 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
         comment: ''
     });
 
+    const validateEntry = () => {
+        // Check if both debit and credit accounts are selected
+        if (!selectedDebitAccount || !selectedCreditAccount) {
+            setErrorMessage("Error: Please select both debit and credit accounts.");
+            return false;
+        }
+    
+        // Reset error message if no errors are found
+        setErrorMessage('');
+        return true;
+    };
+    
+    
+    
+
     const handleSave = () => {
+        // Check if debits equal credits
         if (newEntry.debit !== newEntry.credit) {
             setErrorMessage("Error: The total of debits must equal the total of credits.");
             return;
         }
-        setErrorMessage(''); // Clear error message if no error
+    
+        // Additional validation for debit and credit account selection
+        if (!validateEntry()) {
+            return;
+        }
+    
+        // If all validations pass
+        setErrorMessage('');
         onSave({ ...newEntry, account: selectedAccount });
         onClose();
     };
+    
+    
     
 
     function handleSelectChange(event, type) {
@@ -108,7 +135,7 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
             <DialogTitle>Add Journal Entry</DialogTitle>
             <DialogContent>
             {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-            
+
                 <FormControl fullWidth margin="dense" variant="standard">
                     <InputLabel>Debit Account</InputLabel>
                     <Select

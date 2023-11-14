@@ -46,8 +46,7 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
     const [selectedAccount, setSelectedAccount] = useState("");
     const [selectedDebitAccount, setSelectedDebitAccount] = useState("");
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
-
-
+    const [errorMessage, setErrorMessage] = useState('');
 
     
     useEffect(() => {
@@ -81,9 +80,15 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
     });
 
     const handleSave = () => {
+        if (newEntry.debit !== newEntry.credit) {
+            setErrorMessage("Error: The total of debits must equal the total of credits.");
+            return;
+        }
+        setErrorMessage(''); // Clear error message if no error
         onSave({ ...newEntry, account: selectedAccount });
         onClose();
     };
+    
 
     function handleSelectChange(event, type) {
         const accountId = event.target.value;
@@ -102,6 +107,8 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Add Journal Entry</DialogTitle>
             <DialogContent>
+            {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+            
                 <FormControl fullWidth margin="dense" variant="standard">
                     <InputLabel>Debit Account</InputLabel>
                     <Select

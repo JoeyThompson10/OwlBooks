@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MDBContainer, MDBTypography, MDBBtn } from 'mdb-react-ui-kit';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -9,8 +9,25 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { useNavigate } from 'react-router-dom';
 
+
+import { getPendingJournalEntries } from '../MongoDbClient';
+
 const Dashboard = () => {
     const navigate = useNavigate();
+    const [pendingEntriesCount, setPendingEntriesCount] = useState(0);
+
+    useEffect(() => {
+        const fetchPendingEntries = async () => {
+            try {
+                const entries = await getPendingJournalEntries();
+                setPendingEntriesCount(entries.length);
+            } catch (error) {
+                console.error("Error fetching pending journal entries:", error);
+            }
+        };
+
+        fetchPendingEntries();
+    }, []);
 
     const isAdmin = localStorage.getItem("privilages") === "admin";
     const isManager = localStorage.getItem("privilages") === "manager";
@@ -88,6 +105,12 @@ const Dashboard = () => {
                     </MDBBtn>
                 ))}
             </div>
+
+            <MDBTypography tag='div' className='important-messages'>
+    <span className='underline-text'>Pending Journal Entries:</span>
+    <p>There are {pendingEntriesCount} pending journal entries.</p>
+</MDBTypography>        
+
         </MDBContainer>
     );
 };

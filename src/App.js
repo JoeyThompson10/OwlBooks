@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
+import './css/global.css';
 //Routes header
 import EditUser from './pages/AdminDashboard/EditUser';
 import CreateUserPage from './pages/AdminDashboard/CreateUserPage';
@@ -19,10 +20,6 @@ import AllAccounts from './pages/AdminDashboard/AllAccounts';
 import AccountEventLog from './pages/AdminDashboard/AccountEventLog';
 import LedgerPage from './pages/AdminDashboard/LedgerPage';
 import Journal from './pages/Journal';
-
-
-
-//import './css/global.css';
 
 function Content() {
   const location = useLocation(); // Get the current location

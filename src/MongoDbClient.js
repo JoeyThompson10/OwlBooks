@@ -119,6 +119,21 @@ async function displayEventsForOneAccount(BefAccName){
     return await user.functions.displayEventsForOneAccount(BefAccName);
 }
 
+async function getPendingJournalEntries() {
+    try {
+        const user = await app().logIn(credentials());
+        // Call the getPendingJournalEntries function in MongoDB Realm
+        return await user.functions.getPendingJournalEntries();
+    } catch (error) {
+        console.error("Error fetching pending journal entries:", error);
+        // Handle the error appropriately
+    }
+}
+
+
+
+
+
 export { 
     GetAllAccountEvents, 
     setAccountInfo, 
@@ -141,5 +156,6 @@ export {
     addJournalEntry,
     deleteJournalEntry,
     showOneJournalEntry,
-    displayEventsForOneAccount
+    displayEventsForOneAccount,
+    getPendingJournalEntries
 };

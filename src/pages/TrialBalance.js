@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetAllAccounts, sendEmail, GetAllUsers, displayEventsForOneAccount } from './/../MongoDbClient'; // Adjust the import path as needed
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
@@ -9,14 +9,8 @@ const TrialBalance = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [filter, setFilter] = useState({ name: "", accNumber: "", balance: "" });
-    const [isEmailModalVisible, setEmailModalVisible] = useState(false);
-    const [customEmailSubject, setCustomEmailSubject] = useState("");
-    const [customEmailBody, setCustomEmailBody] = useState("");
-    const [currentEmailRecipient, setCurrentEmailRecipient] = useState("");
     const [allUsers, setAllUsers] = useState([]);
-    
     const [selectedUserId, setSelectedUserId] = useState("");
-    const selectedUserEmail = allUsers.find(user => user._id === selectedUserId)?.email;
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -39,27 +33,6 @@ const TrialBalance = () => {
         fetchAccounts();
     }, []);
 
-    async function handleSendCustomEmail() {
-        const response = await sendEmail(
-            currentEmailRecipient,
-            customEmailSubject,
-            customEmailBody
-        );
-        if (response.success) {
-            window.alert("Email sent successfully.");
-        } else {
-            window.alert("Failed to send email.");
-        }
-        setEmailModalVisible(false);
-    }
-
-    function openEmailModal() {
-        const emailOfSelectedUser = allUsers.find(user => user._id === selectedUserId)?.email;
-        setCurrentEmailRecipient(emailOfSelectedUser);
-        setEmailModalVisible(true);
-    }
-    
-
     function handleSelectChange(event) {
         setSelectedUserId(event.target.value);
     }
@@ -67,103 +40,59 @@ const TrialBalance = () => {
     if (loading) return <p>Loading accounts...</p>;
     if (error) return <p>Error loading accounts: {error}</p>;
 
+    
+    const totalDebit = accounts.reduce((sum, account) => sum + (isNaN(account.accDebit) ? 0 : account.accDebit), 0);
+    const totalCredit = accounts.reduce((sum, account) => sum + (isNaN(account.accCredit) ? 0 : account.accCredit), 0);
+
     return (
         <div className='p-3'>
-            <h2>Trial Balance</h2>
-            <div className='d-flex justify-content-between my-3 p-2'>
-            
-            </div>
-            
-            <MDBTable hover>
-                <MDBTableHead>
-                    <tr>
-                        <th>Account Number</th>
-                        <th>Account Name</th>
-                        
-                        <th>Debit</th>
-                        <th>Credit</th>
-                        
-                    </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                    {accounts.filter(account =>
-                        (!filter.name || (account.accName && typeof account.accName === 'string' && account.accName.includes(filter.name))) &&
-                        (!filter.accNumber || (account.accNumber && typeof account.accNumber === 'string' && account.accNumber.includes(filter.accNumber))) &&
-                        (!filter.balance || (account.accBalance && account.accBalance.toString().includes(filter.balance)))
-                    ).map(account => (
-                        <tr key={account._id}>
-                            <td className="table-cell">{account.accNumber}</td>
-                            <td className="table-cell">{account.accName}</td>
-                            
-                            <td className="table-cell">{account.accDebit}</td>
-                            <td className="table-cell">{account.accCredit}</td>
-                            
-                            
-                            
+            <h2 className="text-center">Trial Balance</h2>
+            <div className='d-flex justify-content-between my-3 p-2'></div>
+
+            <div style={{ border: '2px solid gray', borderRadius: '10px' }}>
+                <MDBTable hover>
+                    <MDBTableHead>
+                        <tr>
+                            <th>Account Number</th>
+                            <th>Account Name</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
                         </tr>
-                    ))}
-                </MDBTableBody>
-            </MDBTable>
-
-            {isEmailModalVisible && (
-                <div
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0,0,0,0.5)",
-                        zIndex: 1000,
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "600px",
-                            margin: "200px auto",
-                            padding: "10px",
-                            background: "white",
-                            borderRadius: "5px",
-                        }}
-                    >
-                        <h3>Customize Email</h3>
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel id="user-email-select-label">Select User Email</InputLabel>
-                            <Select
-                                labelId="user-id-select-label"
-                                value={selectedUserId}
-                                onChange={handleSelectChange}
-                                label="User ID"
-                            >
-                                {allUsers.map((user) => (
-                                    <MenuItem key={user._id} value={user._id}>
-                                        {user._id}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <br />
-                        <label className='my-4'>Subject:</label>
-                        <input
-                            type="text"
-                            value={customEmailSubject}
-                            onChange={(e) => setCustomEmailSubject(e.target.value)}
-                        />
-                        <br />
-                        <label className='my-4'>Body:</label>
-                        <textarea
-                            value={customEmailBody}
-                            onChange={(e) => setCustomEmailBody(e.target.value)}
-                        />
-                        <br />
-                        <button onClick={handleSendCustomEmail}>Send</button>
-                        <button onClick={() => setEmailModalVisible(false)}>
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            )}
-
+                    </MDBTableHead>
+                    <MDBTableBody>
+                        {accounts
+                            .filter(
+                                (account) =>
+                                    (!filter.name ||
+                                        (account.accName &&
+                                            typeof account.accName === 'string' &&
+                                            account.accName.includes(filter.name))) &&
+                                    (!filter.accNumber ||
+                                        (account.accNumber &&
+                                            typeof account.accNumber === 'string' &&
+                                            account.accNumber.includes(filter.accNumber))) &&
+                                    (!filter.balance ||
+                                        (account.accBalance &&
+                                            account.accBalance.toString().includes(filter.balance)))
+                            )
+                            .map((account) => (
+                                <tr key={account._id}>
+                                    <td>{account.accNumber}</td>
+                                    <td>{account.accName}</td>
+                                    <td>{account.accDebit !== 0 ? account.accDebit : ''}</td>
+                                    <td>{account.accCredit !== 0 ? account.accCredit : ''}</td>
+                                </tr>
+                            ))}
+                        
+                    
+                        <tr>
+                            <td colSpan="2" style={{ textAlign: 'right', paddingRight: '80px', fontWeight: 'bold', fontSize: 'larger'}}>Total</td>
+                            <td><strong>{totalDebit !== 0 ? totalDebit : ''}</strong></td>
+                            <td><strong>{totalCredit !== 0 ? totalCredit : ''}</strong></td>
+                        </tr>
+                    </MDBTableBody>
+                </MDBTable>
+            </div>
         </div>
     );
 };

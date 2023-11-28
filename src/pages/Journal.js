@@ -423,7 +423,7 @@ function Journal() {
         const byteArray = new Uint8Array(byteNumbers);
 
         // Create a blob from the byte array with the appropriate type.
-        const blob = new Blob([byteArray], { type: 'fileType' });
+        const blob = new Blob([byteArray], { type: fileType });
 
         // Create a URL for the blob and trigger the download.
         const blobUrl = URL.createObjectURL(blob);

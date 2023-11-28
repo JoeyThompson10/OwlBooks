@@ -163,7 +163,7 @@ const Login = () => {
     return (
         <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
             <MDBRow center className="p-3">
-                <MDBCol md="6">
+                <MDBCol md="5">
 
                     <MDBCard>
                         <MDBCardBody>
@@ -179,19 +179,19 @@ const Login = () => {
                         </MDBCardBody>
                     </MDBCard>
 
-                    <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-3 mb-4">
+                    <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-5 mb-5">
                         <MDBCardBody className='text-primary'>
                             <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
                             <MDBCardText>
                                 <form id="newUserForm" onSubmit={createNewUser} style={{ display: isSignupVisible ? "block" : "none" }}>
-                                    <MDBInput label="Email" className="mb-2" group type="email" validate error="wrong" success="right" value={email} onChange={e => setEmail(e.target.value)} required />
-                                    <MDBInput label="Password" className="mb-2" group type="password"
+                                    <MDBInput label="Email" className="mb-3" group type="email" validate error="wrong" success="right" value={email} onChange={e => setEmail(e.target.value)} required />
+                                    <MDBInput label="Password" className="mb-3" group type="password"
                                         title="Password must be at least 8 characters long, start with a letter, contain at least one letter, have at least one number, and contain at least one special character."
                                         validate value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
-                                    <MDBInput label="First Name" className="mb-2" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} required />
-                                    <MDBInput label="Last Name" className="mb-2" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} required />
-                                    <MDBInput label="Address" className="mb-3" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} required />
-                                    <MDBInput label="Date of Birth" className="mb-4" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} required />
+                                    <MDBInput label="First Name" className="mb-3" group type="text" validate value={firstName} onChange={e => setFirstName(e.target.value)} required />
+                                    <MDBInput label="Last Name" className="mb-3" group type="text" validate value={lastName} onChange={e => setLastName(e.target.value)} required />
+                                    <MDBInput label="Address" className="mb-4" group type="text" validate value={address} onChange={e => setAddress(e.target.value)} required />
+                                    <MDBInput label="Date of Birth" className="mb-5" group type="date" validate value={dob} onChange={e => setDob(e.target.value)} required />
                                     <MDBBtn outline color="success" type="submit" >Create User</MDBBtn>
                                 </form>
                             </MDBCardText>

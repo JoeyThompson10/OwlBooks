@@ -16,7 +16,8 @@ const Footer = ({ currentPath }) => {
     <div>
       {/* Conditional rendering for HelpButton */}
       {currentPath === '' && <HelpButton message="This is the splash screen. Click Login to start." />}
-      {currentPath === 'login' && <HelpButton message="Enter your credentials to login. If you do not have a user, create one. After you create a user your new username will be sent to your email you used to register. 
+      {currentPath === 'login' && <HelpButton message="Enter your credentials to login. If you do not have a user, create one. 
+                          After you create a user your new username will be sent to your email you used to register. 
                           If you forgot your password, select the forgot password button to continue. " />}
       {currentPath === 'app' && <HelpButton message="This is the main app. Click the Owl in the taskbar to go back to the Home Page" />}
       {currentPath === 'resetpassword' && <HelpButton message="After you reset your password go to the login page to login in with the new password. 
@@ -32,6 +33,14 @@ const Footer = ({ currentPath }) => {
       {currentPath === 'allaccounts' && <HelpButton message="See an overview of all existing accounts. Only administrators can make chnages to the accounts." />}
       {currentPath === 'admindashboard' && <HelpButton message="Welcome to the Admin Dashboard. Here you have an overview of the system and can manage users and settings." />}
       {currentPath === 'addaccount' && <HelpButton message="Provide necessary details to add a new account. Make sure to fill out all required fields." />}
+      {currentPath === 'journal' && <HelpButton message="This page provides you with a comprehensive view of all your accounting transactions recorded as journal entries.
+                          When selecting the account name it will take you to the ledger page for that account. 
+                          When adding a new journal entry use the plus sign on the tabel. Make sure to be in the right tab for type of entry, for a regular entry stay in 'journal entry' and consecutively."/>}
+      {currentPath === 'trialbalance' && <HelpButton message="This page displays the Trial Balance report, a key financial statement that lists the balances of all ledger accounts at a point in time. 
+                          The report is structured to show account numbers, account names, and their corresponding debit and credit balances, ensuring that total debits equal total credits, which is a fundamental principle of double-entry bookkeeping." />}
+      {currentPath === 'accounteventlog' && <HelpButton message="This page provides a detailed log of all events related to the various accounts within our financial management system. 
+                          It serves as a chronological record, offering insights into every action taken, which can be vital for auditing and tracking purposes.
+                          When selecting the account name it will takeyou to the ledger page for that account." />}
       </div>
     </footer>
   );

@@ -48,9 +48,22 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
     const [hasError, setHasError] = useState(false);
+    const [file, setFile] = useState(null);
 
 
-    
+    // Handle file change
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && selectedFile.size <= 10485760) { // 10MB in bytes
+            setFile(selectedFile);
+            console.log(selectedFile); // Log to verify file selection
+
+        } else {
+            setErrorMessage('File size should be less than 10MB');
+        }
+    };
+
+
     useEffect(() => {
         const fetchAccounts = async () => {
             const fetchedAccounts = await GetAllAccounts();
@@ -108,11 +121,41 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
             return;
         }
     
-        // If all validations pass
-        setErrorMessage('');
-        onSave({ ...newEntry, account: selectedAccount });
+        // Read file content as a binary or base64 string
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const fileContent = e.target.result;
+    
+            // Preparing parameters as expected by the modified MongoDB function
+            const params = {
+                journalID: newEntry.journalID, // Assuming journalID is part of newEntry, add it if not
+                accountName: newEntry.accountName,
+                debitAccount: newEntry.debitAccount,
+                creditAccount: newEntry.creditAccount,
+                journalNumber: newEntry.journalNumber, // Assuming journalNumber is part of newEntry, add it if not
+                debits: newEntry.debit,
+                credits: newEntry.credit,
+                typeEntry: newEntry.typeEntry,
+                datecreated: newEntry.dateCreated,
+                status: newEntry.status,
+                comment: newEntry.comment,
+                file: fileContent // sending the file content
+            };
+    
+            // Call onSave with the structured parameters
+            onSave(params);
+        };
+    
+        // Read the file if it exists
+        if (file) {
+            reader.readAsBinaryString(file); // or readAsDataURL(file) for base64
+        } else {
+            onSave({ ...newEntry, file: null }); // Call onSave without file if no file is selected
+        }
+    
         onClose();
     };
+    
     
     
     
@@ -191,6 +234,10 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
                     defaultValue={date.toISOString().slice(0, 10)}
                     InputLabelProps={{ shrink: true }}
                     onChange={(e) => setNewEntry({ ...newEntry, dateCreated: e.target.value })}
+                />
+                <TextField
+                    type="file"
+                    onChange={handleFileChange}
                 />
                 <FormControl fullWidth margin="dense" variant="standard">
                     <InputLabel>Status</InputLabel>
@@ -496,6 +543,9 @@ function Journal() {
                 onSave={async (entry) => {
                     console.log(entry);
                     const response = await addJournalEntry(entry);
+
+                    console.log(response);
+                    
                     if (response.entry) {
                         setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
                     } else {

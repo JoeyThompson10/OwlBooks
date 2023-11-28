@@ -99,9 +99,14 @@ async function getJournalEntry(){
     return await user.functions.getJournalEntry();
 }
 
-async function addJournalEntry(entryData){
+// async function addJournalEntry(entryData){
+//     const user = await app().logIn(credentials());
+//     return await user.functions.addJournalEntry(entryData);
+// }
+
+async function addJournalEntry(journalID, accountName, debitAccount, creditAccount, journalNumber, debits, credits, typeEntry, datecreated, status, comment, file){
     const user = await app().logIn(credentials());
-    return await user.functions.addJournalEntry(entryData);
+    return await user.functions.addJournalEntry(journalID, accountName, debitAccount, creditAccount, journalNumber, debits, credits, typeEntry, datecreated, status, comment, file);
 }
 
 async function deleteJournalEntry(_id){

@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { GetAllAccounts, sendEmail, GetAllUsers, displayEventsForOneAccount } from '../../MongoDbClient'; // Adjust the import path as needed
+import { GetAllAccounts, sendEmail, GetAllUsers, displayEventsForOneAccount } from './/../MongoDbClient'; // Adjust the import path as needed
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
@@ -71,43 +71,18 @@ const TrialBalance = () => {
         <div className='p-3'>
             <h2>Trial Balance</h2>
             <div className='d-flex justify-content-between my-3 p-2'>
-            <input
-                type="text"
-                placeholder="Filter by Name"
-                value={filter.name}
-                onChange={e => setFilter(prev => ({ ...prev, name: e.target.value }))}
-            />
-            <input
-                type="text"
-                placeholder="Filter by Account Number"
-                value={filter.accNumber}
-                onChange={e => setFilter(prev => ({ ...prev, accNumber: e.target.value }))}
-            />
-            <input
-                type="text"
-                placeholder="Filter by Balance"
-                value={filter.balance}
-                onChange={e => setFilter(prev => ({ ...prev, balance: e.target.value }))}
-            />
+            
             </div>
-            <div className='d-flex justify-content-center'>
-            <MDBBtn center className="p-2" size="sm"
-                                    onClick={() => openEmailModal()}
-                                >
-                                    Send Email
-                                </MDBBtn></div>
+            
             <MDBTable hover>
                 <MDBTableHead>
                     <tr>
-                        <th>Account Name</th>
                         <th>Account Number</th>
-                        <th>Balance</th>
+                        <th>Account Name</th>
+                        
                         <th>Debit</th>
                         <th>Credit</th>
-                        <th>Category</th>
-                        <th>Subcategory</th>
-                        <th>Description</th>
-                        <th>Comment</th>
+                        
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
@@ -117,15 +92,13 @@ const TrialBalance = () => {
                         (!filter.balance || (account.accBalance && account.accBalance.toString().includes(filter.balance)))
                     ).map(account => (
                         <tr key={account._id}>
-                            <td><Link to={`/ledger/${account.accName}`}>{account.accName}</Link></td>
-                            <td><Link to={`/ledger/${account.accName}`}>{account.accNumber}</Link></td>
-                            <td>{account.accBalance}</td>
-                            <td>{account.accDebit}</td>
-                            <td>{account.accCredit}</td>
-                            <td>{account.accCategory}</td>
-                            <td>{account.accSubcategory}</td>
-                            <td>{account.accDescription}</td>
-                            <td>{account.accComment}</td>
+                            <td className="table-cell">{account.accNumber}</td>
+                            <td className="table-cell">{account.accName}</td>
+                            
+                            <td className="table-cell">{account.accDebit}</td>
+                            <td className="table-cell">{account.accCredit}</td>
+                            
+                            
                             
                         </tr>
                     ))}

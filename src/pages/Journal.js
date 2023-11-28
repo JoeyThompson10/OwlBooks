@@ -56,9 +56,10 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.size <= 10485760) { // 10MB in bytes
-            setFile(selectedFile);
-            // console.log(selectedFile); 
-
+            setFile({
+                data: selectedFile,
+                name: selectedFile.name
+            });
         } else {
             setErrorMessage('File size should be less than 10MB');
         }
@@ -92,6 +93,7 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
         dateCreated: date.toISOString().slice(0, 10),
         typeEntry: '',
         media: null,
+        filename: '',
         status: 'Pending',
         comment: ''
     });
@@ -141,7 +143,8 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
                 datecreated: newEntry.dateCreated,
                 status: newEntry.status,
                 comment: newEntry.comment,
-                file: fileContent // sending the file content
+                file: fileContent,
+                fileName: file.name
             };
 
             // Call onSave with the structured parameters
@@ -149,8 +152,8 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
         };
 
         // Read the file if it exists
-        if (file) {
-            reader.readAsBinaryString(file); // or readAsDataURL(file) for base64
+        if (file && file.data) {
+            reader.readAsBinaryString(file.data); // or readAsDataURL(file) for base64
         } else {
             onSave({ ...newEntry, file: null }); // Call onSave without file if no file is selected
         }
@@ -321,6 +324,7 @@ function Journal() {
                 debit: parseInt(entry.debits),
                 credit: parseInt(entry.credits),
                 media: entry.media ? entry.media : null,
+                fileName: entry.fileName ? entry.fileName : null,
                 status: entry.status,
                 action: entry.action,
                 comment: entry.comment,
@@ -373,7 +377,40 @@ function Journal() {
         navigate(`/ledger/${accountName}`);
     };
 
-    const handleDownload = (fileData, fileName = 'download.pdf') => {
+    const handleDownload = (fileData, fileName) => {
+
+        console.log("File data: ", fileData);
+        console.log("File name: ", fileName);
+
+        // Detect file type based on file extension in fileName
+        let fileType = '';
+        const extension = fileName.split('.').pop().toLowerCase();
+        // console.log("File extension: ", extension);
+        switch (extension) {
+            case 'pdf':
+                fileType = 'application/pdf';
+                break;
+            case 'docx':
+                fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                break;
+            case 'xlsx':
+                fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                break;
+            case 'csv':
+                fileType = 'text/csv';
+                break;
+            case 'jpg':
+            case 'jpeg':
+                fileType = 'image/jpeg';
+                break;
+            case 'png':
+                fileType = 'image/png';
+                break;
+            default:
+                fileType = 'application/octet-stream'; // Default binary file type
+        }
+
+
         // convert from binary to base64
         const base64FileData = btoa(fileData);
 
@@ -384,10 +421,10 @@ function Journal() {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
         const byteArray = new Uint8Array(byteNumbers);
-    
+
         // Create a blob from the byte array with the appropriate type.
-        const blob = new Blob([byteArray], { type: 'application/pdf' });
-    
+        const blob = new Blob([byteArray], { type: 'fileType' });
+
         // Create a URL for the blob and trigger the download.
         const blobUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -396,26 +433,28 @@ function Journal() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    
+
         // Clean up the URL object.
         URL.revokeObjectURL(blobUrl);
     };
-    
-      
-    const renderDownloadButton = (fileData) => {
-        return fileData ? (
+
+
+    const renderDownloadButton = (rowData) => {
+        return rowData.media ? (
             <Button
                 variant="contained"
                 color="primary"
                 startIcon={<DownloadIcon />}
-                onClick={() => handleDownload(fileData)}
+                onClick={() => handleDownload(rowData.media, rowData.fileName)}
             >
-                Download
+                {/* display filename on download button */}
+                {rowData.fileName}
             </Button>
         ) : (
             'No file'
         );
     };
+
 
     const columns = [
         { field: 'dateCreated', headerName: 'Date Created', width: 150 },
@@ -442,7 +481,7 @@ function Journal() {
             field: 'media',
             headerName: 'File',
             width: 130,
-            renderCell: (params) => renderDownloadButton(params.value)
+            renderCell: (params) => renderDownloadButton(params.row)
         },
         { field: 'status', headerName: 'Status', width: 120 },
         { field: 'comment', headerName: 'Comments', width: 200 },

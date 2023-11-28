@@ -17,7 +17,7 @@ export default function IntroHeader() {
   return (
     <>
       <MDBNavbar className="mx-auto py-1 bg-dark bg-gradient">
-        <MDBNavbarNav className="w-100 d-flex flex-row align-items-center">
+        <MDBNavbarNav className="w-100 d-flex flex-row align-items-center  px-4">
 
           {/* Left Section - Calendar */}
           <div className="d-flex align-items-center">

@@ -19,6 +19,7 @@ import AllAccounts from './pages/AdminDashboard/AllAccounts';
 import AccountEventLog from './pages/AdminDashboard/AccountEventLog';
 import LedgerPage from './pages/AdminDashboard/LedgerPage';
 import Journal from './pages/Journal';
+import TrialBalance from './pages/TrialBalance';
 
 
 
@@ -54,6 +55,7 @@ function Content() {
         <Route path="/accounteventlog" element={<AccountEventLog />} />
         <Route path="/ledger/:accountId" element={<LedgerPage />} />
         <Route path="/journal" element={<Journal />} />
+        <Route path="/trialbalance" element={<TrialBalance />} />
 
       </Routes>
       <Footer currentPath={currentPath} />

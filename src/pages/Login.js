@@ -160,6 +160,23 @@ const Login = () => {
         return null; // Password is valid
     };
 
+    const LoginInstructions = () => {
+        return (
+            <MDBCard className="mt-3">
+                <MDBCardBody>
+                    <MDBCardTitle>Login Instructions</MDBCardTitle>
+                    <MDBCardText>
+                        Use the following credentials to login as different users:<br />
+                        <strong>User:</strong> username: user1, password: user1<br />
+                        <strong>Manager:</strong> username: manager1, password: manager1<br />
+                        <strong>Admin:</strong> username: admin1, password: admin1
+                    </MDBCardText>
+                </MDBCardBody>
+            </MDBCard>
+        );
+    };
+    
+
     return (
         <MDBContainer fluid className="p-0 bg-warning bg-gradient text-dark">
             <MDBRow center className="p-3">
@@ -179,9 +196,13 @@ const Login = () => {
                         </MDBCardBody>
                     </MDBCard>
 
+                    {/* Login Instructions Panel */}
+                    <LoginInstructions />
+
                     <MDBCard alignment='center' shadow='0' border='primary' background='white' className="mt-5 mb-5">
                         <MDBCardBody className='text-primary'>
                             <MDBCardTitle ><MDBBtn outline color="info" className='mx-3 mb-2' onClick={() => toggleNewUserForm()}>Create New User</MDBBtn></MDBCardTitle>
+                            
                             <MDBCardText>
                                 <form id="newUserForm" onSubmit={createNewUser} style={{ display: isSignupVisible ? "block" : "none" }}>
                                     <MDBInput label="Email" className="mb-3" group type="email" validate error="wrong" success="right" value={email} onChange={e => setEmail(e.target.value)} required />
@@ -198,7 +219,10 @@ const Login = () => {
                         </MDBCardBody>
                     </MDBCard>
 
+                    
                 </MDBCol>
+
+                
             </MDBRow>
 
             {/* Forgot Password Modal */}

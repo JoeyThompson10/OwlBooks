@@ -446,10 +446,7 @@ function Journal() {
                 color="primary"
                 startIcon={<DownloadIcon />}
                 onClick={() => handleDownload(rowData.media, rowData.fileName)}
-            >
-                {/* display filename on download button */}
-                {rowData.fileName}
-            </Button>
+            ></Button>
         ) : (
             'No file'
         );

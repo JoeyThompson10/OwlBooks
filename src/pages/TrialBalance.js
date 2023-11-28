@@ -40,7 +40,6 @@ const TrialBalance = () => {
     if (loading) return <p>Loading accounts...</p>;
     if (error) return <p>Error loading accounts: {error}</p>;
 
-    
     const totalDebit = accounts.reduce((sum, account) => sum + (isNaN(account.accDebit) ? 0 : account.accDebit), 0);
     const totalCredit = accounts.reduce((sum, account) => sum + (isNaN(account.accCredit) ? 0 : account.accCredit), 0);
 
@@ -49,7 +48,7 @@ const TrialBalance = () => {
             <h2 className="text-center">Trial Balance</h2>
             <div className='d-flex justify-content-between my-3 p-2'></div>
 
-            <div style={{ border: '2px solid gray', borderRadius: '10px' }}>
+            <div style={{ border: '2px solid gray', borderRadius: '10px', maxWidth: '1000px', margin: 'auto' }}>
                 <MDBTable hover>
                     <MDBTableHead>
                         <tr>
@@ -83,8 +82,7 @@ const TrialBalance = () => {
                                     <td>{account.accCredit !== 0 ? account.accCredit : ''}</td>
                                 </tr>
                             ))}
-                        
-                    
+
                         <tr>
                             <td colSpan="2" style={{ textAlign: 'right', paddingRight: '80px', fontWeight: 'bold', fontSize: 'larger'}}>Total</td>
                             <td><strong>{totalDebit !== 0 ? totalDebit : ''}</strong></td>

@@ -57,7 +57,7 @@ function AddJournalEntryModal({ open, onClose, onSave, isManager, isAdmin, tabVa
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.size <= 10485760) { // 10MB in bytes
             setFile(selectedFile);
-            console.log(selectedFile); // Log to verify file selection
+            // console.log(selectedFile); 
 
         } else {
             setErrorMessage('File size should be less than 10MB');
@@ -620,10 +620,11 @@ function Journal() {
                     onClose={() => setModalOpen(false)}
                     tabValue={tabValue}
                     onSave={async (entry) => {
-                        console.log(entry);
+                        // console.log(entry);
                         const response = await addJournalEntry(entry);
 
-                        console.log(response);
+                        window.alert(JSON.stringify(response.message));
+                        // console.log(response);
 
                         if (response.entry) {
                             setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);
@@ -682,7 +683,7 @@ function Journal() {
                     onClose={() => setModalOpen(false)}
                     tabValue={tabValue}
                     onSave={async (entry) => {
-                        console.log(entry);
+                        // console.log(entry);
                         const response = await addJournalEntry(entry);
                         if (response.entry) {
                             setRows([...rows, { ...response.entry, id: response.entry._id.toString() }]);

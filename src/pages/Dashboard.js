@@ -50,6 +50,7 @@ const Dashboard = () => {
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: '/allaccounts' },
         { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
         { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },
+        { text: 'Trial Balance', icon: <AccountBalanceIcon />, path: "/trialbalance"}
     ];
 
     return (

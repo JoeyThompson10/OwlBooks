@@ -104,14 +104,14 @@ const Dashboard = () => {
     const manageAccountItems = [
         { text: 'Add New Account', icon: <AccountBalanceIcon />, path: '/addaccount' },
         { text: 'Edit Existing Account', icon: <EditNoteIcon />, path: '/editexistingaccounts' },
-        
+
     ];
 
     const everyoneItems = [
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: '/allaccounts' },
         { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
         { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },
-        { text: 'Trial Balance', icon: <AccountBalanceIcon />, path: "/trialbalance"}
+        { text: 'Trial Balance', icon: <AccountBalanceIcon />, path: "/trialbalance" }
     ];
 
     return (
@@ -169,20 +169,19 @@ const Dashboard = () => {
             </div>
 
             <MDBTypography tag='div' className='important-messages'>
-    <span className='underline-text'>Pending Journal Entries:</span>
-    <p>There are {pendingEntriesCount} pending journal entries.</p>
-</MDBTypography>        
+                <span className='underline-text'>Pending Journal Entries:</span>
+                <p>There are {pendingEntriesCount} pending journal entries.</p>
+            </MDBTypography>
 
-<div>
+            <div>
                 <MDBTypography tag="div" className="display-4 mb-3 mx-4 text-light">
                     Financial Ratios
                 </MDBTypography>
                 <FinancialRatio
-                    name="Current Ratio"
+                    name="Current Ratio (Current Assets / Current Liabilities)"
                     value={currentRatioValue}
                     color={getRatioColor(currentRatioValue)}
                 />
-                {/* Additional financial ratios can be added here */}
             </div>
         </MDBContainer>
     );

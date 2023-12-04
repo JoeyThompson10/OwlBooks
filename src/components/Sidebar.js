@@ -37,6 +37,7 @@ export default function Sidebar({ open, handleDrawerClose, isAdmin, isManager })
     ];
 
     const everyoneItems = [
+        { text: "Dashboard", icon: <EditIcon />, path: "/dashboard"},
         { text: 'All Accounts', icon: <AccountBalanceIcon />, path: "/allaccounts" },
         { text: 'Account Event Log', icon: <ReceiptLongIcon />, path: '/accounteventlog' },
         { text: 'Journal', icon: <AccountBalanceIcon />, path: "/journal" },

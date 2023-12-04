@@ -8,13 +8,74 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { useNavigate } from 'react-router-dom';
-
-
-import { getPendingJournalEntries } from '../MongoDbClient';
+import { green, yellow, red } from '@mui/material/colors';
+import { getPendingJournalEntries, GetAllAccounts, getJournalEntry } from '../MongoDbClient';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const [pendingEntriesCount, setPendingEntriesCount] = useState(0);
+    const [currentRatioValue, setCurrentRatioValue] = useState(0);
+
+    useEffect(() => {
+        const fetchPendingEntries = async () => {
+            try {
+                const entries = await getPendingJournalEntries();
+                setPendingEntriesCount(entries.length);
+            } catch (error) {
+                console.error("Error fetching pending journal entries:", error);
+            }
+        };
+
+        const calculateCurrentRatio = async () => {
+            const accounts = await GetAllAccounts();
+            const journalEntries = await getJournalEntry();
+
+            let totalCurrentAssets = 0;
+            let totalCurrentLiabilities = 0;
+
+            accounts.forEach(account => {
+                if (account.accCategory === "Assets") {
+                    totalCurrentAssets += account.accBalance;
+                }
+                if (account.accCategory === "Liabilities") {
+                    totalCurrentLiabilities += account.accBalance;
+                }
+            });
+
+            const currentRatio = totalCurrentLiabilities === 0 ? 0 : totalCurrentAssets / totalCurrentLiabilities;
+            setCurrentRatioValue(currentRatio);
+        };
+
+        fetchPendingEntries();
+        calculateCurrentRatio();
+    }, []);
+
+    const sumJournalEntries = (journalEntries, accountName, type) => {
+        return journalEntries.reduce((total, entry) => {
+            if (type === 'debit' && entry.debitAccount === accountName) {
+                return total + parseFloat(entry.debits['$numberDouble'] || 0);
+            }
+            if (type === 'credit' && entry.creditAccount === accountName) {
+                return total + parseFloat(entry.credits['$numberDouble'] || 0);
+            }
+            return total;
+        }, 0);
+    };
+
+    const getRatioColor = (value) => {
+        const goodThreshold = 2;
+        const warningThreshold = 1.5;
+        if (value >= goodThreshold) return green[500];
+        if (value < goodThreshold && value >= warningThreshold) return yellow[600];
+        return red[500];
+    };
+
+    const FinancialRatio = ({ name, value, color }) => (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f8f8f8' }}>
+            <h2 style={{ marginRight: '10px' }}>{name}:</h2>
+            <h1 style={{ color, fontSize: '2rem', margin: 0 }}>{value.toFixed(2)}</h1>
+        </div>
+    );
 
     useEffect(() => {
         const fetchPendingEntries = async () => {
@@ -112,6 +173,17 @@ const Dashboard = () => {
     <p>There are {pendingEntriesCount} pending journal entries.</p>
 </MDBTypography>        
 
+<div>
+                <MDBTypography tag="div" className="display-4 mb-3 mx-4 text-light">
+                    Financial Ratios
+                </MDBTypography>
+                <FinancialRatio
+                    name="Current Ratio"
+                    value={currentRatioValue}
+                    color={getRatioColor(currentRatioValue)}
+                />
+                {/* Additional financial ratios can be added here */}
+            </div>
         </MDBContainer>
     );
 };

@@ -72,7 +72,7 @@ OwlBooks is structured with a focus on modularity and clarity. Below are the com
   - Facilitates user authentication, account management, and data retrieval.
   - Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
 
-### src/omponents
+### src/components
 - **Header**: The top navigation bar, which includes branding and navigation controls.
 - **IntroHeader**: A special header that appears on specific pages, possibly offering a welcome message or introductory information.
 - **Footer**: The bottom part of the application, showing additional information or links.

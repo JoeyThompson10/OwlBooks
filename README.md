@@ -63,13 +63,13 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
 OwlBooks is structured with a focus on modularity and clarity. Below are the main components organized by folder:
 
 - **App.js**:
-* App.js sets up the main React component with routing configuration.
-* Uses React Router for navigation between different components and pages.
-* Implements conditional rendering for headers and organizes application routes.
+  - App.js sets up the main React component with routing configuration.
+  - Uses React Router for navigation between different components and pages.
+  - Implements conditional rendering for headers and organizes application routes.
 - **MongoDbClient**:
-* Connects to MongoDB serverless functions, interacting with a NoSQL database.
-* Facilitates user authentication, account management, and data retrieval.
-* Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
+  - Connects to MongoDB serverless functions, interacting with a NoSQL database.
+  - Facilitates user authentication, account management, and data retrieval.
+  - Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
 
 ### General Components
 - **Header**: The top navigation bar, which includes branding and navigation controls.

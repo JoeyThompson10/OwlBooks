@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# OwlBooks
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+OwlBooks is a web-based application developed for a class project. It serves as a financial management tool, allowing users to log in, manage accounts, view financial ratios, and perform various other accounting tasks.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User authentication with role-based access (administrator, manager, regular user).
+- Dashboard displaying financial ratios with color coding (green, yellow, red) based on predefined thresholds.
+- Ability to manage user accounts, including creation, editing, and deactivation.
+- Financial management features including adding and editing accounts, viewing account event logs, journal entries, and trial balances.
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open(https://owlbooks-swe4713.netlify.app/) to view it in your browser.
+Before running OwlBooks, ensure you have the following installed:
+- Node.js
+- npm (Node Package Manager)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+To set up OwlBooks on your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository to your local machine:
+```git clone [repository URL]```
 
-### `npm run build`
+2. Navigate to the project directory:
+```cd OwlBooks```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install the required dependencies:
+```npm install```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+After installing the dependencies, you can start the application by running:
 
-### `npm run eject`
+```npm start```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This will start the development server, and the application should be accessible at `http://localhost:3000` in your web browser.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Upon launching the application, you'll be presented with a login screen. Use the following credentials to log in as different users:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **User**: username: `user1`, password: `user1`
+- **Manager**: username: `manager1`, password: `manager1`
+- **Admin**: username: `admin1`, password: `admin1`
 
-## Learn More
+Different user roles have access to different features within the application.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Components
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The main components of OwlBooks include:
 
-### Code Splitting
+- **Login**: Allows users to log in with their credentials.
+- **Dashboard**: Displays the financial ratios and provides navigation to various functionalities based on the user role.
+- **Sidebar**: Provides quick navigation links to different sections of the application, varying according to user privileges.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing
 
-### Analyzing the Bundle Size
+As this is a class project, contributions are not currently being accepted. However, feedback and suggestions are always welcome.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is for educational purposes and is not licensed for commercial use.

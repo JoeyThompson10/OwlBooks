@@ -14,7 +14,7 @@ OwlBooks is a web-based application developed for a class project. It serves as 
 ## Prerequisites
 
 Before running OwlBooks, ensure you have the following installed:
-- Node.js
+- Node.js: https://nodejs.org/en/download
 - npm (Node Package Manager)
 
 ## Installation

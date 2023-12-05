@@ -20,7 +20,7 @@ Before running OwlBooks, ensure you have the following installed:
 To set up OwlBooks on your local machine:
 
 1. Clone the repository to your local machine:
-```git clone [repository URL]```
+```git clone https://github.com/JoeyThompson10/OwlBooks.git```
 
 2. Navigate to the project directory:
 ```cd OwlBooks```

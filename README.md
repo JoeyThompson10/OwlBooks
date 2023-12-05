@@ -69,7 +69,7 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
   - Facilitates user authentication, account management, and data retrieval.
   - Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
 
-OwlBooks is structured with a focus on modularity and clarity. Below are the components organized by folder:
+#### OwlBooks is structured with a focus on modularity and clarity. Below are the components organized by folder:
 
 ### Components
 - **Header**: The top navigation bar, which includes branding and navigation controls.

@@ -60,8 +60,6 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
 
 ## Components
 
-OwlBooks is structured with a focus on modularity and clarity. Below are the main components organized by folder:
-
 - **App.js**:
   - App.js sets up the main React component with routing configuration.
   - Uses React Router for navigation between different components and pages.
@@ -71,7 +69,9 @@ OwlBooks is structured with a focus on modularity and clarity. Below are the mai
   - Facilitates user authentication, account management, and data retrieval.
   - Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
 
-### General Components
+OwlBooks is structured with a focus on modularity and clarity. Below are the components organized by folder:
+
+### Components
 - **Header**: The top navigation bar, which includes branding and navigation controls.
 - **IntroHeader**: A special header that appears on specific pages, possibly offering a welcome message or introductory information.
 - **Footer**: The bottom part of the application, showing additional information or links.

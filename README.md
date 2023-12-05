@@ -60,6 +60,9 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
 
 ## Components
 
+OwlBooks is structured with a focus on modularity and clarity. Below are the components organized by folder:
+
+### src
 - **App.js**:
   - App.js sets up the main React component with routing configuration.
   - Uses React Router for navigation between different components and pages.
@@ -69,9 +72,7 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
   - Facilitates user authentication, account management, and data retrieval.
   - Exports various asynchronous functions like CreateUser, LoginFunction, GetAllAccounts, etc.
 
-#### OwlBooks is structured with a focus on modularity and clarity. Below are the components organized by folder:
-
-### Components
+### src/omponents
 - **Header**: The top navigation bar, which includes branding and navigation controls.
 - **IntroHeader**: A special header that appears on specific pages, possibly offering a welcome message or introductory information.
 - **Footer**: The bottom part of the application, showing additional information or links.
@@ -79,7 +80,7 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
 - **UserOptions**: A dropdown component for user-specific settings, such as profile configuration or logout.
 - **CalendarPopover**: A component that appears over the context to allow users to pick dates.
 
-### Pages
+### src/pages
 - **Dashboard**: Central page displaying key metrics and navigation to various features based on user roles.
 - **Login**: The entry point for user authentication, directing different user roles to appropriate dashboards.
 - **Profile**: Allows users to view and edit their personal and login information.
@@ -88,7 +89,7 @@ To ensure the reliability of OwlBooks, follow these steps to run the automated t
 - **TrialBalance**: A financial component for viewing the trial balance, ensuring the books are balanced.
 - **Journal**: Used for creating, viewing, and managing journal entries, a critical aspect of financial record-keeping.
 
-### AdminDashboard Components
+### src/pages/AdminDashboard
 - **AccountEventLog**: Shows a log of all events related to user accounts, such as creation or modification.
 - **AddNewAccount**: Facilitates the creation of new financial accounts within the system.
 - **AllAccounts**: Lists all financial accounts, providing management options like editing or deletion.

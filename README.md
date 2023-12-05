@@ -48,13 +48,47 @@ Upon launching the application, you'll be presented with a login screen. Use the
 
 Different user roles have access to different features within the application.
 
+## Testing
+
+To ensure the reliability of OwlBooks, follow these steps to run the automated test suite:
+
+1. Navigate to the project directory:
+```cd OwlBooks```
+
+2. Run the test command:
+```npm test```
+
 ## Components
 
-The main components of OwlBooks include:
+OwlBooks is structured with a focus on modularity and clarity. Below are the main components organized by folder:
 
-- **Login**: Allows users to log in with their credentials.
-- **Dashboard**: Displays the financial ratios and provides navigation to various functionalities based on the user role.
-- **Sidebar**: Provides quick navigation links to different sections of the application, varying according to user privileges.
+### General Components
+- **Header**: The top navigation bar, which includes branding and navigation controls.
+- **IntroHeader**: A special header that appears on specific pages, possibly offering a welcome message or introductory information.
+- **Footer**: The bottom part of the application, showing additional information or links.
+- **Sidebar**: A navigational component providing links to various sections of the application, adapting to the user's role.
+- **UserOptions**: A dropdown component for user-specific settings, such as profile configuration or logout.
+- **CalendarPopover**: A component that appears over the context to allow users to pick dates.
+
+### Pages
+- **Dashboard**: Central page displaying key metrics and navigation to various features based on user roles.
+- **Login**: The entry point for user authentication, directing different user roles to appropriate dashboards.
+- **Profile**: Allows users to view and edit their personal and login information.
+- **ResetPassword**: Enables users to securely change their passwords.
+- **SplashScreen**: An initial loading screen to welcome users or provide important announcements.
+- **TrialBalance**: A financial component for viewing the trial balance, ensuring the books are balanced.
+- **Journal**: Used for creating, viewing, and managing journal entries, a critical aspect of financial record-keeping.
+
+### AdminDashboard Components
+- **AccountEventLog**: Shows a log of all events related to user accounts, such as creation or modification.
+- **AddNewAccount**: Facilitates the creation of new financial accounts within the system.
+- **AllAccounts**: Lists all financial accounts, providing management options like editing or deletion.
+- **AllUsers**: Displays a list of all users, where admin can manage user accounts.
+- **CreateUserPage**: A form that allows the creation of new user accounts with specified roles and permissions.
+- **EditExistingAccounts**: Provides an interface to edit the details of existing financial accounts.
+- **EditUser**: Allows for editing user details, including roles and access rights.
+- **ExpiredPasswords**: Highlights accounts with passwords that need updating, emphasizing security.
+- **LedgerPage**: A detailed view of individual financial accounts, showing transactions and balances.
 
 ## Contributing
 
